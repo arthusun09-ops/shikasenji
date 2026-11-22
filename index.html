@@ -1913,7 +1913,7 @@ const VLOG_UP = '2026-11-23T07:25';
   el.innerHTML = `<span><b>更新</b>　${f(u)} ${u.getUTCHours()}:${String(u.getUTCMinutes()).padStart(2,'0')}</span><span><i>つぎの更新</i>　${f(nx[0])} ${nx[2]}</span>`;
 })();
 // 配信日記を最後に更新した時刻（日本時間）。日記を載せるたびに書きかえる。つぎの予定は毎日 午前11時ごろ
-const DIARY_UP = '2026-11-22T09:00';
+const DIARY_UP = '2026-11-23T09:05';
 (() => { const el = document.getElementById('diary-up'); if(!el) return;
   const jst = d => new Date(d.getTime() + 9 * 3600e3), f = d => `${d.getUTCMonth()+1}/${d.getUTCDate()}`;
   const up = new Date(DIARY_UP + ':00+09:00'), u = jst(up), n = jst(new Date());
@@ -1922,6 +1922,16 @@ const DIARY_UP = '2026-11-22T09:00';
   el.innerHTML = `<span><b>更新</b>　${f(u)} ${u.getUTCHours()}:${String(u.getUTCMinutes()).padStart(2,'0')}</span><span><i>つぎの更新</i>　${f(next)} 午前11時ごろ</span>`;
 })();
 const DIARY = [
+ {date:'2026-11-22', v:'w2OQgpblcE0',
+  guests:['ありひろ', 'ルト09', '晴太朗', 'tirol_3266', 'ゆらっちw', 'K.H', '人生敗北者', 'K.K', 'TOKORODOKOROTADOKORO', '非リアの神w', '年内に75人目標のえに', 'ヨッシー', 'U.M', 'yukimaru226', 'パイレーツトークン3', '匿名', 'kmkr5222', 'Hi-sukenobouken', 'A.S', 'NISMO乗り', 'キャベツロール', '純粋なかきんせいじん', 'M.R', 'ライバル', 'ゆしか5892', '超めっちゃスーパーマキマ', 'お4りKING', 'ハマチ', '友YT', 'htam5329', 'シナモンロール推しのねこ', 'もーりーさん', 'なっちゃんnatsu2008', 'まなぜんまい', 'Haya_6769', 'ばあびい', 'E.F', '紅茶りむる', 'ネギチャンネル', 'M.E', '名無し', 'yutokun_切り抜きチャンネル', 'なあな', '極まりないタンクネコ', 'yak1t0rskn1', 'Chi', 'ひっしー0217'],
+  title:'朝4時も、お昼も、トレジャーアワー！',
+  body:['この日の配信は、朝の4時すぎと、お昼と、夜の、3回もあったんだ。朝いちばんに、あーすさんは「起きました！配信つけまーーす ごめん」って書いてたよ。',
+   '朝は外がまっくらで、「6時なのに外暗」って声もあったんだ。それでも、早起きして来てくれた人がたくさんいたよ。',
+   'みんなのねらいは、宝箱から出るパイレーツトークン。でも「トークン出ない」「ギズモしか出ない」って声がいっぱいで、「パイレーツトークンくんはインフルで休みです」なんて言う人もいたんだ。',
+   'お昼は、「1試合目にしてビクロイ」って声があったよ。「車出たーーーー」って、車が当たった人も何人もいたんだ。ナイス！',
+   '夜の配信は、はじまってすぐに止まっちゃった。あーすさんは「ごめーんぽちた」「PC再起動します」って書いてたよ。'],
+  thanks:['ゆらっちwさん、メンバーシップのギフトありがとう！'],
+  word:'パイレーツトークンくん、はやく元気になって、みんなのところに出てきてね。'},
  {date:'2026-11-21', v:'WEvFf5A8vLk',
   guests:['kmkr5222', 'tirol_3266', 'タロタロ', '純粋なかきんせいじん', 'スペースYT', '超めっちゃスーパーマキマ', 'ひっしー0217', '弥勒-ミロク', 'T.M', 'リュウガ913', 'USJのハロウィン行って泣いた人', '配信を見守り隊ウミネコ', 'ぜるだだよ', 'みるく', 'satygameng', 'H.E', 'バタコに憧れたワタコ', 'RYZEN雷禅', '友YT', 'めるめる', 'カリスマブレイクレミリアの夜会ch', 'お4りKING', 'キャベツロール', 'ありひろ', '如月だいちゃんYT20', 'taku', '匿名', 'パルスィー', 'mayugebonba', 'ひとみ', 'ガリピー', 'N.Y', '名無し', 'akimaru912', 'mi7612', 'シャロー1212', 'そうまくんだよそうまちゃんねる', 'まなぜんまい', 'とまちチャンネル', 'ゆずうさぎ', 'riku', 'K.R', 'sigma5347', 'K.A', 'E.F', 'やんだだよ0', 'チル主TiruNusi', 'M.R', 'テレンです-テレンのゲーム部屋', 'K.H', 'no.8no.188', 'ゆしか5892', 'シルーフィ', 'yukimaru226', 'JUN', 'ナイトフォート', 'ロブロとフォートナイトをやる人', 'Taiyou3333', 'ゆらっちw', '晴太朗', 'ひろっちch', 'NISMO乗り', 'いっちゃんKUNch', 'H.T', 'たやかはたやあはか'],
   title:'朝も夜も、フォートナイト！',
@@ -1986,20 +1996,20 @@ const DIARY = [
 const WD = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 // ── 配信枠（横枠）。YouTube のライブタブから拾う。タイトルに「#縦型配信」が付く枠は縦なので入れない
 const STREAMS = {
- checked:'2026-11-22 09:00',
- next:{v:'NKpK-izwDlE', title:'確率アップの2時間！パイレーツトークンを狙う2回目のトレジャーアワー｜精霊配布＆ゼロビルド参加型 フォートナイト'},
- last:{v:'w2OQgpblcE0', title:'確率アップの2時間！パイレーツトークンを狙う早朝トレジャーアワー｜精霊配布＆ゼロビルド参加型 フォートナイト', note:'2026.11.22 配信'}
+ checked:'2026-11-23 09:00',
+ next:null,
+ last:{v:'pvlskuZ9WAg', title:'確率アップの2時間！パイレーツトークンを狙う2回目のトレジャーアワー｜精霊配布＆ゼロビルド参加型 フォートナイト', note:'2026.11.22 配信'}
 };
 const EMBED = true; // 一般公開版では true（ページ内で再生）。非公開の下書きでは外部の埋め込みが止められるので false
 const PLAYER = v => EMBED ? `<iframe class="player" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v)}" title="YouTube" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>` : '';
 const YT = v => 'https://www.youtube.com/watch?v=' + encodeURIComponent(v);
 const SHORTS = [
+ {v:'kwlOBicHYJQ', t:'見るだけで無料！FNCSシールドの受け取り方'},
  {v:'Voryl6mDazQ', t:'無料の傘がもらえる！精霊マスタリー報酬まとめ'},
  {v:'lVRz8XcEYnk', t:'【速報】オスカー卿2世がボスで登場！最後の地図の断片も'},
  {v:'vz_OMx8PBzM', t:'【速報】金ミクが出やすい！？今週末トレジャー・アワー 11/22(日)朝4時と昼11時'},
  {v:'QSMU3v3xUUA', t:'【速報】朝9時で消える！パイレーツトークンは今使え'},
- {v:'QVi1tge6gq8', t:'【速報】トークン消滅！？リスポーンランブルでパイレーツトークンが出なくなった'},
- {v:'27udrH51-_Q', t:'無料でスキンゲットのチャンス！ウィドウメイカーカップでウィドウメイカーを先行ゲット'}
+ {v:'QVi1tge6gq8', t:'【速報】トークン消滅！？リスポーンランブルでパイレーツトークンが出なくなった'}
 ];
 document.getElementById('shorts').className = EMBED ? 'shorts embed' : 'shorts';
 const shShort = x => x.s || (x.t.replace(/^【.*?】/, '').split(/[！!？?。]/)[0] || x.t);
