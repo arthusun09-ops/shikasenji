@@ -1,0 +1,307 @@
+<!doctype html><html lang="ja"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>鹿煎寺高校 学校案内</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<style>
+/* 学校案内パンフレット：A4見開き（横 2:1.414）を縦に並べる。表紙と裏表紙は単ページ。縦書きの大見出し＋全面イラスト */
+:root{
+  --paper:#f7f8f4;        /* 紙（ほんのり緑がかった白） */
+  --ink:#1c2328;          /* 墨 */
+  --ink-soft:#4d5a61;
+  --sky:#2f6fae;          /* 山の空 */
+  --moss:#4f7a3a;         /* 苔・石垣 */
+  --post:#c2412d;         /* 赤い丸ポスト */
+  --rule:#d9ded6;
+  --desk:#e7ece4;         /* 机の上（紙の外） */
+  --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  --f-latin:"Cormorant Garamond","Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--desk:#151a1d;color-scheme:dark}}
+:root[data-theme="dark"]{--desk:#151a1d;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--ink);font-family:var(--f-body);line-height:1.8;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.book{max-width:1280px;margin:0 auto;display:grid;gap:40px}
+.cap{max-width:1280px;margin:0 auto 18px;color:var(--ink-soft);font-size:13px;letter-spacing:.08em;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+:root:not([data-theme="light"]) .cap{color:var(--ink-soft)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cap{color:#9aa6ac}}
+:root[data-theme="dark"] .cap{color:#9aa6ac}
+
+/* 紙 */
+.sheet{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08),0 18px 40px -18px rgba(20,30,30,.35);position:relative;overflow:hidden}
+.spread{aspect-ratio:2/1.414;display:grid;grid-template-columns:1fr 1fr}
+.single{aspect-ratio:1/1.414;max-width:640px;margin:0 auto;width:100%}
+.spread::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:36px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.07) 45%,rgba(0,0,0,.1) 50%,rgba(0,0,0,.07) 55%,transparent);pointer-events:none;z-index:5}
+.folio{position:absolute;bottom:2.2%;font:500 11px/1 var(--f-latin);letter-spacing:.2em;color:var(--ink-soft);z-index:6}
+.folio.l{left:3%}.folio.r{right:3%}
+.runhead{position:absolute;top:3%;right:2.6%;writing-mode:vertical-rl;font:500 10px/1 var(--f-body);letter-spacing:.3em;color:var(--ink-soft);z-index:6}
+img{display:block;max-width:100%}
+.fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.v{writing-mode:vertical-rl;text-orientation:upright}
+.vt{writing-mode:vertical-rl}
+h2,h3{font-family:var(--f-display);font-weight:800;margin:0;letter-spacing:.06em;text-wrap:balance}
+p{margin:0}
+.lead{font-size:clamp(11px,1.15vw,15px);line-height:1.95}
+.small{font-size:clamp(9.5px,.9vw,12px);line-height:1.85;color:var(--ink-soft)}
+.num{font:600 clamp(40px,7vw,96px)/.8 var(--f-latin);color:var(--sky)}
+.eyebrow{font:700 clamp(9px,.85vw,11px)/1 var(--f-body);letter-spacing:.32em;color:var(--sky)}
+
+/* 表紙 */
+.cover{display:grid;grid-template-rows:auto 1fr auto}
+.cover .art{position:absolute;inset:0}
+.cover .art img{width:100%;height:100%;object-fit:cover;object-position:45% 50%}
+.cover .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,248,244,.92) 0%,rgba(247,248,244,.55) 26%,rgba(247,248,244,0) 44%,rgba(10,20,25,0) 70%,rgba(10,20,25,.55) 100%)}
+.cover .top{position:relative;z-index:2;padding:9% 8% 0;display:flex;justify-content:space-between;align-items:flex-start}
+.cover .emb{width:21%;max-width:190px;opacity:.95;filter:drop-shadow(0 0 6px rgba(247,248,244,.9))}
+.cover .title{display:flex;gap:4%;align-items:flex-start}
+.cover .title .v{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,5.2vw,56px);letter-spacing:.18em;line-height:1.1}
+.cover .title .sub{font-family:var(--f-display);font-weight:500;font-size:clamp(11px,1.6vw,17px);letter-spacing:.5em;margin-top:2em}
+.cover .bottom{position:relative;z-index:2;align-self:end;padding:0 8% 8%;color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.cover .latin{font:600 clamp(18px,3vw,34px)/1.05 var(--f-latin);letter-spacing:.12em}
+.cover .latin small{display:block;font-size:.45em;letter-spacing:.4em;opacity:.85;margin-top:.5em}
+.cover .year{font:500 clamp(10px,1.2vw,13px)/1 var(--f-body);letter-spacing:.3em;opacity:.9}
+
+/* 見開き1：キャッチ */
+.s1 .lpage{position:relative}
+.s1 .rpage{position:relative}
+.m-only{display:none}
+.nw{white-space:nowrap}
+.s1 .art{position:absolute;inset:0;width:200%}
+.s1 .art img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.s1 .copy{position:absolute;right:6%;top:8%;z-index:3;font-family:var(--f-display);font-weight:800;font-size:clamp(26px,5vw,64px);line-height:1.25;letter-spacing:.12em;color:#fff;text-shadow:0 2px 14px rgba(0,20,40,.45)}
+.s1 .msg{position:absolute;right:6%;bottom:8%;z-index:3;width:44%;background:rgba(247,248,244,.94);padding:3.4% 3.6%;display:grid;gap:.8em}
+.s1 .msg h3{font-size:clamp(12px,1.4vw,18px)}
+.s1 .toc{position:absolute;left:6%;top:8%;z-index:3;background:rgba(247,248,244,.94);padding:3% 3.4%;width:36%}
+.toc ol{list-style:none;margin:.6em 0 0;padding:0;display:grid;gap:.25em;font-size:clamp(9.5px,.95vw,12.5px)}
+.toc li{display:flex;justify-content:space-between;gap:1em;border-bottom:1px solid var(--rule);padding-block:.25em}
+.toc li span:last-child{font-family:var(--f-latin);font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+
+/* 特集見開き（写真＋縦見出し） */
+.feat .lpage,.feat .rpage{position:relative;display:grid}
+.feat .bigart{position:absolute;inset:0}
+.feat .bigart img{width:100%;height:100%;object-fit:cover}
+.panel{position:relative;z-index:3;background:var(--paper);padding:8% 9% 10%;display:grid;align-content:start;gap:1.1em}
+.vhead{position:absolute;z-index:4;font-family:var(--f-display);font-weight:800;color:#fff;text-shadow:0 2px 16px rgba(0,25,40,.5);font-size:clamp(24px,4.4vw,58px);line-height:1.2;letter-spacing:.12em}
+.chip{display:inline-block;background:var(--sky);color:#fff;font:700 clamp(9px,.85vw,11px)/1 var(--f-body);letter-spacing:.2em;padding:.55em .8em}
+.chip.moss{background:var(--moss)}.chip.post{background:var(--post)}
+.pics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4%}
+.pics figure{margin:0;display:grid;gap:.4em}
+.pics img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.pics figcaption{font-size:clamp(9px,.85vw,11px);color:var(--ink-soft);line-height:1.6}
+.point{display:grid;grid-template-columns:auto 1fr;gap:.2em 1em;align-items:baseline}
+.point b{font:600 clamp(16px,1.8vw,24px)/1 var(--f-latin);color:var(--sky)}
+.point h4{margin:0;font-family:var(--f-display);font-size:clamp(11px,1.25vw,16px)}
+.point p{grid-column:2}
+
+/* 在校生 */
+.voices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4%;padding:8% 6% 10%;align-content:start}
+.voice{display:grid;gap:.7em;align-content:start;min-width:0;overflow-wrap:anywhere}
+.voice img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.voice h4{margin:0;font-family:var(--f-display);font-size:clamp(13px,1.5vw,20px)}
+.voice .role{font-size:clamp(8.5px,.8vw,10.5px);letter-spacing:.2em;color:var(--sky);font-weight:700}
+.voice q{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(10.5px,1.15vw,14.5px);line-height:1.7;quotes:"「" "」"}
+.shika{display:grid;grid-template-columns:30% minmax(0,1fr);gap:6%;align-items:center;padding:0 6% 8%}
+.shika img{aspect-ratio:1;object-fit:cover;object-position:50% 25%;border-radius:50%}
+
+/* 地図・データ */
+.mapimg{width:100%;border:1px solid var(--rule)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:.6em 6%;font-size:clamp(9.5px,.95vw,12.5px)}
+.facts dt{color:var(--ink-soft);font-size:.85em;letter-spacing:.15em}
+.facts dd{margin:0 0 .4em;font-family:var(--f-display);font-weight:700}
+.words{display:grid;gap:.6em}
+.words div{display:grid;grid-template-columns:7.5em 1fr;gap:1em;border-top:1px solid var(--rule);padding-top:.5em;font-size:clamp(9.5px,.95vw,12.5px)}
+.words b{font-family:var(--f-display)}
+.back{display:grid;place-items:center;align-content:center;gap:5%;text-align:center}
+.back img{width:34%}
+.back .name{font-family:var(--f-display);font-weight:800;font-size:clamp(18px,3vw,30px);letter-spacing:.3em}
+
+/* スマホ：見開きを1ページずつ縦に */
+@media (max-width:760px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .spread{aspect-ratio:auto;grid-template-columns:minmax(0,1fr)}
+  .spread>*,.panel,.panel>*{min-width:0}
+  .voice .role{letter-spacing:.08em}
+  .spread::after{display:none}
+  .spread>.lpage,.spread>.rpage{aspect-ratio:1/1.414;position:relative}
+  .s1 .art{width:100%}
+  .s1 .rpage .art.m-only{display:block;width:100%}
+  .s1 .rpage .art img{object-position:88% 40%}
+  .s1 .copy{font-size:22px;top:6%}
+  .s1 .msg{width:66%;bottom:5%;padding:4.5% 5%}
+  .s1 .msg .lead{font-size:11.5px;line-height:1.85}
+  .feat .lpage,.feat .rpage{min-height:0}
+  .voices{grid-template-columns:repeat(3,minmax(0,1fr));gap:3%}
+  .lead{font-size:12px}.small{font-size:10.5px}
+}
+@media (prefers-reduced-motion:no-preference){.sheet img{transition:transform .8s ease}.sheet:hover .bigart img{transform:scale(1.015)}}
+</style>
+
+<div class="cap"><a href="../" style="color:inherit">← 鹿煎寺高校にもどる</a><span>鹿煎寺高校 学校案内 2027　全12ページ（見開き表示）</span><span>イラストは校舎の3Dモデルをもとに描いたものです</span></div>
+<main class="book">
+
+<!-- 表紙 -->
+<section class="sheet single cover" aria-label="表紙">
+  <div class="art"><img src="img/P01_cover.jpg" alt="石段の上に建つ木造校舎と時計塔、木の校門"></div>
+  <div class="wash"></div>
+  <div class="top">
+    <img class="emb" src="img/emblem_tight.png" alt="鹿煎寺高校の校章（鹿の角と鹿せんべい）">
+    <div class="title"><div class="sub v">学校案内</div><h1 class="v" style="margin:0"><span class="nw">鹿煎寺高校</span></h1></div>
+  </div>
+  <div></div>
+  <div class="bottom">
+    <div class="latin">SHIKASENJI<small>HIGH SCHOOL GUIDE</small></div>
+    <div class="year">2027</div>
+  </div>
+</section>
+
+<!-- 見開き1：キャッチと目次 -->
+<section class="sheet spread s1" aria-label="見開き1 はじめに">
+  <div class="lpage">
+    <div class="art"><img src="img/P04_courtyard.jpg" alt="鯉の池と東屋のある中庭"></div>
+    <nav class="toc" aria-label="目次">
+      <div class="eyebrow">CONTENTS</div>
+      <ol>
+        <li><span>山の上の学校</span><span>02</span></li>
+        <li><span>校舎をめぐる</span><span>04</span></li>
+        <li><span>中庭と学生寮</span><span>06</span></li>
+        <li><span>放課後と部活動</span><span>08</span></li>
+        <li><span>在校生の声</span><span>10</span></li>
+        <li><span>校内地図・学校のことば</span><span>11</span></li>
+      </ol>
+    </nav>
+    <span class="folio l">02</span>
+  </div>
+  <div class="rpage">
+    <div class="art m-only"><img src="img/P04_courtyard.jpg" alt=""></div>
+    <h2 class="copy v">山の上で、<br>まなび、<br>くらす。</h2>
+    <div class="msg">
+      <h3>ようこそ、<span class="nw">鹿煎寺高校へ。</span></h3>
+      <p class="lead">緑の山の上、石段をのぼった先に、古い木造の校舎があります。窓を開ければ澄んだ風と鳥の声。校舎のすぐ裏には学生寮があり、生徒は中庭をはさんで、まなびと暮らしを行き来します。</p>
+      <p class="small">時計塔のある校舎は、昔の姿をそのままに大切に使い続けています。</p>
+    </div>
+    <span class="folio r">03</span>
+  </div>
+</section>
+
+<!-- 見開き2：校舎をめぐる -->
+<section class="sheet spread feat" aria-label="見開き2 校舎をめぐる">
+  <div class="lpage">
+    <div class="bigart"><img src="img/P02_gate.jpg" alt="木の校門と赤い丸ポスト"></div>
+    <h2 class="vhead v" style="right:8%;top:7%">校舎を<br>めぐる。</h2>
+    <span class="num" style="position:absolute;left:6%;bottom:8%;z-index:4;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4)">01</span>
+    <span class="folio l" style="color:#fff">04</span>
+  </div>
+  <div class="rpage">
+    <div class="panel">
+      <span class="chip">CAMPUS</span>
+      <p class="lead">石段をのぼり、瓦屋根の校門をくぐると、白い漆喰と黒い柱の校舎が迎えてくれます。木の床の廊下、格子の窓、時計塔。2階の教室からは山並みが見わたせます。</p>
+      <div class="pics">
+        <figure><img src="img/P03_classroom.jpg" alt="窓ぎわに3人の持ち物が置かれた2年の教室"><figcaption>2年の教室。窓ぎわのいちばん後ろの3席は、いつもの3人の席。</figcaption></figure>
+        <figure><img src="img/P10_shop.jpg" alt="のれんのかかった売店の店先"><figcaption>校舎の端の売店。鹿せんべいは支給品。お土産の木刀も人気。</figcaption></figure>
+      </div>
+      <div class="point"><b>1</b><h4>木造2階建ての校舎</h4><p class="small">1階に玄関・職員室・保健室・売店、2階に教室と配信部の部室があります。</p></div>
+      <div class="point"><b>2</b><h4>屋上と時計塔</h4><p class="small">校舎の西半分は屋上。給水タンクのそばのベンチは昼休みの特等席です。</p></div>
+    </div>
+    <span class="runhead">校舎をめぐる</span>
+    <span class="folio r">05</span>
+  </div>
+</section>
+
+<!-- 見開き3：中庭と学生寮 -->
+<section class="sheet spread feat" aria-label="見開き3 中庭と学生寮">
+  <div class="lpage">
+    <div class="panel">
+      <span class="chip moss">DORMITORY</span>
+      <h3 style="font-size:clamp(16px,2.2vw,28px)">寮で、くらす。</h3>
+      <p class="lead">校舎の北側、中庭をはさんで建つのが学生寮です。もとは新校舎として建てられた建物を、生徒たちが自分たちで寮に改造しました。木の美しさを生かした、明るくて新しい建物です。</p>
+      <div class="pics">
+        <figure><img src="img/P07_room201.jpg" alt="1Kの寮の部屋"><figcaption>全20室、すべて1K（約22㎡）。キッチンとユニットバスつき。</figcaption></figure>
+        <figure><img src="img/P05_corridor.jpg" alt="2階建ての木の渡り廊下"><figcaption>校舎と寮は、東西2本の2階建ての渡り廊下でつながっています。</figcaption></figure>
+      </div>
+      <dl class="facts">
+        <div><dt>部屋</dt><dd>1K・全20室</dd></div>
+        <div><dt>共用</dt><dd>食堂・大浴場</dd></div>
+        <div><dt>屋上</dt><dd>すりガラスの物干し場</dd></div>
+        <div><dt>ベランダ</dt><dd>全室に小さなベランダ</dd></div>
+      </dl>
+    </div>
+    <span class="folio l">06</span>
+  </div>
+  <div class="rpage">
+    <div class="bigart"><img src="img/P06_dorm.jpg" alt="中庭から見た学生寮" style="object-position:40% 50%"></div>
+    <h2 class="vhead v" style="right:8%;top:7%">中庭を<br>はさんで。</h2>
+    <span class="num" style="position:absolute;left:6%;bottom:8%;z-index:4;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4)">02</span>
+    <span class="folio r" style="color:#fff">07</span>
+  </div>
+</section>
+
+<!-- 見開き4：放課後と部活動 -->
+<section class="sheet spread feat" aria-label="見開き4 放課後と部活動">
+  <div class="lpage">
+    <div class="bigart"><img src="img/P11_clubroom.jpg" alt="配信部の部室で過ごす3人としかちゃん"></div>
+    <h2 class="vhead v" style="right:8%;top:7%">放課後は、<br>ON AIR。</h2>
+    <span class="num" style="position:absolute;left:6%;bottom:8%;z-index:4;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4)">03</span>
+    <span class="folio l" style="color:#fff">08</span>
+  </div>
+  <div class="rpage">
+    <div class="panel">
+      <span class="chip post">CLUB &amp; AFTER SCHOOL</span>
+      <p class="lead">校舎2階の東の端、もとは資料室だった部屋が配信部の部室です。入口の上の「ON AIR」が赤く光ったら、配信中のしるし。</p>
+      <div class="pics">
+        <figure><img src="img/P08_rooftop.jpg" alt="夕方の校舎の屋上"><figcaption>夕方の屋上。山の向こうに日が沈みます。</figcaption></figure>
+        <figure><img src="img/P09_ground.jpg" alt="桜並木の校庭"><figcaption>校舎の西の校庭。春は桜並木がみごとです。</figcaption></figure>
+      </div>
+      <div class="point"><b>1</b><h4>配信部</h4><p class="small">モニター2枚と手づくりの配信機材。部員は3人と1匹。</p></div>
+      <div class="point"><b>2</b><h4>校庭</h4><p class="small">トラック、サッカーゴール、バックネット、鉄棒、砂場。</p></div>
+      <div class="point"><b>3</b><h4>中庭の東屋</h4><p class="small">鯉の池のほとり。お弁当を食べる人が多い場所です。</p></div>
+    </div>
+    <span class="runhead">放課後と部活動</span>
+    <span class="folio r">09</span>
+  </div>
+</section>
+
+<!-- 見開き5：在校生の声＋地図 -->
+<section class="sheet spread" aria-label="見開き5 在校生の声と校内地図">
+  <div class="lpage" style="position:relative">
+    <div style="padding:8% 6% 0"><span class="eyebrow">STUDENTS</span><h2 style="font-size:clamp(18px,2.6vw,34px);margin-top:.4em">在校生の声</h2></div>
+    <div class="voices">
+      <div class="voice"><img src="img/c_asu.jpg" alt="あーすさん" style="object-position:48% 30%"><span class="role">2年・配信部</span><h4>あーすさん</h4><q>部室の椅子に座ると、一日のはじまりって感じがします。</q></div>
+      <div class="voice"><img src="img/c_momiji.jpg" alt="もみじ" style="object-position:50% 30%"><span class="role">2年・配信部（見張り役）</span><h4>もみじ</h4><q>窓ぎわから山を見るのが好き。屋上からの景色もおすすめ！</q></div>
+      <div class="voice"><img src="img/c_rin.jpg" alt="凛" style="object-position:50% 30%"><span class="role">2年・配信部（機材担当）</span><h4>凛</h4><q>放課後は部室で紅茶。ケーブルはいつもきれいに束ねてあります。</q></div>
+    </div>
+    <div class="shika"><img src="img/c_shika.jpg" alt="しかちゃん"><div><span class="role" style="font-size:clamp(8.5px,.8vw,10.5px);letter-spacing:.2em;color:var(--sky);font-weight:700">配信部のマスコット</span><h4 style="margin:.3em 0;font-family:var(--f-display);font-size:clamp(13px,1.5vw,20px)">しかちゃん</h4><p class="small">教室でも部室でも寮でも、自分の丸いクッションで寝ています。どんぐりのポシェットが目印。</p></div></div>
+    <span class="folio l">10</span>
+  </div>
+  <div class="rpage" style="position:relative;padding:8% 6% 10%;display:grid;gap:1.2em;align-content:start">
+    <div><span class="eyebrow">CAMPUS MAP</span><h2 style="font-size:clamp(18px,2.6vw,34px);margin-top:.4em">校内地図</h2></div>
+    <img class="mapimg" src="img/map_1f.jpg" alt="1階の見取り図。校庭、校舎、中庭、学生寮">
+    <p class="small">左から校庭、木造の校舎、中庭、学生寮。校舎と寮は東西の渡り廊下でつながっています。</p>
+    <img class="mapimg" src="img/map_area.jpg" alt="学校まわりの地図。山の上の学校と、麓の川と町">
+    <p class="small">校門から石段と山道をくだると、麓の川の橋まで約1.1km（下り約15分）。</p>
+    <span class="runhead">在校生の声・校内地図</span>
+    <span class="folio r">11</span>
+  </div>
+</section>
+
+<!-- 裏表紙 -->
+<section class="sheet single back" aria-label="裏表紙">
+  <img src="img/emblem.png" alt="校章">
+  <div class="name"><span class="nw">鹿煎寺高校</span></div>
+  <div class="words" style="width:78%;text-align:left">
+    <div><b>校章</b><span>鹿の角に鹿せんべいをあしらった意匠。校門、制服、売店の紙袋にも入っています。</span></div>
+    <div><b>鹿せんべい</b><span>売店で支給されます。値段はありません。</span></div>
+    <div><b>鹿pay</b><span>校内の買い物はこれひとつ。</span></div>
+    <div><b>赤い丸ポスト</b><span>校門の右。手紙はここから。</span></div>
+    <div><b>所在地</b><span>鹿那山県達鹿市鹿神社415番地</span></div>
+    <div><b>電話</b><span>415-514-4649</span></div>
+  </div>
+  <span class="folio r">12</span>
+</section>
+
+</main>
+
+</body></html>
