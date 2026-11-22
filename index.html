@@ -982,6 +982,170 @@ footer b{font-family:var(--f-display);font-weight:400;color:var(--paper);font-si
   .vsay>img{width:54px;height:54px}.vsay{gap:10px}
 }
 @media (prefers-reduced-motion:reduce){.vban-chibi{animation:none}}
+/* ---- キャラファイル：プロフィールカード → 解析ページ、私の部屋 → ルーム（#cfile） ---- */
+.cf-go{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.cf-go button{font-family:var(--f-display);font-size:1rem;color:#14090f;background:var(--c);padding:12px 20px;transform:skewX(-8deg);box-shadow:4px 4px 0 rgb(0 0 0/.45);transition:scale .2s var(--e-back)}
+.cf-go button:nth-child(2){background:var(--paper)}
+.cf-go button span{display:inline-block;transform:skewX(8deg)}
+.cf-go button:active{scale:.95}
+.cfile{position:fixed;inset:0;z-index:80;overflow-y:auto;overscroll-behavior:contain;background:#0b1016;--c:var(--sky)}
+.cfile[hidden]{display:none}
+.cf-bar{position:sticky;top:0;z-index:9;display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;background:rgb(10 14 19/.92);border-bottom:2px solid var(--c)}
+.cf-bar button{font-family:var(--f-util);font-size:.85rem;color:var(--paper);border:1px solid var(--line);padding:8px 12px;background:var(--panel);white-space:nowrap}
+.cf-bar button.sw{color:#111;background:var(--c);border-color:var(--c);font-weight:700}
+.cf-bar b{font-family:var(--f-display);font-weight:400;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cf-body{animation:cfin .5s var(--e-expo) both}
+@keyframes cfin{from{clip-path:polygon(0 0,0 0,-20% 100%,-20% 100%);opacity:.4}to{clip-path:polygon(0 0,130% 0,110% 100%,-20% 100%);opacity:1}}
+@media (prefers-reduced-motion:reduce){.cf-body{animation:none}}
+.cf-who{display:flex;gap:8px;justify-content:center;padding:10px 12px 0}
+.cf-who button{width:46px;height:46px;border-radius:50%;overflow:hidden;border:2px solid var(--line);padding:0;opacity:.6}
+.cf-who button[aria-pressed=true]{border-color:var(--c);opacity:1;box-shadow:0 0 0 3px rgb(255 255 255/.15)}
+.cf-who img{width:100%;height:100%;object-fit:cover;display:block}
+/* 1 プロフィールカード */
+.cfc{position:relative;max-width:520px;margin:12px auto 40px;min-height:820px;overflow:hidden;border-radius:18px;color:#1d2433;isolation:isolate;background:#dfe6f3}
+.cfc-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:50% 40%;filter:blur(6px) saturate(1.1);transform:scale(1.08);opacity:.85}
+.cfc::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgb(255 255 255/.5),rgb(235 240 255/.35) 40%,rgb(255 255 255/.75))}
+.cfc-art{position:absolute;left:-13%;top:56px;width:62%;z-index:0;filter:drop-shadow(0 8px 14px rgb(30 40 80/.35));pointer-events:none}
+.cfc-top{display:flex;gap:8px;align-items:center;padding:12px 12px 0;position:relative;z-index:2}
+.cfc-lv{background:#1f2a44;color:#fff;padding:6px 12px;border-radius:0 0 10px 10px;margin-top:-12px;text-align:center;font-family:var(--f-util);font-size:.75rem;line-height:1.3}
+.cfc-lv b{display:block;font-family:var(--f-num);font-size:1.5rem;line-height:1}
+.cfc-love{flex:1;display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-items:center;background:rgb(255 255 255/.8);border-radius:12px;padding:6px 12px;font-family:var(--f-util);font-size:.78rem}
+.cfc-love i{grid-row:1/3;font-style:normal;font-size:1.5rem;color:#ff5c9a}
+.cfc-love .bar,.cfs .bar{height:6px;border-radius:3px;background:rgb(30 40 70/.18);overflow:hidden}
+.cfc-love .bar u{display:block;height:100%;background:linear-gradient(90deg,#ff7ab0,#ff5c9a)}
+.cfc-r{position:relative;z-index:2;margin:150px 12px 0 45%;display:grid;gap:10px}
+.cfc-ttl{font-family:"Shippori Mincho",serif;font-weight:700;font-size:.9rem;color:#3a4766}
+.cfc-name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(1.9rem,9vw,2.6rem);line-height:1.1;color:#22304f;text-shadow:0 0 12px #fff,0 0 4px #fff}
+.cfc-en{font-family:var(--f-util);font-size:.72rem;letter-spacing:.18em;color:#5a6a90}
+.cfc-badge{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.cfc-badge b{font-family:var(--f-num);font-weight:900;font-size:.9rem;color:#fff;padding:2px 10px;border-radius:6px;background:linear-gradient(120deg,#ff7ab0,#7aa8ff 60%,#62e0c8)}
+.cfc-badge span{font-size:.75rem;font-weight:700;color:#3a4766;background:rgb(255 255 255/.8);padding:2px 8px;border-radius:6px}
+.cfc-q{font-family:"Shippori Mincho",serif;font-weight:700;font-size:.92rem;line-height:1.7;color:#22304f;text-shadow:0 0 8px #fff,0 0 3px #fff;padding-left:1.2em;position:relative}
+.cfc-q::before{content:"“";position:absolute;left:0;top:-.25em;font-size:1.8em;color:var(--c)}
+.cfp{background:rgb(255 255 255/.82);border:1px solid rgb(255 255 255/.9);border-radius:14px;padding:10px 12px;box-shadow:0 4px 14px rgb(40 60 120/.12);backdrop-filter:blur(4px)}
+.cfp dl{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;margin:0;font-size:.82rem}
+.cfp dt{color:#5a6a90;font-weight:700;white-space:nowrap}.cfp dd{margin:0;text-align:right;font-weight:700}
+.cfs{display:grid;gap:7px}
+.cfs div{display:grid;grid-template-columns:5.6em 1fr 1.8em;gap:8px;align-items:center;font-size:.78rem;font-weight:700}
+.cfs b{text-align:right;font-family:var(--f-num);font-size:.95rem}
+.cfs .bar u{display:block;height:100%;border-radius:3px;background:var(--bc,#ff5c9a)}
+.cfc-low{position:relative;z-index:2;margin:14px 12px 0;display:grid;gap:10px}
+.cfp h4{font-size:.85rem;color:#3a4766;border-bottom:1px solid rgb(40 60 120/.2);padding-bottom:4px;margin-bottom:8px}
+.cfp.tbl dl{grid-template-columns:4.5em 1fr}.cfp.tbl dd{text-align:left;font-weight:500;line-height:1.6}
+.cfp.msg p{font-family:"Shippori Mincho",serif;font-weight:700;line-height:1.8;font-size:.92rem}
+.cfc-btn{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 12px 16px}
+.cfc-btn button{border-radius:14px;padding:16px 4px 12px;color:#fff;font-family:var(--f-display);font-size:.92rem;line-height:1.3;box-shadow:0 5px 0 rgb(0 0 0/.15),inset 0 0 0 2px rgb(255 255 255/.5);text-shadow:0 1px 3px rgb(0 0 0/.3)}
+.cfc-btn button small{display:block;font-family:var(--f-util);font-size:.62rem;letter-spacing:.1em;opacity:.9}
+.cfc-btn button:nth-child(1){background:linear-gradient(160deg,#ff9cc0,#ff6f9f)}
+.cfc-btn button:nth-child(2){background:linear-gradient(160deg,#8cc6ff,#5a9cf0)}
+.cfc-btn button:nth-child(3){background:linear-gradient(160deg,#84e0b8,#4cb98c)}
+.cfc-btn button:active{translate:0 3px;box-shadow:0 2px 0 rgb(0 0 0/.15)}
+/* 2 解析ページ（攻略本ふう） */
+.cfg{max-width:980px;margin:12px auto 40px;background:#f4f3ee;color:#1c2328;padding:0 0 18px;position:relative;background-image:radial-gradient(rgb(0 0 0/.04) 1px,transparent 1px);background-size:6px 6px}
+.cfg-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:3px solid #1c2328;padding-right:10px}
+.cfg-head b{background:#1c2328;color:#fff;font-family:var(--f-num);font-weight:900;padding:6px 26px 6px 12px;clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%)}
+.cfg-head span{font-family:"Shippori Mincho",serif;font-weight:700;margin-right:auto;padding-left:6px}
+.cfg-head em{font-style:normal;font-size:.72rem;font-weight:700;background:#1c2328;color:#fff;padding:3px 10px}
+.cfg-main{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:8px 18px;padding:14px 14px 0}
+.cfg-art{position:relative;min-height:420px}
+.cfg-art img{width:100%;max-height:640px;object-fit:contain;object-position:50% 0;display:block}
+.cfg-copy{position:absolute;left:0;top:0;writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.2rem;letter-spacing:.2em;color:var(--cd);text-shadow:0 0 6px #f4f3ee,0 0 3px #f4f3ee;z-index:2}
+.cfg-ttl{font-family:"Shippori Mincho",serif;font-weight:700;color:var(--cd);font-size:.95rem}
+.cfg-name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(2.2rem,9vw,3.6rem);line-height:1.1}
+.cfg-name small{display:block;font-family:var(--f-util);font-size:.72rem;letter-spacing:.2em;color:#4d5a61;margin-top:4px}
+.cfg-q{font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.15rem;color:var(--cd);margin:10px 0;line-height:1.6}
+.cfg-intro{font-size:.88rem;line-height:1.9}
+.cfg-box{border:1px solid var(--cd);background:rgb(255 255 255/.7);padding:10px 12px;margin-top:10px;border-radius:2px}
+.cfg-box dl{display:grid;grid-template-columns:5em 1fr;gap:5px 10px;margin:0;font-size:.84rem}
+.cfg-box dt{color:var(--cd);font-weight:700}.cfg-box dd{margin:0;line-height:1.6}
+.cfg-h{font-family:var(--f-num);font-weight:900;letter-spacing:.06em;color:#fff;background:var(--cd);display:inline-block;padding:2px 22px 2px 10px;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);font-size:.9rem;margin-bottom:8px}
+.cfg-st{display:grid;gap:5px}
+.cfg-st div{display:grid;grid-template-columns:6.4em 2em 1fr;gap:8px;align-items:center;font-size:.84rem;font-weight:700;border-bottom:1px solid rgb(0 0 0/.1);padding-bottom:4px}
+.cfg-st b{text-align:right;font-family:var(--f-num)}
+.cfg-st i{display:block;height:12px;background:#1c2328}.cfg-st i u{display:block;height:100%;background:var(--cd)}
+.cfg-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;padding:14px 14px 0}
+.cfg-sk{display:grid;gap:8px}
+.cfg-sk div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;border-bottom:1px solid rgb(0 0 0/.12);padding-bottom:8px}
+.cfg-sk i{width:44px;height:44px;border-radius:8px;background:var(--cd);color:#fff;display:grid;place-items:center;font-style:normal;font-family:var(--f-num);font-weight:900;font-size:1.2rem;box-shadow:inset 0 0 0 2px rgb(255 255 255/.4)}
+.cfg-sk small{display:block;font-size:.68rem;color:var(--cd);font-weight:700}
+.cfg-sk b{font-family:"Shippori Mincho",serif;font-size:1rem}.cfg-sk p{font-size:.8rem;line-height:1.6;grid-column:2}
+.cfg-dot{background:#e9ebf3;background-image:radial-gradient(rgb(60 70 120/.25) 1px,transparent 1px);background-size:10px 10px;min-height:150px;display:grid;place-items:center;border:1px solid var(--cd)}
+.cfg-dot img{height:120px;width:auto;image-rendering:auto;animation:bob 3.2s ease-in-out infinite}
+.cfg-dot img.face{width:110px;height:110px;border-radius:50%;object-fit:cover}
+.cfg-eq{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cfg-eq figure{margin:0;border:1px solid rgb(0 0 0/.2);background:#fff;padding:6px;text-align:center;font-size:.72rem;font-weight:700;line-height:1.4}
+.cfg-eq img{width:100%;aspect-ratio:1;object-fit:cover;display:block;margin-bottom:4px;background:#eee}
+.cfg-eq img.wide{object-fit:contain}
+.cfg-pt{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cfg-pt figure{margin:0;text-align:center;font-size:.7rem;font-weight:700;line-height:1.4}
+.cfg-pt img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border:1px solid rgb(0 0 0/.2)}
+.cfg-pt small{display:block;color:var(--cd)}
+.cfg-tips ul{margin:0;padding-left:1.1em;font-size:.84rem;line-height:1.8}
+.cfg-say{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.cfg-say p{border:2px solid #1c2328;border-radius:16px;padding:10px 14px;background:#fff;font-weight:700;line-height:1.7;font-size:.9rem}
+.cfg-say img{width:92px;height:92px;border-radius:50%;object-fit:cover}
+.cfg-foot{display:flex;justify-content:space-between;gap:10px;padding:14px 14px 0;font-family:var(--f-util);font-size:.7rem;color:#4d5a61}
+/* 3 私の部屋（雑誌ふう） */
+.cfm{max-width:1200px;margin:12px auto 40px;background:#f1f3f0;color:#1c2328;padding:16px 14px 20px}
+.cfm-tag{display:inline-block;border:1px solid #1c2328;background:#fff;font-size:.8rem;font-weight:700;padding:3px 12px}
+.cfm-h{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(2rem,8vw,3.2rem);line-height:1.2;margin:6px 0 0}
+.cfm-h em{font-style:normal;color:var(--cd)}
+.cfm-en{font-family:"Cormorant Garamond","Times New Roman",serif;font-style:italic;font-weight:700;color:var(--cd);font-size:1.15rem}
+.cfm-lead{font-size:.88rem;line-height:1.9;margin:8px 0 12px;max-width:34em}
+.cfm-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:16px;align-items:start}
+.cf-pic{position:relative}
+.cf-pic img.rm{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.cf-pin{position:absolute;translate:-50% -50%;width:30px;height:30px;border-radius:50%;background:#fff;color:var(--cd);border:2px solid var(--cd);font-family:var(--f-num);font-weight:900;font-size:.9rem;display:grid;place-items:center;box-shadow:0 2px 6px rgb(0 0 0/.4);padding:0}
+.cf-pin::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #fff;opacity:.7;animation:pinp 2s ease-out infinite}
+@keyframes pinp{from{scale:.7;opacity:.8}to{scale:1.4;opacity:0}}
+.cf-pin.on{background:var(--cd);color:#fff}
+.cfm-pts{display:grid;gap:8px}
+.cfm-pt{background:#fff;border:1px solid rgb(0 0 0/.15);padding:8px 12px;text-align:left;display:block;width:100%;color:inherit;font:inherit}
+.cfm-pt.on{border-color:var(--cd);box-shadow:3px 3px 0 var(--cd)}
+.cfm-pt small{font-family:"Cormorant Garamond","Times New Roman",serif;font-style:italic;font-weight:700;color:var(--cd);font-size:.9rem;display:block;border-bottom:1px solid rgb(0 0 0/.12);margin-bottom:4px}
+.cfm-pt b{font-size:.9rem;display:block}.cfm-pt span{font-size:.8rem;line-height:1.7;display:block}
+.cfm-low{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.cfm-card{background:#fff;border:1px solid rgb(0 0 0/.2);padding:10px 14px;position:relative}
+.cfm-card::before,.cfm-card::after{content:"";position:absolute;width:10px;height:10px;border:1px solid var(--cd)}
+.cfm-card::before{left:-1px;top:-1px;border-right:0;border-bottom:0}.cfm-card::after{right:-1px;bottom:-1px;border-left:0;border-top:0}
+.cfm-card h4{font-family:"Cormorant Garamond","Times New Roman",serif;font-style:italic;color:var(--cd);font-size:1.05rem;border-bottom:1px solid rgb(0 0 0/.15);margin-bottom:6px}
+.cfm-card dl{display:grid;grid-template-columns:4.6em 1fr;gap:4px 8px;margin:0;font-size:.82rem;line-height:1.6}
+.cfm-card dt{font-weight:700}.cfm-card dd{margin:0}
+.cfm-card ul{list-style:none;margin:0;padding:0;font-size:.84rem;line-height:1.9}
+.cfm-card li::before{content:"□ ";color:var(--cd)}
+.cfm-enter{display:block;margin:16px auto 0;font-family:var(--f-display);font-size:1.05rem;color:#fff;background:var(--cd);padding:14px 28px;transform:skewX(-8deg);box-shadow:4px 4px 0 #1c2328}
+.cfm-enter span{display:inline-block;transform:skewX(8deg)}
+/* 4 ルーム（ゲームのルーム画面ふう） */
+.cfr{max-width:1280px;margin:0 auto 40px;color:#1d2433}
+.cfr-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;background:#000}
+.cfr-stage{position:relative;width:100%;min-width:760px}
+.cfr-stage img.rm{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.cfr-bub{position:absolute;translate:-50% -105%;background:rgb(255 255 255/.94);border-radius:12px;padding:6px 10px;max-width:170px;min-width:96px;font-size:.7rem;line-height:1.5;box-shadow:0 3px 10px rgb(0 0 0/.3);color:#1d2433;text-align:left;border:0}
+.cfr-bub::after{content:"";position:absolute;left:50%;bottom:-6px;translate:-50% 0;border:6px solid transparent;border-top-color:rgb(255 255 255/.94);border-bottom:0}
+.cfr-bub b{display:block;color:var(--cd);font-size:.78rem}
+.cfr-bub.pop{animation:bpop .4s var(--e-back)}
+@keyframes bpop{from{scale:.8}}
+.cfr-hud{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding:10px 12px;background:#141b2b}
+.cfr-love{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;background:#fff;border-radius:999px;padding:6px 16px 6px 8px;font-family:var(--f-util);font-size:.78rem;font-weight:700}
+.cfr-love i{grid-row:1/3;font-style:normal;width:44px;height:44px;border-radius:50%;background:linear-gradient(160deg,#ff9cc0,#ff5c9a);color:#fff;display:grid;place-items:center;font-family:var(--f-num);font-weight:900;font-size:1.1rem}
+.cfr-love .bar{height:6px;border-radius:3px;background:rgb(30 40 70/.18);overflow:hidden}.cfr-love .bar u{display:block;height:100%;background:#ff5c9a}
+.cfr-chg{background:#fff;border-radius:14px;padding:8px 14px;font-size:.78rem;line-height:1.6}
+.cfr-chg b{color:#ff5c9a;display:block}
+.cfr-say{grid-column:1/-1;background:#fffdf5;border-radius:6px;padding:12px 16px;position:relative;box-shadow:0 3px 0 rgb(0 0 0/.25);background-image:repeating-linear-gradient(to bottom,transparent 0 1.75em,rgb(0 0 0/.07) 1.75em calc(1.75em + 1px));display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.cfr-say img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--cd)}
+.cfr-say h4{font-size:.85rem;color:var(--cd)}.cfr-say p{font-weight:700;line-height:1.75;font-size:.95rem;min-height:1.75em}
+.cfr-btn{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cfr-btn button{background:#fff;border-radius:16px;padding:10px 2px 8px;font-size:.72rem;font-weight:700;color:#1d2433;box-shadow:0 4px 0 rgb(0 0 0/.3);line-height:1.3}
+.cfr-btn button i{display:block;font-style:normal;font-size:1.4rem;line-height:1.2}
+.cfr-btn button:active{translate:0 3px;box-shadow:0 1px 0 rgb(0 0 0/.3)}
+.cfr-hint{grid-column:1/-1;font-family:var(--f-util);font-size:.72rem;color:#9fb0bd;text-align:center}
+@media (max-width:760px){
+  .cfg-main,.cfg-grid,.cfm-grid{grid-template-columns:minmax(0,1fr)}
+  .cfg-art{min-height:0;max-width:260px;margin:0 auto}
+  .cfm-low{grid-template-columns:minmax(0,1fr)}
+  .cfr-hud{grid-template-columns:minmax(0,1fr)}
+  .cfc{margin:8px 8px 30px;border-radius:14px}
+}
 /* ---- VLOG：入口の表紙カードと、別ページとして開く画面 ---- */
 .vcovers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .vcover{position:relative;display:grid;gap:6px;justify-items:start;text-align:left;padding:22px 22px 20px 26px;min-height:230px;border:1px solid var(--line);border-left:10px solid var(--vc);overflow:hidden;transition:transform .35s var(--e-expo),box-shadow .35s var(--e-expo)}
@@ -1327,6 +1491,7 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   <p>フォートナイト（Fortnite）は Epic Games, Inc. の商標です。このサイトは Epic Games とは関係のない、個人による非公式のサイトです。</p>
 </div></footer>
 
+<div class="cfile" id="cfile" hidden role="dialog" aria-modal="true" aria-labelledby="cf-t"><div class="cf-bar"><button type="button" id="cf-x">← もどる</button><b id="cf-t"></b><button type="button" class="sw" id="cf-sw"></button></div><div class="cf-body" id="cf-body"></div></div>
 <div class="vpage" id="vpage" hidden role="dialog" aria-modal="true" aria-labelledby="vbar-t">
   <div class="vbar"><button type="button" id="vback">← 鹿煎寺高校にもどる</button><span id="vbar-t"></span><button type="button" id="vswap"></button></div>
   <div class="wrap" id="vlog-body"></div>
@@ -1520,6 +1685,7 @@ function renderChara(i){
      <span class="role">${esc(c.role)}</span>
      <h3 class="cname">${esc(c.name)}<small>${c.en}</small></h3>
      <p class="catch">${esc(c.catch)}</p>
+     ${CF[c.id] ? `<div class="cf-go"><button type="button" data-file="card"><span>プロフィールカード ▶</span></button><button type="button" data-file="mag"><span>私の部屋 ▶</span></button></div>` : ''}
      ${nbHTML(c)}
      ${c.faces ? `<div class="faces">${c.faces.map((f,n) => `<figure><img src="assets/${c.id}_f${n}.jpg" alt="${esc(c.name)}の表情：${f}" loading="lazy" width="56" height="56">${f}</figure>`).join('')}</div>` : ''}
      ${c.secret ? `<div class="secret"><button id="secret-btn" aria-expanded="false" aria-controls="secret-body">舞台裏メモ</button><p id="secret-body" hidden>${c.secret}</p></div>` : ''}
@@ -1543,7 +1709,107 @@ chara.addEventListener('click', e => {
   b.setAttribute('aria-expanded', !open);
   document.getElementById('secret-body').hidden = open;
 });
+
+// ── キャラファイル：プロフィールカード → 解析ページ、私の部屋 → ルーム。足すときは CF に1人ぶん。pins は部屋の絵の上の位置（％）
+const CF = {
+ asu:{cd:'#2f6fae', ttl:'星をさがす配信者', copy:'まっすぐ狙って、まっすぐ届ける。', q:'配信の前は、まず机の掃除から。', to:'見にきてくれて、ありがとう。ゆっくりしていってね。',
+  yaku:'配信者', sumai:'寮 201号室', st:[9,12,12,11,13,12], best:['遠くを狙う',17],
+  feat:'遠くから一発で決める狙撃役。気づく力が高く、景色のなかの小さな変化を見のがさない。体力は低めなので、もみじと凛がそばにいると安心。',
+  eq:[['headphone','ヘッドホン'],['keyboard','左手用キーボード']], wpn:['assets/starseeker.jpg','STAR SEEKER'], dot:null, say:'今日も、\nいっしょにがんばろう。', sayimg:'assets/asu_f1.jpg',
+  tag:'素直でまっすぐ、じつは植物係。', lead:'木のぬくもりと、紺でそろえた寮の部屋。窓ぎわでは、ビーカーのチューリップが春を待っている。',
+  pins:[[27,36,'窓ぎわのビーカー','理科のビーカーで、チューリップを水耕栽培している。冬の世話がいちばん好き。','春を待つ球根たち。'],[21,50,'机まわり','本とスタンドだけの机。絵を描くのも、ここ。','勉強も、絵も、ここで。'],[75,76,'紺のリュック','いつものリュック。鹿のしっぽのチャームがついている。','出かけるときの相棒。'],[85,23,'ヘッドホン','白と青のヘッドホン。部屋では壁のフックが定位置。','部屋ではここが定位置。'],[34,74,'丸いクッション','しかちゃんの丸いクッション。遊びにくると、ここで寝ている。','しかちゃんの席。'],[97,35,'塩のびん','お気に入りの「鹿しか岩塩」。蒸したじゃがいもに、ひとふり。','じゃがいもには、これ。']],
+  todo:['ビーカーの水位を見る','液肥をすこし足す','配信の前に、机の掃除','じゃがいもを蒸す'],
+  lines:['いらっしゃい。……ちょっと緊張するな。','球根、今年は何色だったか忘れちゃった。咲くまでのお楽しみ。','冬は水がすぐ減るから、毎日のぞいてるよ。','蒸したじゃがいもは、塩だけがいちばんおいしいと思う。','もみじ、また廊下にいる気がする。']},
+ momiji:{cd:'#b8620a', ttl:'オレンジの見張り役', copy:'見てるから、だいじょうぶ！', q:'あーすさんのことは、わたしが見てるから！', to:'日記、読んでね！ ひとことくれたら、もっと走れる！',
+  yaku:'見張り役', sumai:'寮', st:[11,13,10,12,12,10], best:['走りながら撃つ',17],
+  feat:'足の速さと反応で動きまわる見張り役。ドローンで先を見て、いやな予感でいち早く気づく。考えるより先に走り出すのが玉にきず。',
+  eq:[['goggle','FPVゴーグル'],['drone','ドローン']], wpn:['assets/starsplash.jpg','STAR SPLASH'], dot:'assets/chibi/momiji_w1.webp', say:'よーし、\n今日も走るぞー！', sayimg:'assets/chibi_momiji.jpg',
+  tag:'元気いっぱい、オレンジだらけ。', lead:'窓から校庭が見える、寮の部屋。気がつくとオレンジ色のものが増えている。',
+  pins:[[15,58,'ベッド','寝相がとても悪くて、朝はたいてい布団から落ちている。','朝には、だいたいこう。'],[80,43,'ドローンの机','小さなドローンたち。1機ずつ名前がある。ゴーグルと送信機もここ。','みんな、名前があるよ。'],[94,21,'待機箱','巣箱のような箱。ドローンが充電しながら待っている。','ドローンのおうち。'],[83,19,'組紐のボード','いろいろな飾り結び。結び方は、指が覚えている。','指が覚えてる結び方。'],[83,88,'ランニングシューズ','毎朝、日の出前に校庭を走るための一足。','毎朝、これで走る。'],[39,64,'鹿せんべい','おやつの鹿せんべい。おいしそうなものには、がまんがきかない。','おやつは、がまんしない。']],
+  todo:['日の出前に、校庭を走る','ドローンの充電','ふとんを直す（たぶん忘れる）','鹿せんべいをもらいに行く'],
+  lines:['じゃーん！ もみじの部屋だよ！','ふとん？ 朝起きたら落ちてたの。いつもだけど。','この子たち、みんな名前あるんだよ。','オレンジのもの見ると、つい欲しくなっちゃう。','あーすさん、ちゃんとごはん食べたかな。見てこようかな。']},
+ rin:{cd:'#b3272d', ttl:'紅茶と工具の機材担当', copy:'直せるものは、直します。', q:'聞かれたことには、きちんとお答えします。', to:'記録は毎日つけています。よければ、どうぞ。',
+  yaku:'機材担当', sumai:'ふもとの町・もと電器屋の2階', st:[11,12,12,11,14,13], best:['百発百中',17],
+  feat:'機械と修理をひとりで引き受ける機材担当。気づく力と集中力が高く、Luna Bianca は外さない。作業に入ると、まわりが見えなくなる。',
+  eq:[['pouch','ツールポーチ'],['book','文庫本']], wpn:['assets/luna.jpg','Luna Bianca'], dot:'assets/chibi/rin_w1.webp', say:'点検は、\n毎日の積み重ねです。', sayimg:'assets/chibi_rin.jpg',
+  tag:'クールに見えて、じつはこだわり派。', lead:'畳は残したまま、赤い絨毯。洋風の椅子とティーセットをならべた、和洋まじりの部屋。',
+  pins:[[20,27,'紅茶の缶','棚にならぶ茶葉の缶。茶葉とお湯の温度にこだわる。','茶葉は、気分でえらびます。'],[34,25,'工具棚','使った工具は、かならず元の場所に戻す。','元の場所に、戻します。'],[40,47,'丸いテーブル','洋風の椅子とティーセット。お茶の時間は、ここで。','お茶の時間は、ここで。'],[72,34,'本棚','ぎっしりの本。文庫本には、かならず布のカバー。','文庫本には、布のカバーを。'],[86,36,'蓄音機','古い蓄音機。静かな時間のおとも。','静かな時間のおとも。'],[60,72,'畳と絨毯','畳の上に、赤い絨毯をそのまま敷いている。','畳は、残してあります。']],
+  todo:['茶葉の残りを確かめる','工具を元の場所へ','読みかけの文庫本','配線の点検'],
+  lines:['どうぞ。お茶をいれます。','工具は、使ったら元の場所に戻します。','文庫本には、かならず布のカバーをかけます。','静かな時間が好きです。','茶葉は、お湯の温度で味が変わります。']}
+};
 renderChara(0);
+const CF_ST = ['体力','すばやさ','かしこさ','じょうぶさ','気づく力','気持ちの強さ'], CF_BC = ['#ff6f9f','#5a9cf0','#f0b23c','#4cb98c','#a06ae0','#f0803c'];
+(() => {
+  const el = document.getElementById('cfile'), body = document.getElementById('cf-body'), ttl = document.getElementById('cf-t'), sw = document.getElementById('cf-sw');
+  if(!el) return;
+  let id = 'asu', mode = 'card', li = 0;
+  const ch = k => CHARS.find(c => c.id === k), sp = (c,k) => (c.spec.find(s => s[0] === k) || [,''])[1];
+  const love = k => { let p = 0; try { p = +localStorage.getItem('sk_love_' + k) || 0; } catch(e) {} const lv = Math.min(20, Math.floor(Math.sqrt(p)) + 1); const lo = (lv-1)*(lv-1), hi = lv*lv; return {p, lv, pct: lv >= 20 ? 100 : Math.round((p-lo)/(hi-lo)*100), left: Math.max(0, hi-p)}; };
+  const addLove = (k,n) => { try { localStorage.setItem('sk_love_' + k, (love(k).p + n)); } catch(e) {} };
+  const who = () => `<div class="cf-who" role="group" aria-label="だれのページか">${Object.keys(CF).map(k => `<button type="button" data-who="${k}" aria-pressed="${k===id}" aria-label="${esc(ch(k).name)}"><img src="${ch(k).thumb}" alt=""></button>`).join('')}</div>`;
+  const pins = (f, cls) => f.pins.map((p,n) => `<button type="button" class="cf-pin" data-pin="${n}" style="left:${p[0]}%;top:${p[1]}%" aria-label="${esc(p[2])}">${n+1}</button>`).join('');
+  const V = {
+   card(c,f){ const L = love(id); return `<div class="cfc"><div class="cfc-bg" style="background-image:url(assets/room/${id}.jpg)"></div><img class="cfc-art" src="${c.img}" alt="${esc(c.name)}の立ち姿">
+     <div class="cfc-top"><div class="cfc-lv">2年<b>配信部</b></div><div class="cfc-love"><i aria-hidden="true">♥</i><span>なかよし度 Lv.${L.lv}</span><span class="bar"><u style="width:${L.pct}%"></u></span></div></div>
+     <div class="cfc-r"><div><p class="cfc-ttl">【${esc(f.ttl)}】</p><h3 class="cfc-name">${esc(c.name)}</h3><p class="cfc-en">${c.en}</p></div>
+       <div class="cfc-badge"><b>${esc(f.yaku)}</b><span>鹿煎寺高校</span></div>
+       <p class="cfc-q">${esc(f.q)}</p>
+       <div class="cfp"><dl><dt>学年</dt><dd>高校2年</dd><dt>役わり</dt><dd>${esc(f.yaku)}</dd><dt>得意</dt><dd>${esc(f.best[0])}</dd></dl></div>
+       <div class="cfp cfs">${CF_ST.slice(0,3).map((s,n) => `<div style="--bc:${CF_BC[n]}"><span>${s}</span><span class="bar"><u style="width:${Math.round(f.st[n]/16*100)}%"></u></span><b>${f.st[n]}</b></div>`).join('')}</div></div>
+     <div class="cfc-low"><div class="cfp cfs">${CF_ST.slice(3).map((s,n) => `<div style="--bc:${CF_BC[n+3]}"><span>${s}</span><span class="bar"><u style="width:${Math.round(f.st[n+3]/16*100)}%"></u></span><b>${f.st[n+3]}</b></div>`).join('')}</div>
+       <div class="cfp tbl"><h4>プロフィール</h4><dl><dt>すまい</dt><dd>${esc(f.sumai)}</dd><dt>性格</dt><dd>${esc(sp(c,'性格'))}</dd><dt>好き</dt><dd>${esc(sp(c,'好き'))}</dd><dt>苦手</dt><dd>${esc(sp(c,'苦手'))}</dd><dt>武器</dt><dd>${esc(sp(c,'武器'))}</dd></dl></div>
+       <div class="cfp msg"><h4>見にきてくれたあなたへ</h4><p>${esc(f.to)}</p></div></div>
+     <div class="cfc-btn"><button type="button" data-go="guide">くわしく<small>ANALYSIS</small></button><button type="button" data-go="mag">私の部屋<small>ROOM</small></button><button type="button" data-go="diary">${id==='asu'?'配信日記':'活動日記'}<small>DIARY</small></button></div></div>`; },
+   guide(c,f){ const others = Object.keys(CF).filter(k => k !== id); return `<div class="cfg" style="--cd:${f.cd}">
+     <div class="cfg-head"><b>Chapter 05</b><span>配信部キャラクター解析</span><em>役わり ／ ${esc(f.yaku)}</em></div>
+     <div class="cfg-main"><div class="cfg-art"><p class="cfg-copy">${esc(f.copy)}</p><img src="${c.img}" alt="${esc(c.name)}の立ち姿"></div>
+       <div><p class="cfg-ttl">${esc(f.ttl)}</p><h3 class="cfg-name">${esc(c.name)}<small>${c.en}</small></h3><p class="cfg-q">「${esc(f.q)}」</p><p class="cfg-intro">${esc(c.catch)}</p>
+         <div class="cfg-box"><dl><dt>所属</dt><dd>鹿煎寺高校 2年・配信部</dd><dt>すまい</dt><dd>${esc(f.sumai)}</dd><dt>好きなもの</dt><dd>${esc(sp(c,'好き'))}</dd><dt>苦手なもの</dt><dd>${esc(sp(c,'苦手'))}</dd></dl></div>
+         <div class="cfg-box"><span class="cfg-h">STATUS</span><div class="cfg-st">${CF_ST.map((s,n) => `<div><span>${s}</span><b>${f.st[n]}</b><i><u style="width:${Math.round(f.st[n]/16*100)}%"></u></i></div>`).join('')}<div><span>${esc(f.best[0])}</span><b>${f.best[1]}</b><i><u style="width:${Math.round(f.best[1]/18*100)}%"></u></i></div></div></div>
+         <div class="cfg-box"><span class="cfg-h">特徴</span><p class="cfg-intro">${esc(f.feat)}</p></div></div></div>
+     <div class="cfg-grid"><div><span class="cfg-h">SKILL</span><div class="cfg-sk">${c.able.slice(0,4).map((a,n) => `<div><i aria-hidden="true">${n+1}</i><span><small>${n===0?'いちばんの得意':'とくい'}</small><b>${esc(a[0])}</b></span><p>${esc(a[1])}</p></div>`).join('')}</div></div>
+       <div style="display:grid;gap:12px;align-content:start"><div><span class="cfg-h">${f.dot?'DOT CHARA':'SNAP'}</span><div class="cfg-dot">${f.dot ? `<img src="${f.dot}" alt="ちびキャラの${esc(c.name)}">` : `<img class="face" src="assets/${id}_f4.jpg" alt="${esc(c.name)}">`}</div></div>
+         <div><span class="cfg-h">EQUIPMENT</span><div class="cfg-eq"><figure><img class="wide" src="${f.wpn[0]}" alt="${esc(f.wpn[1])}" loading="lazy">${esc(f.wpn[1])}</figure>${f.eq.map(q => `<figure><img src="assets/items/${q[0]}.jpg" alt="${esc(q[1])}" loading="lazy">${esc(q[1])}</figure>`).join('')}</div></div></div></div>
+     <div class="cfg-grid"><div><span class="cfg-h">PARTY</span><div class="cfg-pt">${others.map(k => `<figure><img src="${ch(k).thumb}" alt="" loading="lazy"><small>【${esc(CF[k].yaku)}】</small>${esc(ch(k).name)}</figure>`).join('')}<figure><img src="assets/shikachan_f0.jpg" alt="" loading="lazy"><small>【マスコット】</small>しかちゃん</figure><figure><img src="assets/shika.jpg" alt="" loading="lazy"><small>【売店】</small>鹿店長</figure></div></div>
+       <div class="cfg-tips"><span class="cfg-h">気をつけたいところ</span><ul>${c.weak.slice(0,3).map(w => `<li><b>${esc(w[0])}</b>　${esc(w[1])}</li>`).join('')}</ul></div></div>
+     <div class="cfg-grid"><div class="cfg-say"><p>${esc(f.say).replace(/\n/g,'<br>')}</p><img src="${f.sayimg}" alt="" loading="lazy"></div><div></div></div>
+     <div class="cfg-foot"><span>SHIKASENJI HIGH SCHOOL GUIDE BOOK</span><span>05-${String(Object.keys(CF).indexOf(id)+1).padStart(2,'0')}</span></div></div>`; },
+   mag(c,f){ return `<div class="cfm" style="--cd:${f.cd}"><span class="cfm-tag">${esc(f.tag)}</span><h3 class="cfm-h"><em>私の</em>部屋。</h3><p class="cfm-en">Room Introduction ／ ${c.en}</p><p class="cfm-lead">${esc(f.lead)}</p>
+     <div class="cfm-grid"><div class="cf-pic"><img class="rm" src="assets/room/${id}.jpg" alt="${esc(c.name)}の部屋。部屋のまん中に${esc(c.name)}が立っている">${pins(f)}</div>
+       <div class="cfm-pts">${f.pins.map((p,n) => `<button type="button" class="cfm-pt" data-pin="${n}"><small>Room Point ${String(n+1).padStart(2,'0')}</small><b>${esc(p[2])}</b><span>${esc(p[3])}</span></button>`).join('')}</div></div>
+     <div class="cfm-low"><div class="cfm-card"><h4>Profile</h4><dl><dt>学年</dt><dd>高校2年</dd><dt>部活</dt><dd>配信部（${esc(f.yaku)}）</dd><dt>すまい</dt><dd>${esc(f.sumai)}</dd><dt>好き</dt><dd>${esc(sp(c,'好き'))}</dd><dt>くせ</dt><dd>${esc(sp(c,'くせ'))}</dd></dl></div>
+       <div class="cfm-card"><h4>Today's ToDo</h4><ul>${f.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div></div>
+     <button type="button" class="cfm-enter" data-go="room"><span>部屋におじゃまする ▶</span></button></div>`; },
+   room(c,f){ const L = love(id); const n = Math.min(f.lines.length, 2 + L.lv); li = li % n; return `<div class="cfr" style="--cd:${f.cd}">
+     <div class="cfr-scroll" id="cfr-scroll"><div class="cfr-stage"><img class="rm" src="assets/room/${id}.jpg" alt="${esc(c.name)}の部屋">${f.pins.map((p,k) => `<button type="button" class="cfr-bub" data-bub="${k}" style="left:${p[0]}%;top:${p[1]}%"><b>${esc(p[2])}</b>${esc(p[4])}</button>`).join('')}</div></div>
+     <div class="cfr-hud"><div class="cfr-love"><i>${L.lv}</i><span>なかよし度 Lv.${L.lv}${L.lv<20?'　あと '+L.left:''}</span><span class="bar"><u style="width:${L.pct}%"></u></span></div>
+       <div class="cfr-chg"><b>なかよし度で変化</b>部屋に来たり、ふきだしにふれたりすると上がる。上がると、ひとことが増える（いま ${n}／${f.lines.length}）。</div>
+       <div class="cfr-say"><img src="${c.thumb}" alt=""><div><h4>${esc(VLOGS[id] ? VLOGS[id].call : c.name)}のひとこと</h4><p id="cfr-line" aria-live="polite">${esc(f.lines[li])}</p></div></div>
+       <div class="cfr-btn"><button type="button" data-act="line"><i aria-hidden="true">💬</i>ひとこと</button><button type="button" data-act="rand"><i aria-hidden="true">🎲</i>ランダム訪問</button><button type="button" data-go="mag"><i aria-hidden="true">📖</i>部屋の紹介</button><button type="button" data-go="diary"><i aria-hidden="true">📔</i>日記</button></div>
+       <p class="cfr-hint">絵は左右に動かせます。ふきだしにふれてみてね。</p></div></div>`; }
+  };
+  const NAME = {card:'プロフィール', guide:'キャラクター解析', mag:'私の部屋', room:'ルーム'}, NEXT = {card:['guide','くわしく ▶'], guide:['card','◀ カード'], mag:['room','部屋へ ▶'], room:['mag','◀ 紹介']};
+  function draw(){ const c = ch(id), f = CF[id]; el.style.setProperty('--c', c.color); ttl.textContent = c.name + ' ／ ' + NAME[mode]; sw.textContent = NEXT[mode][1]; sw.dataset.go = NEXT[mode][0];
+    body.innerHTML = who() + V[mode](c,f); body.style.animation = 'none'; void body.offsetWidth; body.style.animation = ''; el.scrollTop = 0;
+    if(mode === 'room'){ const s = document.getElementById('cfr-scroll'); if(s) s.scrollLeft = (s.scrollWidth - s.clientWidth) / 2; } }
+  function go(m){ if(m === 'diary'){ close(); const t = id === 'asu' ? '#diary' : '#vlog-' + id; if(id !== 'asu' && typeof vOpen === 'function'){ vOpen(id); } else { location.hash = t; const s = document.querySelector(t); if(s) s.scrollIntoView(); } return; }
+    if(m === 'room' && mode !== 'room') addLove(id, 1); mode = m; draw(); }
+  function open(k, m){ id = k; mode = m || 'card'; li = 0; el.hidden = false; document.documentElement.style.overflow = 'hidden'; draw(); }
+  function close(){ el.hidden = true; body.innerHTML = ''; document.documentElement.style.overflow = ''; }
+  window.skFile = open;
+  el.addEventListener('click', e => {
+    const t = e.target.closest('button'); if(!t) return;
+    if(t.id === 'cf-x'){ close(); return; }
+    if(t.dataset.go){ go(t.dataset.go); return; }
+    if(t.dataset.who){ id = t.dataset.who; li = 0; draw(); return; }
+    if(t.dataset.pin){ const n = t.dataset.pin; body.querySelectorAll('.cf-pin,.cfm-pt').forEach(x => x.classList.toggle('on', x.dataset.pin === n)); const card = body.querySelector('.cfm-pt[data-pin="'+n+'"]'); if(card && t.classList.contains('cf-pin')) card.scrollIntoView({block:'nearest', behavior: calm() ? 'auto' : 'smooth'}); return; }
+    if(t.dataset.bub){ addLove(id, 1); t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop'); const p = CF[id].pins[+t.dataset.bub]; document.getElementById('cfr-line').textContent = p[3]; return; }
+    if(t.dataset.act === 'line'){ addLove(id, 1); const f = CF[id], n = Math.min(f.lines.length, 2 + love(id).lv); li = (li + 1) % n; document.getElementById('cfr-line').textContent = f.lines[li]; return; }
+    if(t.dataset.act === 'rand'){ const o = Object.keys(CF).filter(k => k !== id); id = o[Math.floor(Math.random()*o.length)]; li = 0; addLove(id, 1); draw(); return; }
+  });
+  addEventListener('keydown', ev => { if(ev.key === 'Escape' && !el.hidden) close(); });
+  chara.addEventListener('click', e => { const b = e.target.closest('[data-file]'); if(b) open(CHARS[current].id, b.dataset.file); });
+})();
 
 // ── 活動日記のまわりを歩く、ちびキャラのもみじと凛（絵は assets/chibi/、大きさは SZ）
 (() => {
