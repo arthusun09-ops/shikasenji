@@ -2158,10 +2158,26 @@ const vShow = rows => {
   const mine = rows.filter(r => r && r.who === vcur && r.ep === ep && typeof r.text === 'string').sort((a,b) => String(b.at).localeCompare(String(a.at))).slice(0,20);
   ul.innerHTML = mine.map(r => `<li>${esc(r.text.slice(0,400))}<small>${esc(vWhen(r.at))}</small></li>`).join('');
 };
+// ひとことは Google フォームへ送り、届いた分を回答の表から読む（だれでも見える。名前やメールは集めない）
+const VFORM = 'https://docs.google.com/forms/d/e/1FAIpQLScvob56NStBv3IGH7GLWOC0HbWZKem-qNw3WPatuRlQwEkyTw/formResponse', VENTRY = 'entry.1140265081';
+const VSHEET = 'https://docs.google.com/spreadsheets/d/1MPU8vj1rReq5YaPVyPc_JAfnAfYjs7XMuzllWibS2o4/gviz/tq?gid=1713345375&headers=1&tq=' + encodeURIComponent('select A,B');
+let vremote = [];
+const vMerge = () => { const seen = new Set(vremote.map(r => r.who + '#' + r.ep + '|' + r.text)); return vremote.concat(vLocal().filter(r => r && !seen.has(r.who + '#' + r.ep + '|' + r.text))); };
+window.skCom = res => {
+  try {
+    const rows = (res && res.table && res.table.rows) || [];
+    vremote = rows.map(r => { const c = r.c || [], t = c[1] && typeof c[1].v === 'string' ? c[1].v : '';
+      const m = /^([a-z]+)#(\d+)\|([\s\S]+)$/.exec(t); if(!m) return null;
+      let at = ''; const d = c[0] && /^Date\(([\d,\s]+)\)$/.exec(String(c[0].v)); if(d){ const n = d[1].split(',').map(Number); at = new Date(n[0], n[1], n[2], n[3]||0, n[4]||0, n[5]||0).toISOString(); }
+      return {who:m[1], ep:+m[2], text:m[3], at}; }).filter(Boolean);
+  } catch(e) {}
+  vShow(vMerge());
+};
 const vListen = () => {
-  if(vunsub){ try{ vunsub(); }catch(e){} vunsub = null; }
-  if(!vdb){ vShow(vLocal()); return; }
-  try { vunsub = vdb.collection('vlog_comments').onSnapshot(snap => vShow(snap.docs.map(d => d.data())), () => vShow(vLocal())); } catch(e) { vShow(vLocal()); }
+  vShow(vMerge());
+  try { const old = document.getElementById('vjsonp'); if(old) old.remove();
+    const sc = document.createElement('script'); sc.id = 'vjsonp'; sc.src = VSHEET + '&tqx=' + encodeURIComponent('out:json;responseHandler:skCom') + '&_=' + Date.now();
+    sc.onerror = () => vShow(vMerge()); document.head.appendChild(sc); } catch(e) {}
 };
 let dsel = '';
 function renderDiary(){
@@ -2361,19 +2377,18 @@ function renderVlog(){
       </details>`; }).join('')}
   </div>`;
   const form = document.getElementById('vform');
-  const vta = document.getElementById('vtext'); if(vta) vta.addEventListener('focus', () => { vConnect(); }, {once:true});
   if(form) form.addEventListener('submit', async ev => {
     ev.preventDefault();
     const ta = document.getElementById('vtext'), st = document.getElementById('vst'), btn = form.querySelector('button');
     const text = ta.value.trim(); if(!text) return;
-    const row = {who:vcur, ep:newest.no, text:text.slice(0,400), at:new Date().toISOString(), uid:vuid || ''};
+    const row = {who:vcur, ep:newest.no, text:text.slice(0,400), at:new Date().toISOString()};
     btn.disabled = true; st.textContent = '送っています…';
-    await Promise.race([vConnect(), new Promise(r => setTimeout(r, 12000))]);
-    row.uid = vuid || '';
     try {
-      if(vdb){ await vdb.collection('vlog_comments').add(row); st.textContent = '届きました。ありがとう。'; }
-      else { const a = vLocal(); a.push(row); try { localStorage.setItem('sk_vcom', JSON.stringify(a.slice(-60))); } catch(e) {} vShow(a); st.textContent = 'この端末に控えました。'; }
-      ta.value = '';
+      const body = new URLSearchParams(); body.append(VENTRY, row.who + '#' + row.ep + '|' + row.text);
+      await Promise.race([fetch(VFORM, {method:'POST', mode:'no-cors', body}), new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 15000))]);
+      const a = vLocal(); a.push(row); try { localStorage.setItem('sk_vcom', JSON.stringify(a.slice(-60))); } catch(e) {}
+      vShow(vMerge()); st.textContent = '届きました。ありがとう。'; ta.value = '';
+      setTimeout(vListen, 4000);
     } catch(e) { st.textContent = '送れませんでした。時間をおいて、もう一度お試しください。'; }
     btn.disabled = false;
   });
@@ -2426,13 +2441,6 @@ addEventListener('hashchange', vDeep); vDeep();
 addEventListener('popstate', ev => { if(ev.state && ev.state.v && (VLOGS[ev.state.v] || ['diary','arc','map','note'].includes(ev.state.v))){ dsel = ev.state.d || ''; vOpen(ev.state.v, false); } else vHide(); });
 addEventListener('keydown', ev => { if(ev.key === 'Escape' && !vpage.hidden) vClose(); });
 renderCovers();
-// ひとことの共有は、書きこもうとしたときにだけつなぐ（見るだけの人にサインインの案内を出さない）
-let vconn = null;
-const vConnect = () => vconn || (vconn = (async () => {
-  if(!(window.claude && typeof window.claude.use === 'function')) return;
-  try { const db = await window.claude.use('db'); if(!db) return; vdb = db; try { const u = await window.claude.use('user'); if(u) vuid = await u.id(); } catch(e) {} vListen(); } catch(e) {}
-})());
-
 // ── 歩き回るドット絵のしかちゃん
 (() => {
   const el = document.getElementById('walker'), img = document.getElementById('walker-img'), bub = document.getElementById('bubble');
