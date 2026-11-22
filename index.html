@@ -953,6 +953,35 @@ footer b{font-family:var(--f-display);font-weight:400;color:var(--paper);font-si
   .t-momiji .vbody{padding-left:20px}.t-momiji .vep{background-image:none}.t-momiji .vnext,.t-momiji .vcom{margin-left:20px}
   .t-rin .vbody p{padding-left:2.4em}.t-rin .vhead::after{width:54px;height:54px;font-size:.72rem;right:10px;top:10px}
 }
+/* ---- 活動日記：顔つきバナー・話の表紙・ふきだし・ちびキャラ（文字だけに見えないように） ---- */
+.vhead.vban{grid-template-columns:auto minmax(0,1fr);column-gap:16px;align-items:center;min-height:150px;isolation:isolate;padding:18px 20px}
+.vban-bg{position:absolute;inset:0;z-index:-1;border-radius:inherit;overflow:hidden;background-size:cover;opacity:.9;-webkit-mask-image:linear-gradient(90deg,transparent 18%,#000 78%);mask-image:linear-gradient(90deg,transparent 18%,#000 78%)}
+.vban-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgb(0 0 0/.55),transparent 60%)}
+.vban-face{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--vc);box-shadow:0 0 0 4px rgb(0 0 0/.45),4px 6px 0 rgb(0 0 0/.4);background:#fff8ea;rotate:-4deg}
+.vban-t{display:grid;gap:4px;min-width:0;text-shadow:0 1px 6px rgb(0 0 0/.9),0 0 2px #000}
+.vban-t p{color:var(--paper);padding-right:58px}
+.vban-chibi{position:absolute;right:14px;bottom:0;height:74px;width:auto;filter:drop-shadow(0 3px 0 rgb(0 0 0/.5));animation:bob 3.2s ease-in-out infinite}
+.t-momiji .vhead.vban::after{z-index:2}
+.t-rin .vhead.vban h3{padding-right:0}
+.t-rin .vhead.vban::after{top:8px;right:8px;width:50px;height:50px;font-size:.68rem;background:rgb(6 12 18/.7)}
+.vep>summary.cov{position:relative;isolation:isolate;min-height:104px}
+.vep>summary.cov::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--cov) 50% 35%/cover;opacity:.75;-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 95%);mask-image:linear-gradient(90deg,transparent 30%,#000 95%)}
+.vep>summary.cov b,.vep>summary.cov small,.vep>summary.cov i,.vep>summary.cov .n{text-shadow:0 1px 5px rgb(0 0 0/.95),0 0 2px #000}
+.vep>summary.cov small,.vep>summary.cov i{color:var(--paper)}
+.vsay{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}
+.vsay>img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--vc);background:#fff;box-shadow:3px 4px 0 rgb(0 0 0/.4)}
+.vsay>p{margin-top:0!important;padding:10px 14px!important;border:1px solid var(--vc);border-radius:4px 16px 16px 16px;background:rgb(0 0 0/.28);position:relative}
+.vsay>p::before{display:none}
+.t-rin .vsay>p{counter-increment:ln}
+.vfin{display:flex;align-items:flex-end;gap:12px;margin-top:22px}
+.vfin::before,.vfin::after{content:"";flex:1;border-top:2px dotted var(--vc);opacity:.5;margin-bottom:6px}
+.vfin img{height:64px;width:auto;filter:drop-shadow(0 3px 0 rgb(0 0 0/.5))}
+@media (max-width:560px){
+  .vhead.vban{padding:16px 14px;min-height:140px}.vban-face{width:72px;height:72px}.vban-chibi{height:60px;right:8px}
+  .vban-bg{-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 95%);mask-image:linear-gradient(90deg,transparent 30%,#000 95%);opacity:.7}
+  .vsay>img{width:54px;height:54px}.vsay{gap:10px}
+}
+@media (prefers-reduced-motion:reduce){.vban-chibi{animation:none}}
 /* ---- VLOG：入口の表紙カードと、別ページとして開く画面 ---- */
 .vcovers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .vcover{position:relative;display:grid;gap:6px;justify-items:start;text-align:left;padding:22px 22px 20px 26px;min-height:230px;border:1px solid var(--line);border-left:10px solid var(--vc);overflow:hidden;transition:transform .35s var(--e-expo),box-shadow .35s var(--e-expo)}
@@ -1894,7 +1923,10 @@ const wipe = (label, fn) => {
   w.hidden = true; void w.offsetWidth; w.hidden = false;
   setTimeout(fn, 400); clearTimeout(wipe.t); wipe.t = setTimeout(() => { w.hidden = true; }, 920);
 };
-const vEpBody = e => { const imgs = e.imgs || []; return `<div class="vbody">${e.picked ? `<p class="util" style="color:var(--vc)">きめたこと：${esc(e.picked)}</p>` : ''}${e.body.map((p,n) => `<p>${vFmt(p)}${(e.dood||[]).filter(g => g.after === n+1).map(g => DOOD(g.k)).join('')}</p>` + (e.memo||[]).filter(g => g.after === n+1).map((g,q) => `<aside class="fusen${g.c?' '+g.c:''}${(n+q)%2?' r':''}">${esc(g.text)}</aside>`).join('') + imgs.filter(g => (g.after ?? 1) === n+1).map(g => `<figure><img src="${g.src}" alt="${esc(g.alt||'')}" loading="lazy"${g.pos ? ` style="object-position:${g.pos}"` : ''}>${g.cap ? `<figcaption>${esc(g.cap)}</figcaption>` : ''}</figure>`).join('')).join('')}</div>`; };
+const VBAN = {momiji:{bg:'assets/portraits/momiji_01.jpg',pos:'70% 12%'}, rin:{bg:'assets/portraits/rin_01.jpg',pos:'70% 30%'}};
+const VFACE = {momiji:['assets/momiji_f2.jpg','assets/momiji_f1.jpg','assets/momiji_f0.jpg'], rin:['assets/rin_f1.jpg','assets/rin_f0.jpg','assets/rin_f5.jpg']};
+const VCHIBI = {momiji:['assets/chibi/momiji_wave.webp','assets/chibi/momiji_run.webp','assets/chibi/momiji_fpv.webp'], rin:['assets/chibi/rin_read.webp','assets/chibi/rin_tea.webp','assets/chibi/rin_fix.webp']};
+const vEpBody = (e, who) => { const imgs = e.imgs || []; const fc = who && VFACE[who] ? VFACE[who][e.no % 3] : ''; return `<div class="vbody">${e.picked ? `<p class="util" style="color:var(--vc)">きめたこと：${esc(e.picked)}</p>` : ''}${e.body.map((p,n) => `${n===0 && fc ? `<div class="vsay"><img src="${fc}" alt="" width="200" height="200" loading="lazy">` : ''}<p>${vFmt(p)}${(e.dood||[]).filter(g => g.after === n+1).map(g => DOOD(g.k)).join('')}</p>${n===0 && fc ? '</div>' : ''}` + (e.memo||[]).filter(g => g.after === n+1).map((g,q) => `<aside class="fusen${g.c?' '+g.c:''}${(n+q)%2?' r':''}">${esc(g.text)}</aside>`).join('') + imgs.filter(g => (g.after ?? 1) === n+1).map(g => `<figure><img src="${g.src}" alt="${esc(g.alt||'')}" loading="lazy"${g.pos ? ` style="object-position:${g.pos}"` : ''}>${g.cap ? `<figcaption>${esc(g.cap)}</figcaption>` : ''}</figure>`).join('')).join('')}${who && VCHIBI[who] ? `<div class="vfin" aria-hidden="true"><img src="${VCHIBI[who][e.no % 3]}" alt="" loading="lazy"></div>` : ''}</div>`; };
 // ── 連載「鳴り止まない線路編」。話に arc:'senro' を付けると、ふたりの記録が日付の順にここへ並ぶ（pre:true は「序」）
 const ARCS = {senro:{title:'鳴り止まない線路編', k:'SERIES ／ もみじと凛の記録', color:'oklch(0.72 0.17 30)', intro:'谷で見つけた、むかしの線路。ふたりの記録を、日付の順にならべてあります。'}};
 const arcEps = id => Object.entries(VLOGS).flatMap(([who,v]) => v.eps.filter(e => e.arc === id).map(e => ({who, v, e}))).sort((a,b) => a.e.date.localeCompare(b.e.date) || (VSLOT[a.e.slot]||9) - (VSLOT[b.e.slot]||9) || a.who.localeCompare(b.who));
@@ -1910,7 +1942,7 @@ function renderArc(){
   vbody.innerHTML = `<div class="arc" style="--vc:${a.color}">
     <div class="vlog t-arc" style="--vc:${a.color}"><div class="vhead"><span class="k">${esc(a.k)}</span><h3>${esc(a.title)}</h3><p>${esc(a.intro)}</p></div>
     <nav class="arcidx" aria-label="もくじ"><span class="k">もくじ</span><ol>${list.map((x,i) => `<li><a href="#arc-${i}" data-arc="${i}"><span class="n">${arcLabel(list,i)}</span><span class="w" style="color:${x.v.color}">${esc(x.v.call)}</span><b>${esc(x.e.title)}</b><small>${vDate(x.e)}</small></a></li>`).join('')}</ol></nav></div>
-    ${list.map((x,i) => `<div class="vlog t-${x.who}" id="arc-${i}" style="--vc:${x.v.color}"><details class="vep" open><summary><span class="n">${arcLabel(list,i)}</span><span><small>${vDate(x.e)}　${esc(x.v.call)} #${String(x.e.no).padStart(2,'0')}</small><b>${esc(x.e.title)}</b></span><i aria-hidden="true"></i></summary>${vEpBody(x.e)}</details>
+    ${list.map((x,i) => `<div class="vlog t-${x.who}" id="arc-${i}" style="--vc:${x.v.color}"><details class="vep" open><summary><span class="n">${arcLabel(list,i)}</span><span><small>${vDate(x.e)}　${esc(x.v.call)} #${String(x.e.no).padStart(2,'0')}</small><b>${esc(x.e.title)}</b></span><i aria-hidden="true"></i></summary>${vEpBody(x.e, x.who)}</details>
       <p class="arcnav">${i > 0 ? `<a href="#arc-${i-1}" data-arc="${i-1}">▲ まえの話</a>` : '<span></span>'}<a href="#arc-top" data-arc="top">もくじ</a>${i < list.length - 1 ? `<a href="#arc-${i+1}" data-arc="${i+1}">つぎの話 ▼</a>` : '<span class="end">つづく</span>'}</p></div>`).join('')}
   </div>`;
   vbody.querySelector('.arc').addEventListener('click', ev => { const l = ev.target.closest('a[data-arc]'); if(!l) return; ev.preventDefault(); ev.stopPropagation();
@@ -2054,10 +2086,10 @@ function renderVlog(){
   const other = Object.keys(VLOGS).find(k => k !== vcur);
   document.getElementById('vswap').textContent = VLOGS[other].call + 'の活動日記へ →';
   vbody.innerHTML = `<div class="vlog t-${vcur}${vturn ? ' turn-in' : ''}" style="--vc:${v.color}">
-    <div class="vhead"><span class="k">${esc(v.k)}</span><h3>${esc(v.title)}</h3><p>${esc(v.intro)}</p></div>
-    ${v.eps.map((e,i) => { const fi = v.eps.findIndex(z => z.next); const imgs = e.imgs || [];
-      return `<details class="vep"${i===0?' open':''}><summary><span class="n">#${String(e.no).padStart(2,'0')}</span><span><small>${vDate(e)}${e.arc && ARCS[e.arc] ? '　' + esc(ARCS[e.arc].title) : ''}</small><b>${esc(e.title)}</b></span><i aria-hidden="true"></i></summary>
-       ${vEpBody(e)}
+    <div class="vhead vban"><div class="vban-bg" style="background-image:url(${VBAN[vcur].bg});background-position:${VBAN[vcur].pos}"></div><img class="vban-face" src="assets/chibi_${vcur}.jpg" alt="${esc(v.name)}" width="360" height="360"><div class="vban-t"><span class="k">${esc(v.k)}</span><h3>${esc(v.title)}</h3><p>${esc(v.intro)}</p></div><img class="vban-chibi" src="${VCHIBI[vcur][0]}" alt=""></div>
+    ${v.eps.map((e,i) => { const fi = v.eps.findIndex(z => z.next); const imgs = e.imgs || []; const cv = imgs[0];
+      return `<details class="vep"${i===0?' open':''}><summary${cv ? ` class="cov" style="--cov:url(${cv.src})"` : ''}><span class="n">#${String(e.no).padStart(2,'0')}</span><span><small>${vDate(e)}${e.arc && ARCS[e.arc] ? '　' + esc(ARCS[e.arc].title) : ''}</small><b>${esc(e.title)}</b></span><i aria-hidden="true"></i></summary>
+       ${vEpBody(e, vcur)}
        ${i===fi && e.next ? `<div class="vnext"><span class="k">つぎ、どうする？</span><ol>${e.next.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
        <form class="vcom" id="vform"><label for="vtext">${esc(v.call)}へ、ひとこと</label><textarea id="vtext" maxlength="400" required></textarea><div class="row"><button type="submit">届ける</button><span class="st" id="vst" role="status"></span></div><ul class="vlist" id="vlist" aria-label="届いたひとこと"></ul></form>` : ''}
       </details>`; }).join('')}
