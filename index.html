@@ -1619,7 +1619,7 @@ tabs.innerHTML = CHARS.map((c,i) => `<button class="tab" role="tab" id="tab-${c.
 const PORTRAITS = {
  asu:[{src:'assets/portraits/asu_01.jpg', pos:'50% 40%', slot:'live'},{src:'assets/portraits/asu_02.jpg', pos:'52% 40%', slot:'morning'},{src:'assets/portraits/asu_03.jpg', pos:'58% 40%', slot:'day'},{src:'assets/portraits/asu_04.jpg', pos:'46% 35%', slot:'evening'}],
  momiji:[{src:'assets/portraits/momiji_01.jpg', pos:'52% 40%', slot:'morning'},{src:'assets/portraits/momiji_02.jpg', pos:'50% 40%', slot:'day'},{src:'assets/portraits/momiji_03.jpg', pos:'44% 40%', slot:'live'},{src:'assets/portraits/momiji_04.jpg', pos:'50% 35%', slot:'evening'}],
- rin:[{src:'assets/portraits/rin_01.jpg', pos:'40% 40%', slot:'morning'},{src:'assets/portraits/rin_02.jpg', pos:'42% 40%', slot:'day'},{src:'assets/portraits/rin_03.jpg', pos:'58% 40%', slot:'live'}]
+ rin:[{src:'assets/portraits/rin_01.jpg', pos:'40% 40%', slot:'morning'},{src:'assets/portraits/rin_02.jpg', pos:'42% 40%', slot:'day'},{src:'assets/portraits/rin_03.jpg', pos:'58% 40%', slot:'live'},{src:'assets/portraits/rin_04.jpg', pos:'56% 30%', slot:'evening'}]
 };
 const SLOT_JP = {morning:'朝', day:'昼', evening:'夕方', live:'配信中', night:'夜ふけ'};
 const nowSlot = () => {
@@ -2992,7 +2992,8 @@ const BUKI = [
    {src:'assets/hero.jpg', alt:'蔦に覆われた木造校舎の前に立つ、もみじ・あーすさん・凛の3人。遠くの山に巨大な人影が見える。', pos:'50% 40%', mpos:'56% 50%'},
    {src:'assets/daily2.jpg', alt:'渡り廊下で話す3人。下には水路と、蔦に覆われた街が見える。', pos:'50% 42%', mpos:'60% 50%', tl:true},
    {src:'assets/hero/hero_03.jpg', alt:'紅葉した大きな木の下で落ち葉をはく3人。もみじが落ち葉を空へ放り、あーすさんが竹ぼうきを持って見上げ、凛は縁側で紅茶を飲んでいる。', pos:'50% 45%', mpos:'60% 50%', tl:true, m:[10,11]},
-   {src:'assets/hero/hero_04.jpg', alt:'夕焼けの2階の渡り廊下で、紅葉した山を眺める3人。マフラーを巻いたもみじが遠くを指さし、あーすさんは腰壁にほおづえをつき、凛は柱にもたれて腕を組んでいる。', pos:'50% 45%', mpos:'66% 50%', tl:true, m:[11,12]}
+   {src:'assets/hero/hero_04.jpg', alt:'夕焼けの2階の渡り廊下で、紅葉した山を眺める3人。マフラーを巻いたもみじが遠くを指さし、あーすさんは腰壁にほおづえをつき、凛は柱にもたれて腕を組んでいる。', pos:'50% 45%', mpos:'66% 50%', tl:true, m:[11,12]},
+   {src:'assets/hero/hero_05.jpg', alt:'うっすら雪のつもった中庭で、小さなもみの木を飾りつける3人。もみじが背のびをしててっぺんに星をつけ、あーすさんは飾りの入った木箱をかかえて見上げ、凛は電球のひもを持っている。', pos:'50% 45%', mpos:'68% 50%', tl:true, m:[12]}
   ];
   const setHero = n => {
     const pool = HEROES.filter(h => !h.m || h.m.includes(M)), seasonal = pool.filter(h => h.m), use = seasonal.length >= 2 ? seasonal : pool;
