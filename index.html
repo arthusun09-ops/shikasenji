@@ -318,6 +318,18 @@ section:not(.shut) .sec-gate .go{background:none;border:0;padding:0}
 .hero:not(.tl) .h-title{top:calc(clamp(16px,4.2vw,58px) + 64px)}
 
 /* 歩き回るドット絵のしかちゃん */
+/* BGM：右上のリングの下の小さなボタン。はじめは音なし、押した人だけ鳴る */
+.bgm{position:fixed;z-index:75;right:max(8px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 132px);width:44px;height:44px;border-radius:50%;padding:0;border:1.5px solid var(--line);background:color-mix(in oklab,var(--ink) 82%,transparent);color:var(--dim);display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.bgm svg{width:22px;height:22px;display:block}
+.bgm .w{opacity:0;transform-origin:8px 12px}
+.bgm[aria-pressed="true"]{color:var(--sig);border-color:var(--sig)}
+.bgm[aria-pressed="true"] .w{opacity:1;animation:bgmw 1.6s ease-in-out infinite}
+.bgm[aria-pressed="true"] .w2{animation-delay:.3s}
+.bgm[aria-pressed="false"] .x{opacity:1}
+.bgm .x{opacity:0}
+.bgm:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+@keyframes bgmw{0%,100%{opacity:.35}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.bgm[aria-pressed="true"] .w{animation:none}}
 .walker{position:fixed;left:0;bottom:env(safe-area-inset-bottom,0px);z-index:80;width:clamp(64px,9vw,92px);padding:0;will-change:transform;cursor:pointer}
 .walker img{display:block;width:100%;height:auto;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgb(0 0 0/.45))}
 .walker.flip img{transform:scaleX(-1)}
@@ -1512,6 +1524,7 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   </div>
   <div class="ringp-body" id="ring-body"></div>
 </div>
+<button class="bgm" id="bgm" type="button" aria-pressed="false" aria-label="音楽をかける" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3l4-3.5v12l-4-3.5H4z" fill="currentColor" stroke="none"/><path class="w w1" d="M14.5 9.2a4 4 0 0 1 0 5.6"/><path class="w w2" d="M17.3 6.6a7.6 7.6 0 0 1 0 10.8"/><path class="x" d="M15 9.5l5 5M20 9.5l-5 5"/></svg></button>
 <button class="walker" id="walker" aria-label="しかちゃん。押すと話します"><img id="walker-img" src="assets/sc_idle.webp" alt="" width="151" height="195"></button>
 <a class="bubble" id="bubble" href="#diary" hidden></a>
 
@@ -2465,6 +2478,25 @@ addEventListener('hashchange', vDeep); vDeep();
 addEventListener('popstate', ev => { if(ev.state && ev.state.v && (VLOGS[ev.state.v] || ['diary','arc','map','note'].includes(ev.state.v))){ dsel = ev.state.d || ''; vOpen(ev.state.v, false); } else vHide(); });
 addEventListener('keydown', ev => { if(ev.key === 'Escape' && !vpage.hidden) vClose(); });
 renderCovers();
+// ── BGM（はじめは鳴らさない。ボタンを押した人だけ。つぎに来たときは、最初にどこかを押したところから鳴る）
+(() => {
+  const BGM = 'assets/bgm/main.mp3'; // 曲のファイル（例 'assets/bgm/main.mp3'）。空のあいだはボタンを出さない
+  const bt = document.getElementById('bgm'); if(!bt || !BGM) return;
+  const au = new Audio(); au.src = BGM; au.loop = true; au.preload = 'none'; au.volume = 0;
+  const VOL = 0.32; let want = false, fade = 0;
+  const get = () => { try { return localStorage.getItem('sk_bgm') === '1'; } catch(e) { return false; } };
+  const put = v => { try { localStorage.setItem('sk_bgm', v ? '1' : '0'); } catch(e) {} };
+  const show = on => { bt.setAttribute('aria-pressed', on ? 'true' : 'false'); bt.setAttribute('aria-label', on ? '音楽をとめる' : '音楽をかける'); };
+  const ramp = (to, done) => { cancelAnimationFrame(fade); const from = au.volume, t0 = performance.now(), d = 900;
+    const step = t => { const k = Math.min(1, (t - t0) / d); au.volume = Math.max(0, Math.min(1, from + (to - from) * k)); if(k < 1) fade = requestAnimationFrame(step); else if(done) done(); }; fade = requestAnimationFrame(step); };
+  const play = () => { want = true; show(true); const p = au.play(); if(p && p.catch) p.catch(() => { want = false; show(false); }); ramp(VOL); };
+  const stop = () => { want = false; show(false); ramp(0, () => au.pause()); };
+  bt.hidden = false;
+  bt.addEventListener('click', ev => { ev.stopPropagation(); if(want){ stop(); put(false); } else { play(); put(true); } });
+  if(get()){ const first = ev => { if(ev.target.closest && ev.target.closest('#bgm')) return; removeEventListener('pointerdown', first, true); if(!want && get()) play(); }; addEventListener('pointerdown', first, true); }
+  document.addEventListener('visibilitychange', () => { if(document.hidden){ if(want) au.pause(); } else if(want){ const p = au.play(); if(p && p.catch) p.catch(() => {}); } });
+})();
+
 // ── 歩き回るドット絵のしかちゃん
 (() => {
   const el = document.getElementById('walker'), img = document.getElementById('walker-img'), bub = document.getElementById('bubble');
