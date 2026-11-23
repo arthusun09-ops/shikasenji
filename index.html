@@ -3130,4 +3130,133 @@ html{scrollbar-color:var(--sig) var(--ink);caret-color:var(--sig)}
 /* 動きを減らす設定の人には、流れる帯・ちり・点滅を止める */
 @media (prefers-reduced-motion:reduce){.tape span,.dust,.lamp::before,.writer img,.t-diary .vhead img{animation:none}}
 </style>
+
+<style id="ui-moments">
+/* 小さな動き（押す・切りかえる・数える）。動きを減らす設定の人には出さない */
+html.uim .nav{position:relative;isolation:isolate}
+html.uim .nav a:hover{background:none}
+html.uim .nav a{transition:color .18s}
+html.uim .nav a.uim-on{color:var(--ink)}
+.uim-blob{position:absolute;z-index:-1;left:0;top:0;height:0;width:0;background:var(--sig);transform:skewX(-12deg);opacity:0;pointer-events:none;transition:left .42s cubic-bezier(.3,1.35,.5,1),width .42s cubic-bezier(.3,1.35,.5,1),opacity .2s}
+.uim-blob.mv{transition:left .16s ease-out,width .16s ease-out,opacity .2s}
+.uim-prog{position:absolute;left:0;right:0;bottom:-2px;height:2px;background:linear-gradient(90deg,var(--sig),var(--pink));transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+.uim-rip{position:fixed;z-index:200;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid var(--sig);pointer-events:none;animation:uimRip .55s cubic-bezier(.2,.7,.2,1) both}
+.uim-rip.b{animation-delay:.09s;border-color:var(--pink);border-width:1px}
+@keyframes uimRip{from{scale:.4;opacity:.9}to{scale:5.2;opacity:0}}
+.uim-mm{display:inline-block;position:relative;width:14px;height:10px;margin-right:8px;vertical-align:-1px}
+.uim-mm b{position:absolute;left:0;right:0;height:2px;background:currentColor;transition:top .28s cubic-bezier(.3,1.4,.5,1),rotate .28s cubic-bezier(.3,1.4,.5,1),opacity .15s}
+.uim-mm b:nth-child(1){top:0}.uim-mm b:nth-child(2){top:4px}.uim-mm b:nth-child(3){top:8px}
+.uim-open .uim-mm b:nth-child(1){top:4px;rotate:45deg}.uim-open .uim-mm b:nth-child(2){opacity:0}.uim-open .uim-mm b:nth-child(3){top:4px;rotate:-45deg}
+html.uim #menu:popover-open a{animation:uimSlide .32s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 28ms)}
+@keyframes uimSlide{from{opacity:0;translate:18px 0}to{opacity:1;translate:0 0}}
+html.uim .bgm::before{content:"";position:absolute;inset:0;border-radius:50%;background:color-mix(in oklab,var(--sig) 26%,transparent);scale:0;transition:scale .5s cubic-bezier(.3,1.5,.5,1)}
+html.uim .bgm[aria-pressed="true"]::before{scale:1}
+html.uim .bgm svg{position:relative}
+html.uim .bgm.uim-ring svg{animation:uimBell .6s cubic-bezier(.3,.6,.3,1)}
+@keyframes uimBell{0%{rotate:0deg}20%{rotate:-16deg}45%{rotate:12deg}70%{rotate:-6deg}100%{rotate:0deg}}
+html.uim .sec-head{border-top-color:transparent}
+.uim-str{position:absolute;left:0;top:-13px;width:100%;height:26px;overflow:visible;pointer-events:none}
+.uim-str path{fill:none;stroke:var(--paper);stroke-width:1;vector-effect:non-scaling-stroke}
+.uim-str circle{fill:var(--sig)}
+html.uim .fan-ctl .dots i{transition:scale .38s cubic-bezier(.3,1.5,.5,1),background .2s}
+html.uim .fan-ctl .dots i.on{scale:1.7}
+.uim-plane{position:fixed;z-index:200;width:26px;height:26px;margin:-13px 0 0 -13px;color:var(--sig);pointer-events:none;animation:uimPlane .9s cubic-bezier(.4,0,.7,.4) both}
+@keyframes uimPlane{0%{translate:0 0;rotate:0deg;scale:.6;opacity:0}15%{opacity:1;scale:1}45%{translate:40px -18px;rotate:-8deg}100%{translate:min(60vw,420px) -160px;rotate:-24deg;scale:.7;opacity:0}}
+</style>
+<script>
+/* UI の小さな動き。ほかの仕組みには手を入れず、上からそっと足すだけ */
+(() => {
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches || !Element.prototype.animate) return;
+  const root = document.documentElement; root.classList.add('uim');
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const SPRING = 'cubic-bezier(.3,1.45,.5,1)';
+
+  /* 1. 押すと、ぷにっとへこんで戻る ＋ 2. 押した所から輪が広がる */
+  const PRESS = 'button,a[href],summary,.sec-head', SKIP = '.rb,.ringc-card,.deck-card,.fan-card,.cf-pin,.walker,.ring,#mapc *,.cfr-stage *';
+  let held = null, heldA = null;
+  const release = () => { if(!held) return; const el = held, d = +el.dataset.uimD; held = null; try{ heldA && heldA.cancel(); }catch(e){}
+    el.animate([{scale: d}, {scale: 1 + (1 - d) * .7}, {scale: 1 - (1 - d) * .2}, {scale: 1}], {duration: 460, easing: 'ease-out'}); };
+  addEventListener('pointerdown', ev => {
+    if(ev.button) return; const el = ev.target.closest && ev.target.closest(PRESS); if(!el) return;
+    for(const c of ['', ' b']){ const r = document.createElement('i'); r.className = 'uim-rip' + c; r.style.left = ev.clientX + 'px'; r.style.top = ev.clientY + 'px';
+      r.addEventListener('animationend', () => r.remove()); document.body.appendChild(r); }
+    if(el.matches(SKIP) || el.matches('.sec-head')) return;
+    const w = el.getBoundingClientRect().width, d = w < 90 ? .86 : w < 260 ? .93 : .975;
+    el.dataset.uimD = d; held = el; heldA = el.animate([{scale: 1}, {scale: d}], {duration: 110, easing: 'ease-out', fill: 'forwards'});
+  }, {passive: true});
+  for(const t of ['pointerup', 'pointercancel', 'blur']) addEventListener(t, release, {passive: true});
+  addEventListener('scroll', () => { if(held) release(); }, {passive: true});
+
+  /* 3. 上のメニュー：いま読んでいる所へ、しるしがのびて動く */
+  const nav = $('.nav'), links = nav ? $$('a', nav) : [];
+  let blob = null, cur = null, hov = null, bt = 0;
+  const moveBlob = () => { if(!blob) return; const a = hov || cur; links.forEach(l => l.classList.toggle('uim-on', l === a));
+    if(!a || !nav.offsetWidth){ blob.style.opacity = 0; return; }
+    const L = a.offsetLeft, W = a.offsetWidth, oL = parseFloat(blob.style.left) || L, oW = parseFloat(blob.style.width) || W, was = +blob.style.opacity;
+    blob.style.top = a.offsetTop + 'px'; blob.style.height = a.offsetHeight + 'px'; blob.style.opacity = 1; clearTimeout(bt);
+    if(!was){ blob.classList.add('mv'); blob.style.left = L + 'px'; blob.style.width = W + 'px'; return; }
+    const l2 = Math.min(L, oL), r2 = Math.max(L + W, oL + oW);
+    blob.classList.add('mv'); blob.style.left = l2 + 'px'; blob.style.width = (r2 - l2) + 'px';
+    bt = setTimeout(() => { blob.classList.remove('mv'); blob.style.left = L + 'px'; blob.style.width = W + 'px'; }, 150); };
+  if(nav){ blob = document.createElement('i'); blob.className = 'uim-blob'; blob.setAttribute('aria-hidden', 'true'); nav.appendChild(blob);
+    links.forEach(l => { l.addEventListener('pointerenter', () => { hov = l; moveBlob(); }); l.addEventListener('focus', () => { hov = l; moveBlob(); }); l.addEventListener('blur', () => { hov = null; moveBlob(); }); });
+    nav.addEventListener('pointerleave', () => { hov = null; moveBlob(); }); addEventListener('resize', moveBlob, {passive: true}); }
+
+  /* 4. 上の帯：どこまで読んだかの線 */
+  const top = $('.top'); let prog = null;
+  if(top){ prog = document.createElement('i'); prog.className = 'uim-prog'; prog.setAttribute('aria-hidden', 'true'); top.appendChild(prog); }
+  const secs = links.map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+  let tick = false;
+  const onScroll = () => { tick = false; const max = root.scrollHeight - innerHeight; if(prog) prog.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    let now = null; for(const s of secs) if(s.getBoundingClientRect().top <= innerHeight * .38) now = s;
+    const a = now ? links.find(l => l.getAttribute('href') === '#' + now.id) : null; if(a !== cur){ cur = a; moveBlob(); } };
+  addEventListener('scroll', () => { if(!tick){ tick = true; requestAnimationFrame(onScroll); } }, {passive: true}); onScroll();
+
+  /* 5. MENU の三本線が × に変わる */
+  const mb = $('#menu-btn'), menu = $('#menu');
+  if(mb && menu){ const i = document.createElement('i'); i.className = 'uim-mm'; i.setAttribute('aria-hidden', 'true'); i.innerHTML = '<b></b><b></b><b></b>'; mb.prepend(i);
+    $$('a', menu).forEach((a, n) => a.style.setProperty('--i', n));
+    menu.addEventListener('toggle', ev => mb.classList.toggle('uim-open', ev.newState === 'open')); }
+
+  /* 6. 音楽ボタン：つけると色がにじんで広がる */
+  const bgm = $('#bgm');
+  if(bgm) new MutationObserver(() => { if(bgm.getAttribute('aria-pressed') === 'true'){ bgm.classList.remove('uim-ring'); void bgm.offsetWidth; bgm.classList.add('uim-ring'); } }).observe(bgm, {attributes: true, attributeFilter: ['aria-pressed']});
+
+  /* 7. 数字がくるっと入れかわる */
+  const odo = el => { let prev = el.textContent; el.style.display = 'inline-block';
+    new MutationObserver(() => { const t = el.textContent; if(t === prev) return; const up = (parseInt(t, 10) || 0) >= (parseInt(prev, 10) || 0); prev = t; if(!/\d/.test(t)) return;
+      el.animate([{translate: up ? '0 .7em' : '0 -.7em', opacity: 0}, {translate: '0 0', opacity: 1}], {duration: 340, easing: SPRING}); }).observe(el, {childList: true, characterData: true, subtree: true}); };
+  ['rec-count', 'fan-no'].forEach(id => { const el = document.getElementById(id); if(el) odo(el); });
+
+  /* 8. 見出しの線：さわると弦のようにゆれる */
+  const strings = [];
+  $$('.sec-head').forEach(h => { const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'), p = document.createElementNS(NS, 'path');
+    svg.setAttribute('class', 'uim-str'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(p); h.appendChild(svg);
+    const s = {h, svg, p, y: 0, v: 0, x: .5, on: false, vis: false}; strings.push(s); draw(s); });
+  function draw(s){ const w = s.svg.clientWidth || s.h.clientWidth || 300; s.p.setAttribute('d', `M0 13 Q${(s.x * w).toFixed(1)} ${(13 + s.y * 2).toFixed(2)} ${w} 13`); }
+  function run(s){ if(s.on) return; s.on = true; const step = () => { s.v += -s.y * .16; s.v *= .9; s.y += s.v; draw(s);
+      if(Math.abs(s.y) < .05 && Math.abs(s.v) < .05){ s.y = 0; s.v = 0; draw(s); s.on = false; return; } requestAnimationFrame(step); }; requestAnimationFrame(step); }
+  const pluck = (s, x, v) => { s.x = Math.min(.9, Math.max(.1, x)); s.v += Math.max(-9, Math.min(9, v)); run(s); };
+  if('IntersectionObserver' in window){ const io = new IntersectionObserver(es => es.forEach(e => { const s = strings.find(q => q.h === e.target); if(!s) return;
+      if(e.isIntersecting && !s.vis && s.seen) pluck(s, .3 + Math.random() * .4, e.boundingClientRect.top > innerHeight / 2 ? -5 : 5); s.vis = e.isIntersecting; s.seen = true; }), {threshold: .6});
+    strings.forEach(s => io.observe(s.h)); }
+  let py = null;
+  addEventListener('pointermove', ev => { if(ev.pointerType === 'touch'){ py = null; return; } const y = ev.clientY;
+    if(py !== null && y !== py) for(const s of strings){ if(!s.vis) continue; const r = s.h.getBoundingClientRect();
+      if((py - r.top) * (y - r.top) <= 0 && ev.clientX >= r.left && ev.clientX <= r.right) pluck(s, (ev.clientX - r.left) / r.width, (y - py) * .9); }
+    py = y; }, {passive: true});
+
+  /* 9. ならんだ札が、順番にぽんと出る */
+  if('IntersectionObserver' in window){ const seen = new WeakSet(); let first = true;
+    const io = new IntersectionObserver(es => { const now = es.filter(e => e.isIntersecting && !seen.has(e.target)); now.forEach((e, n) => { seen.add(e.target); io.unobserve(e.target);
+        if(!first) e.target.animate([{scale: .9, opacity: 0}, {scale: 1, opacity: 1}], {duration: 420, delay: Math.min(n, 8) * 55, easing: SPRING, fill: 'backwards'}); }); first = false; }, {threshold: .15});
+    $$('#entries .drow,#vtabs .vcover,.art-frame,.maplist li,#shorts > *').forEach(el => io.observe(el)); }
+
+  /* 10. ひとことを届けると、紙ひこうきが飛ぶ */
+  addEventListener('submit', ev => { const f = ev.target; if(!f.matches || !f.matches('.vcom')) return; const b = f.querySelector('button[type=submit]'); if(!b) return;
+    const r = b.getBoundingClientRect(), i = document.createElement('i'); i.className = 'uim-plane'; i.setAttribute('aria-hidden', 'true'); i.style.left = (r.left + r.width / 2) + 'px'; i.style.top = (r.top + r.height / 2) + 'px';
+    i.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 11.5 22 3l-5.5 18-4.6-7.2L2 11.5Zm9.9 2.3 3.9 6 3.6-12.4-7.5 6.4Z"/></svg>';
+    i.addEventListener('animationend', () => i.remove()); document.body.appendChild(i); }, true);
+})();
+</script>
 </body></html>
