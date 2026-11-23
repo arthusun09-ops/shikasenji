@@ -726,6 +726,19 @@ figure.sh iframe{display:block;width:100%;aspect-ratio:9/16;border:0;background:
 figure.sh figcaption{font-size:.8rem;line-height:1.5;color:var(--dim);margin-top:6px}
 @media (max-width:760px){.sh-list{grid-template-columns:1fr}}
 .feeds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--sig);text-decoration:none;overflow:hidden;transition:transform .15s,border-color .15s,box-shadow .15s}
+.mg:hover,.mg:focus-visible{transform:translateY(-3px);border-color:var(--sig);box-shadow:0 10px 0 rgba(0,0,0,.35)}
+.mg-stage{position:relative;display:block;min-height:340px;background:linear-gradient(180deg,#141b33 0%,#27345c 55%,#3d5a4a 100%);overflow:hidden}
+.mg-stage::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 6px);pointer-events:none}
+.mg-boss{position:absolute;left:50%;top:10px;height:46%;width:auto;transform:translateX(-50%);filter:drop-shadow(0 6px 0 rgba(0,0,0,.35))}
+.mg-foes{position:absolute;left:0;right:0;top:44%;display:flex;justify-content:center;gap:5%}.mg-foes img{height:74px;width:auto}
+.mg-team{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;align-items:flex-end;gap:3%}.mg-team img{height:96px;width:auto}
+.mg-txt{display:flex;flex-direction:column;gap:12px;padding:clamp(20px,3vw,34px)}
+.mg-txt .tag{font-family:var(--f-util);font-size:.76rem;color:var(--sig);letter-spacing:.1em}
+.mg-txt b{font-family:var(--f-display);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.45}
+.mg-txt .s{font-size:.9rem;color:var(--dim);line-height:1.75}
+.mg-txt i{margin-top:auto;align-self:flex-start;padding:12px 28px;background:var(--sig);color:#111;font-family:var(--f-geo);font-style:normal;font-weight:800;font-size:1.05rem;letter-spacing:.08em}
+@media (max-width:760px){.mg{grid-template-columns:1fr}.mg-stage{min-height:300px}}
 .feed{display:flex;flex-direction:column;gap:8px;min-height:170px;padding:20px 20px 18px;background:var(--panel);border:1px solid var(--line);text-decoration:none;transition:transform .15s,border-color .15s,box-shadow .15s}
 .feed:hover{transform:translate(-3px,-3px);border-color:var(--sig);box-shadow:5px 5px 0 var(--sig)}
 .feed .tag{font-family:var(--f-util);font-size:.76rem;color:var(--sig);letter-spacing:.1em}
@@ -1344,14 +1357,14 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   <div class="wrap">
     <a class="brand" href="#top"><i></i>鹿煎寺高校</a>
     <nav class="nav" aria-label="ページ内">
-      <a href="#diary">DIARY</a><a href="#vlog">LOG</a><a href="#record">RECORD</a><a href="#world">WORLD</a><a href="#character">CHARACTER</a><a href="#keyword">KEYWORD</a><a href="#shop">SHOP</a><a href="#latest">LATEST</a><a href="#art">ART ROOM</a>
+      <a href="#diary">DIARY</a><a href="#vlog">LOG</a><a href="#record">RECORD</a><a href="#world">WORLD</a><a href="#character">CHARACTER</a><a href="#keyword">KEYWORD</a><a href="#shop">SHOP</a><a href="#latest">LATEST</a><a href="#art">ART ROOM</a><a href="#minigame">GAME</a>
     </nav>
     <button class="menu-btn" popovertarget="menu" id="menu-btn">MENU</button>
     <span class="lamp">OFF AIR</span>
   </div>
 </header>
 <div id="menu" popover>
-  <a href="#diary">DIARY　しかちゃんの配信日記</a><a href="#vlog">LOG　もみじと凛の活動日記</a><a href="#record">RECORD　校内記録</a><a href="#world">WORLD　鹿煎寺高校のこと</a><a href="#character">CHARACTER　鹿煎寺高校の人たち</a><a href="#keyword">KEYWORD　校内のことば</a><a href="#shop">SHOP　売店</a><a href="#latest">LATEST　最新の投稿</a><a href="#art">ART ROOM　鹿しか美術室</a>
+  <a href="#diary">DIARY　しかちゃんの配信日記</a><a href="#vlog">LOG　もみじと凛の活動日記</a><a href="#record">RECORD　校内記録</a><a href="#world">WORLD　鹿煎寺高校のこと</a><a href="#character">CHARACTER　鹿煎寺高校の人たち</a><a href="#keyword">KEYWORD　校内のことば</a><a href="#shop">SHOP　売店</a><a href="#latest">LATEST　最新の投稿</a><a href="#art">ART ROOM　鹿しか美術室</a><a href="#minigame">GAME　鹿しかミニゲーム</a>
 </div>
 
 <main id="top">
@@ -1485,6 +1498,18 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   <div class="sec-head"><span class="no" aria-hidden="true">09</span><div class="sec-t"><span class="sec-en" aria-hidden="true">= ART ROOM</span><h2 class="sec-jp">鹿しか美術室</h2><span class="sec-tag" aria-hidden="true">SHIKASENJI_FILE ／ SECTOR_09</span></div><i class="hatch" aria-hidden="true"></i></div>
   <p class="art-lead">壁にかかっているのは、鹿煎寺高校の毎日を描いた1ページ漫画。額の中では、漫画が動いている。絵にふれると、大きく見られる。</p>
   <div class="art-wall" id="art-wall"></div>
+</div></section>
+
+<section id="minigame"><div class="wrap">
+  <div class="sec-head"><span class="no" aria-hidden="true">10</span><div class="sec-t"><span class="sec-en" aria-hidden="true">= GAME</span><h2 class="sec-jp">鹿しかミニゲーム</h2><span class="sec-tag" aria-hidden="true">SHIKASENJI_FILE ／ SECTOR_10</span></div><i class="hatch" aria-hidden="true"></i></div>
+  <a class="mg" href="game/">
+    <span class="mg-stage" aria-hidden="true">
+      <img class="mg-boss" src="game/img/boss.webp" alt="" loading="lazy">
+      <span class="mg-foes"><img src="game/img/e_w1.webp" alt="" loading="lazy"><img src="game/img/e_w2.webp" alt="" loading="lazy"><img src="game/img/e_w1.webp" alt="" loading="lazy"><img src="game/img/e_w2.webp" alt="" loading="lazy"><img src="game/img/e_w1.webp" alt="" loading="lazy"></span>
+      <span class="mg-team"><img src="game/img/p_shika_b.webp" alt="" loading="lazy"><img src="game/img/p_asu_b.webp" alt="" loading="lazy"><img src="game/img/p_momiji_b.webp" alt="" loading="lazy"><img src="game/img/p_rin_b.webp" alt="" loading="lazy"></span>
+    </span>
+    <span class="mg-txt"><span class="tag">MINI GAME ／ ひとりであそべる</span><b>地面撃ちマンの群れを、ゲートで増やした弾で迎え撃とう。</b><span class="s">しかちゃん、あーすさん、もみじ、凛から、ひとりをえらぶ。左右に動くだけで、あそべる。音が出ます。</span><i>▶ あそぶ</i></span>
+  </a>
 </div></section>
 
 <div class="comic" id="comic"><div class="wrap">
@@ -2846,8 +2871,8 @@ const BUKI = [
 
 // ── 探索：各項目は閉じた扉。開くと中身が現れ、ときどきしかちゃんが飛び出す
 (() => {
-  const HINT = {diary:'しかちゃんが、なにか書いているみたい。', vlog:'ノートが2冊、置いてある。', world:'山の上に、なにがある？', record:'引き出しに、ファイルがしまってある。', character:'だれかの気配がする。', keyword:'知らないことばが、いくつか。', latest:'いま、なにか流れている？', art:'壁に、絵がかかっている。', shop:'のれんの奥から、関西弁がきこえる。'};
-  const PEEK = {diary:['assets/portraits/asu_01.jpg','50% 30%'], vlog:['assets/vlog/rin_02_2.jpg','50% 40%'], world:['assets/hero.jpg','30% 35%'], record:['assets/daily2.jpg','8% 30%'], character:['assets/portraits/asu_03.jpg','58% 25%'], keyword:['assets/shika.jpg','50% 18%'], latest:['assets/portraits/rin_03.jpg','58% 30%'], art:['assets/manga/p01.jpg','60% 44%'], shop:['assets/setting/shop.jpg','50% 50%']};
+  const HINT = {diary:'しかちゃんが、なにか書いているみたい。', vlog:'ノートが2冊、置いてある。', world:'山の上に、なにがある？', record:'引き出しに、ファイルがしまってある。', character:'だれかの気配がする。', keyword:'知らないことばが、いくつか。', latest:'いま、なにか流れている？', art:'壁に、絵がかかっている。', minigame:'なにか、ぴこぴこ鳴っている。', shop:'のれんの奥から、関西弁がきこえる。'};
+  const PEEK = {diary:['assets/portraits/asu_01.jpg','50% 30%'], vlog:['assets/vlog/rin_02_2.jpg','50% 40%'], world:['assets/hero.jpg','30% 35%'], record:['assets/daily2.jpg','8% 30%'], character:['assets/portraits/asu_03.jpg','58% 25%'], keyword:['assets/shika.jpg','50% 18%'], latest:['assets/portraits/rin_03.jpg','58% 30%'], art:['assets/manga/p01.jpg','60% 44%'], minigame:['game/img/boss.webp','50% 20%'], shop:['assets/setting/shop.jpg','50% 50%']};
   const secs = [...document.querySelectorAll('section[id]')].filter(x => HINT[x.id] && x.querySelector('.sec-head'));
   let seen = []; try { seen = JSON.parse(localStorage.getItem('sk_seen') || '[]'); } catch(e) {}
   if(!Array.isArray(seen)) seen = [];
@@ -3001,7 +3026,8 @@ const CHANNEL = {checked:'2026.11.19', thru:'11.16', subs:8230, d1:8, d7:105, d2
       <a href="#keyword"><small>06 KEYWORD</small>校内のことば</a>
       <a href="#shop"><small>07 SHOP</small>売店</a>
       <a href="#latest"><small>08 LATEST</small>最新の配信と投稿</a>
-      <a href="#art"><small>09 ART ROOM</small>鹿しか美術室</a></div>`,
+      <a href="#art"><small>09 ART ROOM</small>鹿しか美術室</a>
+      <a href="#minigame"><small>10 GAME</small>鹿しかミニゲーム</a></div>`,
     momiji: () => `<p class="say">いまフォートナイトで話題になってること、あたしがまとめたよ！</p><div class="rlist" style="--rc:${INFO.momiji.c}">
       ${STREAMS.next ? `<a href="${YT(STREAMS.next.v)}" target="_blank" rel="noopener"><small>NEXT ／ つぎの配信</small>${esc(STREAMS.next.title)}</a>` : ''}
       ${SHORTS.map((x,i) => `<a href="https://www.youtube.com/shorts/${encodeURIComponent(x.v)}" target="_blank" rel="noopener"><small>TOPIC ${String(i+1).padStart(2,'0')}</small>${esc(x.t)}</a>`).join('')}</div>`,
