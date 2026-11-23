@@ -105,7 +105,9 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 
 /* ===== 絵 ===== */
 const IMG={};
-function load(k,src){const i=new Image();i.onload=()=>{i.ok=1};i.src=src;IMG[k]=i;return i;}
+// 更新したとき古い絵や音が残らないように、版の番号をつけて読む
+const VER='20261123b',V=u=>u+'?v='+VER;
+function load(k,src){const i=new Image();i.onload=()=>{i.ok=1};i.src=V(src);IMG[k]=i;return i;}
 // 主人公（a=構え b=撃った瞬間）
 const CH={
   asu:{n:'あーすさん',c:'#59c3ff',w:'STAR SEEKER',d:'弾が2体までつらぬく',pierce:2,rate:10,spread:0,dmg:1,shot:'#7fe0ff',
@@ -128,12 +130,12 @@ const HE={
 };
 for(const k in CH){load(k,`img/p_${k}.webp`);}
 // 銃口の位置（足もと中央から、描く高さに対する割合）
-const TIP={"p_asu":[0.458,-0.862],"p_rin":[0.485,-0.748],"p_momiji":[0.412,-0.72],"p_shika":[0.25,-0.78],"hf_tacpi":[0.301,-0.779],"hf_havoc":[0.296,-0.799],"hf_bundle":[0.324,-0.853],"hf_fk":[0.336,-0.903],"hf_sfk":[0.326,-0.924],"hf_ham":[0.379,-0.832]};
+const TIP={"p_asu":[0.458,-0.862],"p_rin":[0.485,-0.748],"p_momiji":[0.412,-0.72],"p_shika":[0.27,-0.56],"hf_tacpi":[0.301,-0.779],"hf_havoc":[0.296,-0.799],"hf_bundle":[0.324,-0.853],"hf_fk":[0.336,-0.903],"hf_sfk":[0.326,-0.924],"hf_ham":[0.379,-0.832]};
 // 銃口の光（絵を差しかえず、同じ絵の上に光だけ出す）
 function muzzle(x,y,s){cx.save();cx.translate(x,y);cx.rotate(Math.random()*.6);cx.globalCompositeOperation='lighter';const n=7;cx.beginPath();for(let i=0;i<n*2;i++){const r=(i%2?.42:1)*s,a=i*Math.PI/n;cx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}cx.closePath();cx.fillStyle='#ffd23a';cx.fill();cx.beginPath();cx.arc(0,0,s*.38,0,7);cx.fillStyle='#fff6c8';cx.fill();cx.restore();}
 load('senbei','img/senbei_fly.webp');
 // エフェクトのコマ絵（pixelfx, MIT）
-const FXS={};fetch('fx/fx.json').then(r=>r.json()).then(m=>{for(const k in m){FXS[k]=m[k];FXS[k].img=load('fx_'+k,`fx/${k}.webp`);}}).catch(()=>{});
+const FXS={};fetch(V('fx/fx.json')).then(r=>r.json()).then(m=>{for(const k in m){FXS[k]=m[k];FXS[k].img=load('fx_'+k,`fx/${k}.webp`);}}).catch(()=>{});
 for(const k in HE){load('h_'+k,`img/h_${k}.webp`);load('hf_'+k,`img/hf_${k}.webp`);}
 ['e_w1','e_w2','e_shoot','e_hit','boss','boss_hit','tencho'].forEach(k=>load(k,`img/${k}.webp`));
 
@@ -146,9 +148,9 @@ function bgm(k){if(bgmNow===k)return;bgmNow=k;if(!AC)return;
   if(bgmSrc){const s0=bgmSrc,g0=bgmGain;try{g0.gain.setTargetAtTime(0,AC.currentTime,.25);s0.stop(AC.currentTime+1.2);}catch(e){}}
   bgmSrc=null;if(!k||muted)return;const d=BGMS[k];
   const go=buf=>{if(bgmNow!==k||muted)return;const s=AC.createBufferSource(),g=AC.createGain();s.buffer=buf;s.loop=true;s.loopStart=d.a;s.loopEnd=Math.min(d.b,buf.duration);g.gain.value=0;g.gain.setTargetAtTime(d.v,AC.currentTime,.3);s.connect(g).connect(AC.destination);s.start();bgmSrc=s;bgmGain=g;};
-  if(d.buf)go(d.buf);else fetch(d.u).then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>AC.decodeAudioData(b)).then(buf=>{d.buf=buf;go(buf);}).catch(()=>{});}
+  if(d.buf)go(d.buf);else fetch(V(d.u)).then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>AC.decodeAudioData(b)).then(buf=>{d.buf=buf;go(buf);}).catch(()=>{});}
 function initAudio(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}
-  for(const k in SE)fetch(SE[k][0]).then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>AC.decodeAudioData(b)).then(d=>BUF[k]=d).catch(()=>{});}
+  for(const k in SE)fetch(V(SE[k][0])).then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>AC.decodeAudioData(b)).then(d=>BUF[k]=d).catch(()=>{});}
 const muteB=document.getElementById('mute');
 muteB.onclick=()=>{muted=!muted;muteB.textContent=muted?'🔇':'🔊';if(!muted)initAudio();const k=bgmNow;bgmNow=null;if(muted){bgm(null);bgmNow=k;}else bgm(k||(G&&G.state==='play'?(G.boss?'boss':'main'):null));};
 function tone(f,d=.06,type='triangle',v=.05,slide=1.5){const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*slide,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d+.02);}
@@ -500,7 +502,7 @@ const getBest=()=>{try{return +localStorage.getItem(BKEY)||0}catch(e){return 0}}
 const setBest=v=>{try{localStorage.setItem(BKEY,v)}catch(e){}};
 function showBest(){const b=getBest();$('best').textContent=b?`ベスト　${b} 体`:'';}
 for(const k in CH){const c=CH[k];const b=document.createElement('button');b.className='ch';b.style.setProperty('--c',c.c);
-  b.innerHTML=`<img src="img/sel_${k}.webp" alt=""><b>${c.n}</b><span>${c.w}<br>${c.d}</span>`;b.onclick=()=>{if(!muted)initAudio();sfx('btn');start(k);};$('chars').appendChild(b);}
+  b.innerHTML=`<img src="${V(`img/sel_${k}.webp`)}" alt=""><b>${c.n}</b><span>${c.w}<br>${c.d}</span>`;b.onclick=()=>{if(!muted)initAudio();sfx('btn');start(k);};$('chars').appendChild(b);}
 showBest();
 function say(el,img,name,col,txt){el.innerHTML=`<img src="${img}" alt=""><div><b style="color:${col}">${name}</b><br>${txt}</div>`;}
 let raf=0,last=0,acc=0;
