@@ -18,6 +18,20 @@ body{display:flex;align-items:center;justify-content:center;min-height:100dvh}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2cqw;padding:5cqw;text-align:center;background:linear-gradient(180deg,rgba(16,17,20,.5),rgba(16,17,20,.88))}
 .ov[hidden]{display:none}
+[hidden]{display:none!important}
+/**/.row2{display:flex;align-items:center;justify-content:center;gap:3cqw}
+#toRank{font-size:3.2cqw;padding:1.4cqw 4.5cqw;margin-top:0}
+.rankBox{width:100%;max-width:92cqw;font-size:3.6cqw}
+.rankBox .skr td.w img{height:6cqw}
+.nameBox{display:flex;flex-direction:column;align-items:center;gap:1.4cqw;background:#07060f;border-radius:3cqw;padding:2.4cqw 4cqw;box-shadow:0 0 0 .6cqw #1d1740 inset,0 0 3cqw rgba(255,60,200,.35)}
+.nameBox .lbl{font-size:3.2cqw;color:#8ab4ff}
+.slots{display:flex;gap:3cqw}
+.slot{display:flex;flex-direction:column;align-items:center;gap:.6cqw}
+.slot button{border:0;background:#1d1740;color:#fff;border-radius:1.6cqw;width:11cqw;height:7cqw;font-size:3.6cqw;cursor:pointer}
+.slot b{font-family:"DotGothic16",monospace;font-weight:400;font-size:11cqw;line-height:1;color:#ffd54a;text-shadow:0 0 2cqw rgba(255,213,74,.6);width:11cqw;text-align:center}
+.slot.cur b{animation:skB .5s steps(2) infinite}
+@keyframes skB{50%{opacity:.3}}
+.nameBox .btn{margin-top:.6cqw;font-size:4.2cqw;padding:1.8cqw 7cqw}
 .ov.clr{background:none;justify-content:flex-start;padding-top:12cqw}
 .logo{font-family:"Dela Gothic One",sans-serif;font-size:10.5cqw;line-height:1.05;color:#fff;text-shadow:0 .6cqw 0 var(--orange),0 1.2cqw 0 rgba(0,0,0,.35)}
 .logo small{display:block;font-size:4.2cqw;color:var(--orange);text-shadow:none;letter-spacing:.2em;margin-bottom:1.2cqw}
@@ -26,7 +40,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .chars{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4cqw;width:100%;margin-top:1cqw}
 .ch{position:relative;border:0;border-radius:3cqw;padding:2cqw 2cqw 2.6cqw;background:rgba(255,255,255,.08);color:#fff;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.8cqw;outline:.5cqw solid transparent;transition:transform .1s,outline-color .1s,background .1s}
 .ch:hover,.ch:focus-visible{transform:translateY(-.6cqw);outline-color:var(--c);background:rgba(255,255,255,.14)}
-.ch img{height:21cqw;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 1cqw 0 rgba(0,0,0,.3))}
+.ch img{height:18cqw;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 1cqw 0 rgba(0,0,0,.3))}
 .ch b{font-family:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;font-weight:400;font-size:4.4cqw;color:var(--c)}
 .ch span{font-size:2.9cqw;opacity:.85;line-height:1.4}
 .btn{border:0;border-radius:99px;background:var(--orange);color:#1a0d00;font-family:"Dela Gothic One",sans-serif;font-size:5cqw;padding:2.4cqw 9cqw;cursor:pointer;box-shadow:0 1cqw 0 #a84300;margin-top:1.5cqw}
@@ -53,8 +67,13 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
     <div class="logo"><small>鹿しかミニゲーム</small>地面撃ちマン<br>を止めろ！</div>
     <div class="sub">夜の校庭に、地面撃ちマンの群れがやってきた。<br>ゲートで弾をふやして、ぜんぶ帰ってもらおう。</div>
     <div class="chars" id="chars"></div>
-    <div class="how">指で左右になぞって動く（キーボードは ← →）<br>青い×は弾がふえ、赤い÷は弾がへる。ゲートは左右が入れかわる<br>敵は片側から来る。猛者の踏みつけは赤い側からよけよう</div>
-    <div class="tag" id="best"></div>
+    <div class="how">左右になぞって動く（← →）。青い×で弾がふえ、赤い÷でへる<br>ゲートは左右が入れかわる。踏みつけは赤い側からよけよう</div>
+    <div class="row2"><span class="tag" id="best"></span><button class="btn ghost" id="toRank">🏆 ランキング</button></div>
+  </div>
+
+  <div class="ov" id="rankV" hidden>
+    <div class="rankBox" id="rankL"></div>
+    <button class="btn ghost" id="rankClose">もどる</button>
   </div>
 
   <div class="ov clr" id="clear" hidden>
@@ -66,6 +85,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   <div class="ov" id="over" hidden>
     <div class="big">ゲームオーバー</div>
     <div class="res" id="result"></div>
+    <div class="nameBox" id="nameBox">
+      <div class="lbl">ランキングに名前をのこそう（英数字3文字）</div>
+      <div class="slots" id="slots"></div>
+      <button class="btn" id="reg">とうろく</button>
+    </div>
+    <div class="rankBox" id="rankO" hidden></div>
     <div class="say" id="overSay"></div>
     <button class="btn" id="retry">もういちど</button>
     <button class="btn ghost" id="toTitle">キャラをえらびなおす</button>
@@ -75,6 +100,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   <a id="back" class="icon" href="../#minigame">← 鹿煎寺高校へ</a>
 </div>
 
+<script src="rank.js?v=20261123e"></script>
 <script>
 (()=>{
 'use strict';
@@ -84,9 +110,12 @@ const P={
   playerY:842,         // 自分の足もと
   bulletSpeed:13,
   maxBullets:700,
-  enemyBaseSpeed:.64, enemySpeedPerStage:.13,
-  spawnEvery:50, spawnEveryMin:13, spawnPerStage:5,   // フレーム
-  waveBase:24, wavePerStage:18,
+  enemyBaseSpeed:.5, enemySpeedPerStage:.09,
+  // 群れ：ぎっしり並んだかたまりで押しよせる（本家のような大群）
+  packEvery:150, packEveryMin:55, packPerStage:13,      // フレーム
+  packColsBase:4, packColsMax:7, packRowsBase:2, packRowsPerStage:1.5, packRowsMax:12, packGap:30,
+  waveBase:20, wavePerStage:60,
+  invFrames:70,                                         // 突破されたあと少しのあいだ無敵
   bigChanceBase:.12, bigChancePerStage:.05, bigChanceMax:.4,
   bossHpBase:190, bossHpPow:1.6,
   boxHpBase:25, boxHpPerStage:15,
@@ -107,7 +136,7 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 /* ===== 絵 ===== */
 const IMG={};
 // 更新したとき古い絵や音が残らないように、版の番号をつけて読む
-const VER='20261123d',V=u=>u+'?v='+VER;
+const VER='20261123e',V=u=>u+'?v='+VER;
 function load(k,src){const i=new Image();i.onload=()=>{i.ok=1};i.src=V(src);IMG[k]=i;return i;}
 // 主人公（a=構え b=撃った瞬間）
 const CH={
@@ -207,13 +236,20 @@ function setupStage(){
   G.box=pool.length&&G.friends.length<4?{x:laneX(Math.random()<.5?0:1),y:250,hp:P.boxHpBase+s*P.boxHpPerStage,max:P.boxHpBase+s*P.boxHpPerStage,who:pool[Math.floor(Math.random()*pool.length)],w:112,h:100}:null;
   G.banner={t:0,txt:`STAGE ${s}`};
 }
-function spawnEnemy(){
-  const s=G.stage,big=Math.random()<Math.min(P.bigChanceBase+s*P.bigChancePerStage,P.bigChanceMax);
-  const hp=big?Math.round(4+s*2):1;
-  if(--G.laneLeft<=0){G.lane=1-G.lane;G.laneLeft=Math.floor(rnd(4,9));}
-  const lx=laneX(G.lane);
-  G.en.push({x:big?lx:lx+rnd(-LW/2+30,LW/2-30),y:-50,vy:rnd(.85,1.1)*(P.enemyBaseSpeed+s*P.enemySpeedPerStage),hp,max:hp,r:big?34:22,big,ph:Math.random()*6,shoot:0,hit:0});
+function spawnEnemy(x,y,vy,big){
+  const s=G.stage,hp=big?Math.round(5+s*3):1;
+  G.en.push({x,y,vy,hp,max:hp,r:big?32:15,big,ph:Math.random()*6,shoot:0,hit:0,pack:1});
   G.spawned++;
+}
+// 片側のレーンに、ぎっしり詰まった群れを出す
+function spawnPack(){
+  const s=G.stage;G.lane=Math.random()<.65?1-G.lane:G.lane;
+  const cols=Math.min(P.packColsMax,P.packColsBase+Math.floor(s/2)),rows=Math.min(P.packRowsMax,Math.floor(P.packRowsBase+s*P.packRowsPerStage));
+  const g=P.packGap,lx=laneX(G.lane),x0=lx-(cols-1)*g/2,vy=rnd(.9,1.1)*(P.enemyBaseSpeed+s*P.enemySpeedPerStage);
+  const bigAt=s>=2&&Math.random()<Math.min(.9,.3+s*.12)?Math.floor(rows/2):-1;
+  for(let r=0;r<rows;r++){
+    if(r===bigAt){spawnEnemy(lx,-40-r*g,vy,1);continue;}
+    for(let c=0;c<cols;c++){if(G.spawned>=G.toSpawn+20)return;spawnEnemy(x0+c*g+rnd(-3,3),-40-r*g+rnd(-3,3),vy,0);}}
 }
 function spawnBoss(){const s=G.stage,hp=Math.round(P.bossHpBase*Math.pow(s,P.bossHpPow));G.boss={x:W/2,y:-140,vy:.3+s*.03,hp,max:hp,r:90,dead:0,ph:0,hit:0};G.banner={t:0,txt:'地面撃ちマン（悲しき猛者） 接近！',red:1};sfx('boss');bgm('boss');shake(10,2);}
 
@@ -244,7 +280,7 @@ function step(){
   if(G.t%me.rate===0){const t=TIP['p_'+G.who];fire(G.p.x+t[0]*128,me,1,PY+64+t[1]*128);}
   G.friends.forEach((f,i)=>{const c=HE[f];G.fp=G.fp||[];G.ff=G.ff||[];if(G.fp[i]==null)G.fp[i]=friendX(i);G.fp[i]+=(friendX(i)-G.fp[i])*.22;if(G.ff[i])G.ff[i]--;if((G.t+i*4)%c.rate===0){const t=TIP['hf_'+f];fire(G.fp[i]+t[0]*112,c,0,PY+58+t[1]*112);G.ff[i]=5;}});
   // 出現
-  if(G.spawned<G.toSpawn){const iv=Math.max(P.spawnEveryMin,P.spawnEvery-s*P.spawnPerStage);if(G.t%iv===0){spawnEnemy();if(Math.random()<.3+s*.05)spawnEnemy();}}
+  if(G.spawned<G.toSpawn){const iv=Math.max(P.packEveryMin,P.packEvery-s*P.packPerStage);if(G.t%iv===20)spawnPack();}
   else if(!G.boss&&G.en.length===0)spawnBoss();
   for(const r of G.rows){r.next--;if(r.next===70){r.warn=70;sfx('warn',.35);}if(r.warn)r.warn--;
     if(r.next<=0){r.side=1-r.side;r.next=Math.max(P.swapMin,P.swapBase-s*25)+Math.floor(rnd(0,90));}}
@@ -288,9 +324,9 @@ function step(){
     if(e.dead)continue;
     e.ph+=.16;
     if(e.shoot>0){e.shoot--;if(e.shoot%8===0)groundSpark(e.x,e.y+e.r*1.1);}
-    else{e.y+=e.vy;if(Math.random()<.004)e.shoot=40;}
+    else{e.y+=e.vy;if(Math.random()<(e.big?.004:.0006))e.shoot=40;}
     if(e.hit)e.hit--;
-    if(e.y>PY+6){e.dead=2;hurt(e.x);}
+    if(e.y>PY+6){e.dead=2;if(!G.inv)hurt(e.x);}
   }
   G.en=G.en.filter(e=>!e.dead);
   if(G.boss){const B=G.boss;B.ph+=.07;if(B.hit)B.hit--;
@@ -304,10 +340,11 @@ function step(){
       if(laneOf(G.p.x)===S.lane){G.life--;stop(P.hitstopHurt);flash(8,'#e8383d');sfx('hurt');pop(G.p.x,PY-90,'踏みつけ！','#ff6b6b');}else pop(laneX(1-S.lane),PY-120,'よけた！','#7fe0ff');}
     if(S.t<-14)G.slam=null;}
   updFX();
+  if(G.inv)G.inv--;
   if(G.banner){G.banner.t++;if(G.banner.t>90)G.banner=null;}
   if(G.life<=0&&G.state==='play')gameOver();
 }
-function hurt(x){G.life--;stop(P.hitstopHurt);shake(14,2);flash(8,'#e8383d');sfx('hurt');pop(x,PY-90,'突破された！','#ff6b6b');}
+function hurt(x){G.life--;G.inv=P.invFrames;stop(P.hitstopHurt);shake(14,2);flash(8,'#e8383d');sfx('hurt');pop(x,PY-90,'突破された！','#ff6b6b');}
 function updFX(){
   if(G.shake>0)G.shake*=.86;if(G.shake<.4)G.shake=0;
   if(G.flash)G.flash--;
@@ -561,8 +598,31 @@ $('next').onclick=()=>{G.stage++;G.friends=[];G.fp=[];G.ff=[];G.dance=null;setup
 function gameOver(){G.state='over';sfx('over');bgm(null);const best=Math.max(getBest(),G.score);setBest(best);
   $('result').innerHTML=`ステージ <b>${G.stage}</b>　帰ってもらった数 <b>${G.score}</b><br><span style="font-size:.8em;opacity:.8">ベスト ${best} 体</span>`;
   const lines=['今日はここまでやな。弾はまだ仰山あるさかい、また来てや。知らんけど。','ええ腕しとるやん。ゲートが入れかわる前に動くんがコツやで。知らんけど。','箱の助っ人、はよ呼んだ方がええで。知らんけど。'];
-  say($('overSay'),'img/tencho.webp','鹿店長','#c0661f',lines[Math.floor(Math.random()*lines.length)]);
+  say($('overSay'),'img/tencho.webp','鹿店長','#c0661f',lines[Math.floor(Math.random()*lines.length)]);openEntry();
   $('over').hidden=false;}
+
+/* ===== ハイスコアランキング（rank.js） ===== */
+const CHS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const NKEY='shikasenji_minigame_name';
+let nm=(()=>{try{return (localStorage.getItem(NKEY)||'AAA').padEnd(3,'A').slice(0,3)}catch(e){return 'AAA'}})().split(''),cur=0,regDone=false;
+function drawSlots(){const b=$('slots');b.innerHTML='';nm.forEach((c,i)=>{const d=document.createElement('div');d.className='slot'+(i===cur?' cur':'');
+  d.innerHTML=`<button aria-label="上">▲</button><b>${c}</b><button aria-label="下">▼</button>`;
+  const step=k=>{nm[i]=CHS[(CHS.indexOf(nm[i])+k+CHS.length)%CHS.length];cur=i;sfx('btn',.5);drawSlots();};
+  d.children[0].onclick=()=>step(-1);d.children[2].onclick=()=>step(1);d.children[1].onclick=()=>{cur=i;drawSlots();};b.appendChild(d);});}
+addEventListener('keydown',e=>{if($('over').hidden||regDone||$('nameBox').hidden)return;const k=e.key.toUpperCase();
+  if(k.length===1&&CHS.includes(k)){nm[cur]=k;cur=Math.min(2,cur+1);drawSlots();e.preventDefault();}
+  else if(e.key==='Backspace'){cur=Math.max(0,cur-1);drawSlots();e.preventDefault();}
+  else if(e.key==='ArrowUp'||e.key==='ArrowDown'){const i=cur;nm[i]=CHS[(CHS.indexOf(nm[i])+(e.key==='ArrowUp'?-1:1)+CHS.length)%CHS.length];drawSlots();e.preventDefault();}
+  else if(e.key==='Enter'){$('reg').click();e.preventDefault();}});
+function showRank(el,mine){if(!window.SKRank){el.hidden=true;return;}el.hidden=false;SKRank.render(el,[],{});el.querySelector('.msg').textContent='読みこみ中…';
+  SKRank.load().then(l=>{if(mine&&l&&!l.some(e=>e.name===mine.name&&e.score===mine.score&&e.who===mine.who))l=SKRank.insert(l,mine);SKRank.render(el,l,{mine,top:10});});}
+function openEntry(){regDone=false;const can=window.SKRank&&G.score>0;$('nameBox').hidden=!can;$('rankO').hidden=true;$('overSay').hidden=false;$('reg').disabled=false;$('reg').textContent='とうろく';cur=0;if(can)drawSlots();}
+$('reg').onclick=()=>{if(regDone)return;regDone=true;const name=nm.join('');try{localStorage.setItem(NKEY,name)}catch(e){}
+  sfx('join');$('reg').disabled=true;$('reg').textContent='おくっています…';const mine={name,score:G.score,stage:G.stage,who:G.who};
+  SKRank.submit(name,G.score,G.stage,G.who).then(()=>{$('nameBox').hidden=true;$('overSay').hidden=true;setTimeout(()=>showRank($('rankO'),mine),1200);});};
+$('toRank').onclick=()=>{sfx('btn');$('title').hidden=true;$('rankV').hidden=false;showRank($('rankL'));};
+$('rankClose').onclick=()=>{sfx('btn');$('rankV').hidden=true;$('title').hidden=false;};
+
 $('retry').onclick=()=>{sfx('btn');start(G.who);};
 $('toTitle').onclick=()=>{$('over').hidden=true;$('title').hidden=false;showBest();};
 function loop(now){
@@ -573,7 +633,7 @@ function loop(now){
 }
 // タイトルの後ろ
 newGame('asu');G.state='demo';
-for(let i=0;i<6;i++)spawnEnemy();G.en.forEach((e,i)=>e.y=180+i*90);
+for(let i=0;i<14;i++)spawnEnemy(rnd(L+30,R-30),160+i*48,.5,0);
 (function demo(){if(G.state!=='demo')return;G.t++;for(const e of G.en)e.ph+=.1;draw();requestAnimationFrame(demo);})();
 window.skGame={get G(){return G},start,P,step,setTx:v=>{tx=v}};
 })();
