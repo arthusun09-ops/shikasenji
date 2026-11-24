@@ -1589,7 +1589,7 @@ const CHARS = [
   secret:'なぜ配信をしているのかは、' + R(6) + '。'},
  {id:'momiji', name:'もみじ', en:'MOMIJI', color:'oklch(0.84 0.15 85)', img:'assets/momiji.webp', thumb:'assets/momiji_f2.jpg',
   role:'高校2年／見張り役', catch:'あーすさんの親友。明るくて元気で、スポーツ万能。配信中は見張りをしている。',
-  spec:[['住まい','寮'],['見た目','黒髪をひとつのお団子に。オレンジの瞳。'],['服','白いセーラー服にオレンジのスカーフ。オレンジのスニーカー。'],['性格','明るくて元気で、人懐っこい。誰とでもすぐ仲良くなる。'],['好き','走ること（毎朝、日の出前に校庭を走る）。オレンジ色のもの（見ると欲しくなる）。食べること。'],['苦手','勉強（あーすさんほど得意ではない）'],['くせ','階段は2段飛ばし。ドローン1機ずつに名前を付けて、話しかける。寝相がとても悪く、朝はたいてい布団から落ちている。'],['配信では','見張り役'],['武器','サブマシンガン「STAR SPLASH」']],
+  spec:[['住まい','寮'],['見た目','黒髪をひとつのお団子に。オレンジの瞳。'],['服','白いセーラー服にオレンジのスカーフ。オレンジのスニーカー。'],['性格','明るくて元気で、人懐っこい。誰とでもすぐ仲良くなる。'],['好き','走ること（毎朝、日の出前に校庭を走る）。オレンジ色のもの（見ると欲しくなる）。食べること。'],['苦手','勉強（あーすさんほど得意ではない）'],['くせ','階段は2段飛ばし。ドローン1機ずつに名前を付けて、話しかける。寮の部屋ではテントを張って寝袋で寝る、部屋テント派。寝相がとても悪く、朝はたいてい寝袋ごとテントからはみ出している。'],['配信では','見張り役'],['武器','サブマシンガン「STAR SPLASH」']],
   able:[['運動ならだいたい何でも','走る、跳ぶ、登る、泳ぐ、投げる。球技も、宙返りのような身のこなしも。'],['FPVドローンの操縦','ゴーグルをかけて、小さなドローンを思いどおりに飛ばす。'],['いやな予感','危ないことが近づくと、なんとなく分かる。よく当たる。'],['よく見える目','遠くのものも、小さな動きも見のがさない。'],['とっさの反応','不意のできごとにも固まらない。よけるのがうまい。'],['走りながら撃つ','STAR SPLASH の扱いは一番。構えるのも速い。'],['あとを追う','足あとをたどる。気づかれずに、ついて行く。'],['すぐ元気になる','体がじょうぶで、疲れてもすぐ回復する。'],['道にくわしい','学校のまわりの道と山道。地図も読める。'],['組紐むすび','いろいろな結び方を指が覚えていて、急いでいても暗くても、きれいに結べる。'],['手ぶりで伝える','声を出せないときは、身ぶりで合図する。けがの手当てもできる。']],
   weak:[['考えるより先に動く','思いついたら、もう走り出している。'],['ぜんぶ顔に出る','うれしいのも、嘘も、見張っているのも、顔を見れば分かる。'],['ひとりが苦手','ひとりでいると落ち着かない。誰かのそばにいたい。'],['よく食べる','おいしそうなものを前にすると、がまんがきかない。'],['やきもち','あーすさんがほかの人と仲良くしていると、少しもやもやする。'],['確かめに行ってしまう','知らないものを見つけると、近くまで見に行く。'],['心配しすぎる','あーすさんが無事かどうか、自分の目で見ないと気がすまない。'],['友だちを放っておけない','あーすさんと凛が困っていたら、迷わず行く。']],
   faces:['ふつう','にこ','大笑い','照れ','むっ','びっくり'],
@@ -1777,10 +1777,10 @@ const CF = {
   yaku:'見張り役', sumai:'寮', st:[11,13,10,12,12,10], best:['走りながら撃つ',17],
   feat:'足の速さと反応で動きまわる見張り役。ドローンで先を見て、いやな予感でいち早く気づく。考えるより先に走り出すのが玉にきず。',
   eq:[['goggle','FPVゴーグル'],['drone','ドローン']], wpn:['assets/starsplash.jpg','STAR SPLASH'], dot:'assets/chibi/momiji_w1.webp', say:'よーし、\n今日も走るぞー！', sayimg:'assets/chibi_momiji.jpg',
-  tag:'元気いっぱい、オレンジだらけ。', lead:'窓から校庭が見える、寮の部屋。気がつくとオレンジ色のものが増えている。',
-  pins:[[15,58,'ベッド','寝相がとても悪くて、朝はたいてい布団から落ちている。','朝には、だいたいこう。'],[80,43,'ドローンの机','小さなドローンたち。1機ずつ名前がある。ゴーグルと送信機もここ。','みんな、名前があるよ。'],[94,21,'待機箱','巣箱のような箱。ドローンが充電しながら待っている。','ドローンのおうち。'],[83,19,'組紐のボード','いろいろな飾り結び。結び方は、指が覚えている。','指が覚えてる結び方。'],[83,88,'ランニングシューズ','毎朝、日の出前に校庭を走るための一足。','毎朝、これで走る。'],[39,64,'鹿せんべい','おやつの鹿せんべい。おいしそうなものには、がまんがきかない。','おやつは、がまんしない。']],
-  todo:['日の出前に、校庭を走る','ドローンの充電','ふとんを直す（たぶん忘れる）','鹿せんべいをもらいに行く'],
-  lines:['じゃーん！ もみじの部屋だよ！','ふとん？ 朝起きたら落ちてたの。いつもだけど。','この子たち、みんな名前あるんだよ。','オレンジのもの見ると、つい欲しくなっちゃう。','あーすさん、ちゃんとごはん食べたかな。見てこようかな。']},
+  tag:'部屋の中でも、テント泊。', lead:'窓から校庭が見える、寮の部屋。ベッドのかわりにオレンジのテント、まわりは山の道具でいっぱい。',
+  pins:[[21,60,'部屋テント','部屋の中に張ったポップアップテント。中にマットレスを敷いて、寝袋で寝ている。冬でもあたたかくて、のどがかわきにくい。','冬は、ここがいちばんあったかい。'],[5,74,'山の道具','ザックにマット、クッカーとこんろ、ランタン、ロープ。気がつくと増えている。','また増えちゃった。'],[80,43,'ドローンの机','小さなドローンたち。1機ずつ名前がある。ゴーグルと送信機もここ。','みんな、名前があるよ。'],[94,21,'待機箱','巣箱のような箱。ドローンが充電しながら待っている。','ドローンのおうち。'],[83,19,'組紐のボード','いろいろな飾り結び。結び方は、指が覚えている。','指が覚えてる結び方。'],[83,88,'ランニングシューズ','毎朝、日の出前に校庭を走るための一足。','毎朝、これで走る。'],[39,64,'鹿せんべい','おやつの鹿せんべい。おいしそうなものには、がまんがきかない。','おやつは、がまんしない。']],
+  todo:['日の出前に、校庭を走る','ドローンの充電','寝袋を干す（たぶん忘れる）','鹿せんべいをもらいに行く'],
+  lines:['じゃーん！ もみじの部屋だよ！','ベッド？ ないよ。テントで寝てるの。冬でもあったかいんだ。','この子たち、みんな名前あるんだよ。','山の道具、また増えちゃった。オレンジのを見ると、つい。','あーすさん、ちゃんとごはん食べたかな。見てこようかな。']},
  rin:{cd:'#b3272d', ttl:'紅茶と工具の機材担当', copy:'直せるものは、直します。', q:'聞かれたことには、きちんとお答えします。', to:'記録は毎日つけています。よければ、どうぞ。',
   yaku:'機材担当', sumai:'ふもとの町・もと電器屋の2階', st:[11,12,12,11,14,13], best:['百発百中',17],
   feat:'機械と修理をひとりで引き受ける機材担当。気づく力と集中力が高く、Luna Bianca は外さない。作業に入ると、まわりが見えなくなる。',
@@ -1802,7 +1802,7 @@ const CF_ST = ['体力','すばやさ','かしこさ','じょうぶさ','気づ�
   const who = () => `<div class="cf-who" role="group" aria-label="だれのページか">${Object.keys(CF).map(k => `<button type="button" data-who="${k}" aria-pressed="${k===id}" aria-label="${esc(ch(k).name)}"><img src="${ch(k).thumb}" alt=""></button>`).join('')}</div>`;
   const pins = (f, cls) => f.pins.map((p,n) => `<button type="button" class="cf-pin" data-pin="${n}" style="left:${p[0]}%;top:${p[1]}%" aria-label="${esc(p[2])}">${n+1}</button>`).join('');
   const V = {
-   card(c,f){ const L = love(id); return `<div class="cfc"><div class="cfc-bg" style="background-image:url(assets/room/${id}.jpg)"></div><img class="cfc-art" src="${c.img}" alt="${esc(c.name)}の立ち姿">
+   card(c,f){ const L = love(id); return `<div class="cfc"><div class="cfc-bg" style="background-image:url(assets/room/${id}.jpg?v=1125)"></div><img class="cfc-art" src="${c.img}" alt="${esc(c.name)}の立ち姿">
      <div class="cfc-top"><div class="cfc-lv">2年<b>配信部</b></div><div class="cfc-love"><i aria-hidden="true">♥</i><span>なかよし度 Lv.${L.lv}</span><span class="bar"><u style="width:${L.pct}%"></u></span></div></div>
      <div class="cfc-r"><div><p class="cfc-ttl">【${esc(f.ttl)}】</p><h3 class="cfc-name">${esc(c.name)}</h3><p class="cfc-en">${c.en}</p></div>
        <div class="cfc-badge"><b>${esc(f.yaku)}</b><span>鹿煎寺高校</span></div>
@@ -1828,13 +1828,13 @@ const CF_ST = ['体力','すばやさ','かしこさ','じょうぶさ','気づ�
      <div class="cfg-grid"><div class="cfg-say"><p>${esc(f.say).replace(/\n/g,'<br>')}</p><img src="${f.sayimg}" alt="" loading="lazy"></div><div></div></div>
      <div class="cfg-foot"><span>SHIKASENJI HIGH SCHOOL GUIDE BOOK</span><span>05-${String(Object.keys(CF).indexOf(id)+1).padStart(2,'0')}</span></div></div>`; },
    mag(c,f){ return `<div class="cfm" style="--cd:${f.cd}"><span class="cfm-tag">${esc(f.tag)}</span><h3 class="cfm-h"><em>私の</em>部屋。</h3><p class="cfm-en">Room Introduction ／ ${c.en}</p><p class="cfm-lead">${esc(f.lead)}</p>
-     <div class="cfm-grid"><div class="cf-pic"><img class="rm" src="assets/room/${id}.jpg" alt="${esc(c.name)}の部屋。部屋のまん中に${esc(c.name)}が立っている">${pins(f)}</div>
+     <div class="cfm-grid"><div class="cf-pic"><img class="rm" src="assets/room/${id}.jpg?v=1125" alt="${esc(c.name)}の部屋。部屋のまん中に${esc(c.name)}が立っている">${pins(f)}</div>
        <div class="cfm-pts">${f.pins.map((p,n) => `<button type="button" class="cfm-pt" data-pin="${n}"><small>Room Point ${String(n+1).padStart(2,'0')}</small><b>${esc(p[2])}</b><span>${esc(p[3])}</span></button>`).join('')}</div></div>
      <div class="cfm-low"><div class="cfm-card"><h4>Profile</h4><dl><dt>学年</dt><dd>高校2年</dd><dt>部活</dt><dd>配信部（${esc(f.yaku)}）</dd><dt>すまい</dt><dd>${esc(f.sumai)}</dd><dt>好き</dt><dd>${esc(sp(c,'好き'))}</dd><dt>くせ</dt><dd>${esc(sp(c,'くせ'))}</dd></dl></div>
        <div class="cfm-card"><h4>Today's ToDo</h4><ul>${f.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div></div>
      <button type="button" class="cfm-enter" data-go="room"><span>部屋におじゃまする ▶</span></button></div>`; },
    room(c,f){ const L = love(id); const n = Math.min(f.lines.length, 2 + L.lv); li = li % n; return `<div class="cfr" style="--cd:${f.cd}">
-     <div class="cfr-scroll" id="cfr-scroll"><div class="cfr-stage"><img class="rm" src="assets/room/${id}.jpg" alt="${esc(c.name)}の部屋">${f.pins.map((p,k) => `<button type="button" class="cfr-bub" data-bub="${k}" style="left:${p[0]}%;top:${p[1]}%"><b>${esc(p[2])}</b>${esc(p[4])}</button>`).join('')}</div></div>
+     <div class="cfr-scroll" id="cfr-scroll"><div class="cfr-stage"><img class="rm" src="assets/room/${id}.jpg?v=1125" alt="${esc(c.name)}の部屋">${f.pins.map((p,k) => `<button type="button" class="cfr-bub" data-bub="${k}" style="left:${p[0]}%;top:${p[1]}%"><b>${esc(p[2])}</b>${esc(p[4])}</button>`).join('')}</div></div>
      <div class="cfr-hud"><div class="cfr-love"><i>${L.lv}</i><span>なかよし度 Lv.${L.lv}${L.lv<20?'　あと '+L.left:''}</span><span class="bar"><u style="width:${L.pct}%"></u></span></div>
        <div class="cfr-chg"><b>なかよし度で変化</b>部屋に来たり、ふきだしにふれたりすると上がる。上がると、ひとことが増える（いま ${n}／${f.lines.length}）。</div>
        <div class="cfr-say"><img src="${c.thumb}" alt=""><div><h4>${esc(VLOGS[id] ? VLOGS[id].call : c.name)}のひとこと</h4><p id="cfr-line" aria-live="polite">${esc(f.lines[li])}</p></div></div>
@@ -2136,7 +2136,7 @@ const VLOGS = {
    {no:5, date:'2026-11-22', slot:'夕方', title:'北は、ふたつある', arc:'senro',
     body:['やっほー、もみじだよ！ 日曜の、夕方の分。今日は山に行かなかったから、足がむずむずする。',
      'お昼、部室で凛の地図に線路をかいた。きのう線路の上で方位磁針を見たら、レールは北東よりちょっと東を向いてたんだ。そう言ったら凛が「それは、磁石の北ですね」って。磁石の針がさす北（磁北）と、地図の上の北（真北）は、ぴったり同じじゃない。日本だと、磁石の北のほうが西に5度から10度くらいずれてるんだって。だから山で地図と磁石を合わせるときは、そのぶんをなおす。[[北って、ふたつあるんだ]]。知らなかった！ 凛がなおして線をひいたら、線路はトンネルと反対がわで、ふもとのほうへおりていってた。',
-     '午後は手ぶくろさがし。寮のたんす、ベッドの下、部室のたな。ない。あったのは、巣箱のよこの道具箱の中だった。革の、厚いやつ。かたっぽの親指に、小さい穴があいてた。{{こんな穴、あったっけ。}} 売店で糸と針をもらって、ぬった。鹿店長は「穴は小さいうちにふさいどき。知らんけど」だって。',
+     '午後は手ぶくろさがし。寮のたんす、テントの中、部室のたな。ない。あったのは、巣箱のよこの道具箱の中だった。革の、厚いやつ。かたっぽの親指に、小さい穴があいてた。{{こんな穴、あったっけ。}} 売店で糸と針をもらって、ぬった。鹿店長は「穴は小さいうちにふさいどき。知らんけど」だって。',
      '夜ごはんは3人で、鹿せんべいと豆の缶詰。凛が古本屋で見つけた古い時刻表を持ってきて、あーすさんは表紙の絵をずっと見てた。凛は、暗くなってから帰った。懐中電灯を持ってたから、だいじょうぶ。あたしは寮にもどって、あしたの準備。手ぶくろ、飴、ひも。あしたこそ、赤い実！ 夜は静かだった。巣箱の子も、ぐっすり。'],
     imgs:[{src:'assets/vlog/momiji_05_1.jpg', after:2, alt:'部室の机に広げた手がきの地図の上に、丸い方位磁針が置いてある。もみじが身をのりだして指さし、おどろいた顔をしている。窓の外は色づいた山', cap:'磁石の北と、地図の北。'}],
     memo:[{after:2, text:'磁北と真北：日本は西に5〜10度ずれる'},{after:3, text:'親指の穴… いつから？', c:'pink'},{after:4, text:'あした：手ぶくろ・飴・ひも ✓'}],
