@@ -1388,6 +1388,19 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
 <div class="season-strip" id="season-strip" aria-hidden="true"></div>
 <div class="season-fx" id="season-fx" aria-hidden="true"></div>
 
+<!-- EVENT-PV ここから（一時的なイベント告知。外すときは「ここまで」までを消す） -->
+<div class="wrap evpv" id="event-pv">
+  <p class="evpv-k"><b>EVENT</b><span>イベントのお知らせ</span></p>
+  <video class="evpv-v" controls playsinline preload="metadata" src="https://www.dropbox.com/scl/fi/zwah9dxi4i3ipz76eo4q7/gather1129_pv16s_v1.mp4?rlkey=qrvopi7wujf3x828gn3xqfesj&raw=1#t=0.1"></video>
+</div>
+<style>
+.evpv{margin-top:clamp(20px,4vw,40px);display:grid;gap:10px;justify-items:center}
+.evpv-k{display:flex;align-items:center;gap:12px;justify-self:start;margin:0;font-family:var(--f-util);font-size:.85rem;letter-spacing:.1em;color:var(--dim)}
+.evpv-k b{font-family:var(--f-latin);font-style:italic;font-weight:700;font-size:1rem;color:var(--ink);background:var(--pink);padding:2px 12px;transform:skewX(-12deg)}
+.evpv-v{display:block;width:100%;max-width:960px;max-height:82vh;background:#000;border:1px solid var(--line);box-shadow:8px 8px 0 rgb(0 0 0/.45)}
+</style>
+<!-- EVENT-PV ここまで -->
+
 <div class="wrap newest" id="shorts-top"><div class="shorts" id="shorts"></div></div>
 
 <section id="diary"><div class="wrap">
