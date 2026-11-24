@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>凛の研究ノート</title>
+<meta name="description" content="鹿煎寺高校 黒瀬凛がまとめた、あーすさんのチャンネルの記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=DotGothic16&family=Big+Shoulders+Display:wght@800;900&family=Chakra+Petch:ital,wght@1,600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#0a0e13;--panel:#121922;--panel-2:#18222d;--line:#2a3745;
+  --paper:#eef4f1;--dim:#9fb0bd;--mute:#71828f;
+  --rin:oklch(0.62 0.22 25);
+  --s-subs:#e66767;   /* 登録 */
+  --s-views:#3987e5;  /* 再生 */
+  --s-trend:#d95926;  /* 検索熱 */
+  --s-fgg:#199e70;    /* プレイヤー数 */
+  --s-search:#9085e9; /* 検索から来た再生 */
+  --grid:#223040;
+  --f-display:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+  --f-util:"DotGothic16","Zen Kaku Gothic New",monospace;
+  --f-latin:"Chakra Petch",sans-serif;
+  --f-num:"Big Shoulders Display","Chakra Petch",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ink) repeating-linear-gradient(135deg,rgb(255 255 255/.022) 0 2px,transparent 2px 7px);color:var(--paper);font-family:var(--f-body);font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left)) 64px}
+header.top{position:sticky;top:0;z-index:5;background:rgb(10 14 19/.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header.top .in{max-width:760px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.back{font-family:var(--f-util);font-size:13px;color:var(--dim);text-decoration:none;border:1px solid var(--line);padding:4px 10px}
+.back:hover{color:var(--paper);border-color:var(--dim)}
+.brand{font-family:var(--f-display);font-size:15px;letter-spacing:.04em}
+.kick{font-family:var(--f-latin);font-style:italic;color:var(--rin);font-size:13px;letter-spacing:.08em;margin:28px 0 4px}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,6vw,38px);line-height:1.25;margin:0 0 6px}
+.lead{color:var(--dim);margin:0 0 18px;font-size:14px}
+
+/* 凛のことば */
+.talk{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:end;margin:22px 0 10px}
+.talk .chibi{width:78px;height:auto;image-rendering:auto;filter:drop-shadow(0 6px 10px rgb(0 0 0/.5));animation:sway 3.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg) translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){.talk .chibi{animation:none}}
+.bubble{position:relative;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--rin);padding:14px 16px 12px}
+.bubble::after{content:"";position:absolute;left:-10px;bottom:22px;border:7px solid transparent;border-right-color:var(--rin)}
+.bubble h2{font-family:var(--f-display);font-weight:400;font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px}
+.bubble h2 small{font-family:var(--f-latin);font-style:italic;font-size:11px;color:var(--rin);letter-spacing:.08em}
+.bubble ol{margin:0;padding-left:1.3em}
+.bubble li{margin:4px 0}
+.bubble li b{color:var(--paper)}
+.bubble .sub{color:var(--dim);font-size:13px;display:block;line-height:1.6}
+
+/* 数字 */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:20px 0}
+@media (min-width:600px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--line);padding:10px 12px;display:grid;gap:0}
+.kpi small{font-size:12px;color:var(--dim)}
+.kpi b{font-family:var(--f-num);font-weight:900;font-size:32px;line-height:1.1;letter-spacing:.01em}
+.kpi i{font-style:normal;font-size:12px;color:var(--mute)}
+
+/* グラフ */
+section.card{background:var(--panel);border:1px solid var(--line);padding:16px 16px 14px;margin:14px 0}
+section.card h3{font-family:var(--f-display);font-weight:400;font-size:18px;margin:0}
+section.card .q{font-family:var(--f-util);font-size:12px;color:var(--rin);margin:0 0 2px;letter-spacing:.04em}
+section.card .cap{color:var(--dim);font-size:13px;margin:2px 0 10px;line-height:1.6}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--f-body);fill:var(--mute);font-size:11px}
+.chart .lab{fill:var(--dim);font-size:12px}
+.chart .val{fill:var(--paper);font-size:12px;font-weight:700}
+.tip{position:absolute;pointer-events:none;z-index:3;background:#0d141b;border:1px solid var(--line);padding:6px 9px;font-size:12px;line-height:1.5;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .12s;box-shadow:0 6px 18px rgb(0 0 0/.45)}
+.tip.on{opacity:1}
+.tip .k{color:var(--dim)}
+.tip .sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:0}
+.rows .row{display:grid;grid-template-columns:1fr;gap:0;padding:8px 0 4px;border-top:1px dashed var(--line)}
+.rows .row:first-child{border-top:0}
+.rows .rh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.rows .rh span{color:var(--paper);font-weight:700}
+.rows .rh em{font-style:normal;color:var(--dim);font-size:12px}
+.rows .rh em b{color:var(--paper)}
+.meter{display:inline-block;width:46px;height:6px;background:var(--grid);border-radius:3px;vertical-align:middle;margin-left:4px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--paper);border-radius:3px}
+.note{font-size:13px;color:var(--dim);background:var(--panel-2);border-left:3px solid var(--rin);padding:10px 12px;margin:12px 0 0;line-height:1.7}
+.note b{color:var(--paper)}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.types .t{background:var(--panel-2);border:1px solid var(--line);padding:8px 10px}
+.types .t h4{margin:0 0 4px;font-size:13px;font-weight:700}
+.types .t dl{margin:0;display:grid;gap:2px}
+.types .t dt{font-size:11px;color:var(--mute)}
+.types .t dd{margin:0 0 4px;font-family:var(--f-num);font-weight:800;font-size:22px;line-height:1.05}
+.types .t dd small{font-family:var(--f-body);font-size:11px;font-weight:400;color:var(--dim)}
+@media (max-width:420px){.types .t dd{font-size:19px}}
+details.tbl{margin-top:8px;font-size:12px;color:var(--dim)}
+details.tbl summary{cursor:pointer;font-family:var(--f-util)}
+details.tbl table{border-collapse:collapse;width:100%;margin-top:6px}
+details.tbl th,details.tbl td{border-bottom:1px solid var(--line);padding:3px 4px;text-align:right}
+details.tbl th:first-child,details.tbl td:first-child{text-align:left}
+.src{font-size:12px;color:var(--mute);margin-top:26px;line-height:1.7}
+.src a{color:var(--dim)}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><a class="back" href="../">← 鹿煎寺高校</a><span class="brand">凛の研究ノート</span></div></header>
+<main class="wrap">
+  <p class="kick">CHANNEL NOTE ／ チャンネルの記録</p>
+  <h1>あーすさんのチャンネル、<br>今週の記録です。</h1>
+  <p class="lead" id="lead"></p>
+
+  <div class="talk">
+    <img class="chibi" src="../assets/chibi/rin_read.webp" width="71" height="153" alt="黒瀬凛">
+    <div class="bubble" id="win"></div>
+  </div>
+  <div class="talk">
+    <img class="chibi" src="../assets/chibi/rin_fix.webp" width="97" height="130" alt="黒瀬凛" style="width:86px">
+    <div class="bubble" id="plan"></div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section class="card">
+    <p class="q">Q1 ／ 登録はどう伸びている？</p>
+    <h3>週ごとの登録の伸び（12週）</h3>
+    <p class="cap">増えた人から、外した人を引いた数です。</p>
+    <div class="chart" id="c-week"></div>
+  </section>
+
+  <section class="card">
+    <p class="q">Q2 ／ フォートナイト全体の動きと関係ある？</p>
+    <h3>ならべて見る（90日）</h3>
+    <p class="cap">同じ日付で5つを縦にならべています。いちばん上の「フォートナイトの検索」とくらべて、週ごとの動きがどれだけそろっているかを右に書きました（1に近いほど一緒に動く）。</p>
+    <div class="rows" id="c-multi"></div>
+    <p class="note" id="n-corr"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q3 ／ 名前で探されている？</p>
+    <h3>「あーすさん」のYouTube検索（11月）</h3>
+    <p class="cap">Google トレンドの値（いちばん多い日を100）。少なすぎる日は0になります。</p>
+    <div class="chart" id="c-name"></div>
+    <p class="note" id="n-name"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q4 ／ どこから見に来ている？</p>
+    <h3>見に来た入り口（直近28日）</h3>
+    <p class="cap">再生回数の多い順です。</p>
+    <div class="chart" id="c-src"></div>
+  </section>
+
+  <section class="card">
+    <p class="q">Q5 ／ ショート・配信・動画のちがい</p>
+    <h3>種類ごとの成績（直近28日）</h3>
+    <p class="cap">登録は、その種類を見たあとに登録した人の数です。</p>
+    <div class="types" id="c-type"></div>
+    <p class="note" id="n-type"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q6 ／ 強い曜日は？</p>
+    <h3>曜日ごとの平均再生（90日）</h3>
+    <p class="cap">YouTube の1日は日本時間の夕方ごろに区切られるので、半日ほどずれて見てください。</p>
+    <div class="chart" id="c-wd"></div>
+  </section>
+
+  <p class="src" id="src"></p>
+</main>
+<div class="tip" id="tip"></div>
+<script src="data.js"></script>
+<script>
+(() => {
+const R = window.RIN_DATA, $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const fmt = n => Number(n).toLocaleString('ja-JP');
+const sgn = n => (n > 0 ? '+' : '') + fmt(n);
+const sum = a => a.reduce((x, y) => x + y, 0);
+const mean = a => sum(a) / a.length;
+const corr = (a, b) => { const ma = mean(a), mb = mean(b); let s = 0, sa = 0, sb = 0; a.forEach((x, i) => { s += (x - ma) * (b[i] - mb); sa += (x - ma) ** 2; sb += (b[i] - mb) ** 2; }); return s / Math.sqrt(sa * sb); };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const N = R.dates.length;
+
+/* 週（直近から7日ずつ、12週） */
+const W = [];
+for (let k = 0; k < 12; k++) { const e = N - 7 * k, s = e - 7; W.unshift({ s, e, a: R.dates[s], b: R.dates[e - 1] }); }
+const wsum = arr => W.map(w => sum(arr.slice(w.s, w.e)));
+const wavg = arr => W.map(w => mean(arr.slice(w.s, w.e)));
+const wNet = wsum(R.net), wViews = wsum(R.views), wAvd = wavg(R.avd), wTyt = wavg(R.tyt), wFgg = wavg(R.fgg);
+const md = s => s.replace(/^0/, '').replace('-', '/').replace('/0', '/');
+const thisW = W[11], lastW = W[10];
+
+/* ---- ツールチップ ---- */
+const tip = $('#tip');
+const showTip = (html, x, y) => { tip.innerHTML = html; tip.classList.add('on'); const r = tip.getBoundingClientRect(); let L = x + 14, T = y - r.height - 10; if (L + r.width > innerWidth - 8) L = x - r.width - 14; if (L < 8) L = 8; if (T < 8) T = y + 16; tip.style.left = (L + scrollX) + 'px'; tip.style.top = (T + scrollY) + 'px'; };
+const hideTip = () => tip.classList.remove('on');
+const el = (n, a = {}, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+const sw = c => `<span class="sw" style="background:${c}"></span>`;
+
+/* ---- 縦棒 ---- */
+function bars(host, labels, vals, opt) {
+  host.innerHTML = '';
+  const Wd = Math.max(300, host.clientWidth), H = opt.h || 190, padL = 6, padR = 6, padT = 22, padB = 22;
+  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': opt.aria }, host);
+  const max = Math.max(...vals) * 1.08, n = vals.length, gap = 2, bw = (Wd - padL - padR) / n;
+  const y = v => padT + (H - padT - padB) * (1 - v / max);
+  el('line', { x1: padL, x2: Wd - padR, y1: y(0), y2: y(0), stroke: css('--line') }, svg);
+  vals.forEach((v, i) => {
+    const x = padL + i * bw + gap / 2, w = bw - gap, top = y(v), h = y(0) - top, r = Math.min(4, w / 2, h);
+    const hi = opt.hi ? opt.hi(i) : true;
+    el('path', { d: `M${x},${y(0)}V${top + r}Q${x},${top} ${x + r},${top}H${x + w - r}Q${x + w},${top} ${x + w},${top + r}V${y(0)}Z`, fill: opt.color, opacity: hi ? 1 : .45 }, svg);
+    if (opt.showVal && opt.showVal(i)) { const t = el('text', { x: x + w / 2, y: top - 6, 'text-anchor': 'middle', class: 'val' }, svg); t.textContent = opt.valFmt(v); }
+    if (!opt.skipLab || i % opt.skipLab === 0 || i === n - 1) { const t = el('text', { x: x + w / 2, y: H - 6, 'text-anchor': 'middle' }, svg); t.textContent = labels[i]; }
+    const hit = el('rect', { x: padL + i * bw, y: 0, width: bw, height: H, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', e => showTip(opt.tip(i), e.clientX, e.clientY));
+    hit.addEventListener('pointerleave', hideTip);
+  });
+}
+
+/* ---- 横棒 ---- */
+function hbars(host, rows, color) {
+  host.innerHTML = '';
+  const Wd = Math.max(300, host.clientWidth), rowH = 26, labW = Math.min(150, Wd * .38), H = rows.length * rowH + 4;
+  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': '入り口ごとの再生回数' }, host);
+  const max = rows[0].v, tot = sum(rows.map(r => r.v)), x0 = labW + 8, room = Wd - x0 - 64;
+  rows.forEach((r, i) => {
+    const yy = i * rowH + 4, w = Math.max(2, room * r.v / max), h = 14, top = yy + 4, rr = Math.min(4, w / 2);
+    const t = el('text', { x: labW, y: yy + 15, 'text-anchor': 'end', class: 'lab' }, svg); t.textContent = r.k;
+    el('path', { d: `M${x0},${top}H${x0 + w - rr}Q${x0 + w},${top} ${x0 + w},${top + rr}V${top + h - rr}Q${x0 + w},${top + h} ${x0 + w - rr},${top + h}H${x0}Z`, fill: color }, svg);
+    const v = el('text', { x: x0 + w + 6, y: yy + 15, class: 'val' }, svg); v.textContent = Math.round(r.v / tot * 100) + '%';
+    const hit = el('rect', { x: 0, y: yy, width: Wd, height: rowH, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', e => showTip(`${sw(color)}${r.k}<br><span class="k">再生</span> ${fmt(r.v)} 回`, e.clientX, e.clientY));
+    hit.addEventListener('pointerleave', hideTip);
+  });
+}
+
+/* ---- 縦にならべた折れ線（日付をそろえる） ---- */
+const wSearch = wsum(R.search);
+const MULTI = [
+  { k: 'フォートナイトのYouTube検索（日本）', arr: R.tyt, c: '--s-trend', f: v => v + ' / 100', w: wTyt },
+  { k: '再生回数（あーすさん）', arr: R.views, c: '--s-views', f: v => fmt(v) + ' 回', w: wViews, vs: [wTyt, '検索との関係'] },
+  { k: '検索から来た再生（あーすさん）', arr: R.search, c: '--s-search', f: v => fmt(v) + ' 回', w: wSearch, vs: [wTyt, '検索との関係'] },
+  { k: '登録の伸び（あーすさん）', arr: R.net, c: '--s-subs', f: v => sgn(v) + ' 人', w: wNet, vs: [wTyt, '検索との関係'] },
+  { k: '試合中のプレイヤー数（全世界・平均）', arr: R.fgg, c: '--s-fgg', f: v => v.toFixed(1) + ' 万人', w: wFgg, vs: [wViews, '再生との関係'] },
+];
+const words = r => r >= .7 ? 'つよい' : r >= .4 ? 'ややある' : r >= .2 ? 'うすい' : 'ほぼない';
+const multiSvgs = [];
+function multi() {
+  const host = $('#c-multi'); host.innerHTML = ''; multiSvgs.length = 0;
+  MULTI.forEach((m, mi) => {
+    const row = document.createElement('div'); row.className = 'row';
+    const rv = m.vs ? corr(m.w, m.vs[0]) : null;
+    row.innerHTML = `<div class="rh"><span>${m.k}</span><em>${rv == null ? 'くらべる元' : `${m.vs[1]} <b>${rv.toFixed(2)}</b>（${words(rv)}）<span class="meter"><i style="width:${Math.max(0, rv) * 100}%"></i></span>`}</em></div><div class="chart"></div>`;
+    host.appendChild(row);
+    const ch = row.querySelector('.chart'), Wd = Math.max(300, ch.clientWidth), H = 78, pT = 6, pB = mi === MULTI.length - 1 ? 18 : 4;
+    const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': m.k }, ch);
+    const lo = Math.min(0, ...m.arr), hi = Math.max(...m.arr), x = i => 2 + (Wd - 4) * i / (N - 1), y = v => pT + (H - pT - pB) * (1 - (v - lo) / (hi - lo));
+    el('line', { x1: 0, x2: Wd, y1: y(lo), y2: y(lo), stroke: css('--grid') }, svg);
+    // 今週の帯
+    el('rect', { x: x(thisW.s), y: 0, width: x(N - 1) - x(thisW.s), height: H - pB, fill: 'rgb(255 255 255/.04)' }, svg);
+    el('path', { d: m.arr.map((v, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(''), fill: 'none', stroke: css(m.c), 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    if (mi === MULTI.length - 1) [0, 30, 60, N - 1].forEach(i => { const t = el('text', { x: x(i), y: H - 3, 'text-anchor': i === 0 ? 'start' : i === N - 1 ? 'end' : 'middle' }, svg); t.textContent = md(R.dates[i]); });
+    const cross = el('line', { x1: 0, x2: 0, y1: 0, y2: H - pB, stroke: css('--dim'), 'stroke-width': 1, opacity: 0 }, svg);
+    const dot = el('circle', { r: 4.5, fill: css(m.c), stroke: css('--panel'), 'stroke-width': 2, opacity: 0 }, svg);
+    multiSvgs.push({ svg, x, y, cross, dot, m });
+    const hit = el('rect', { x: 0, y: 0, width: Wd, height: H, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); const i = Math.max(0, Math.min(N - 1, Math.round((e.clientX - r.left) / r.width * (N - 1)))); syncTo(i, e); });
+    hit.addEventListener('pointerleave', () => { multiSvgs.forEach(s => { s.cross.setAttribute('opacity', 0); s.dot.setAttribute('opacity', 0); }); hideTip(); });
+  });
+}
+function syncTo(i, e) {
+  multiSvgs.forEach(s => { const X = s.x(i); s.cross.setAttribute('x1', X); s.cross.setAttribute('x2', X); s.cross.setAttribute('opacity', .6); s.dot.setAttribute('cx', X); s.dot.setAttribute('cy', s.y(s.m.arr[i])); s.dot.setAttribute('opacity', 1); });
+  showTip(`<b>${md(R.dates[i])}</b><br>` + MULTI.map(m => `${sw(css(m.c))}<span class="k">${m.k.replace(/（.*）/, '')}</span> ${m.f(m.arr[i])}`).join('<br>'), e.clientX, e.clientY);
+}
+
+/* ---- 文章 ---- */
+const rTyt = corr(wTyt, wViews), rFgg = corr(wFgg, wViews), rTytNet = corr(wTyt, wNet), rTytS = corr(wTyt, wSearch);
+const avdBest = wAvd[11] >= Math.max(...wAvd.slice(0, 11));
+const nameDays = Object.entries(R.name).filter(([, v]) => v > 0);
+const firstName = nameDays.length ? nameDays[0][0] : null;
+const peakName = nameDays.length ? nameDays.reduce((a, b) => b[1] >= a[1] ? b : a)[0] : null;
+const TT = R.type, tot28 = sum(Object.values(TT).map(t => t[3]));
+const shortShare = Math.round(TT.shorts[3] / (TT.shorts[3] + TT.live[3] + TT.video[3]) * 100);
+const srcTot = sum(Object.values(R.traffic)), searchShare = Math.round(R.traffic.YT_SEARCH / srcTot * 100);
+const wd = Array.from({ length: 7 }, () => ({ v: 0, s: 0, n: 0 }));
+R.dates.forEach((d, i) => { const k = new Date('2026-' + d + 'T12:00:00').getDay(); wd[k].v += R.views[i]; wd[k].s += R.net[i]; wd[k].n++; });
+const WDN = ['日', '月', '火', '水', '木', '金', '土'];
+
+$('#lead').textContent = `記録：${R.fetched}（${md(thisW.a)}〜${md(thisW.b)} の週までの分）`;
+
+$('#win').innerHTML = `<h2>今週の成果<small>THIS WEEK</small></h2><ol>
+  <li><b>登録者が ${fmt(R.subs)} 人になりました。</b><span class="sub">この週の伸びは ${sgn(wNet[11])} 人。先週（${sgn(wNet[10])}）より少なめです。</span></li>
+  <li><b>1回あたり見てもらえる時間が、12週でいちばん長くなりました。</b><span class="sub">平均 ${wAvd[11].toFixed(0)} 秒。先週は ${wAvd[10].toFixed(0)} 秒でした。再生は減っても、見る時間の合計はほぼ保っています。</span></li>
+  ${firstName ? `<li><b>「あーすさん」と YouTube で検索されるようになりました。</b><span class="sub">${md(firstName)} から記録に出はじめて、いちばん多かったのは ${md(peakName)}。名前で探しに来てくれる人が出てきました。</span></li>` : ''}
+</ol>`;
+
+$('#plan').innerHTML = `<h2>今後の方針<small>NEXT</small></h2><ol>
+  <li><b>みんながフォートナイトを調べる日に、速報を厚く。</b><span class="sub">あーすさんの再生は、日本のフォートナイト検索の多さとよく一緒に動きます（関係 ${rTyt.toFixed(2)}）。シーズンの始まり・イベント・コラボの日は、ショートの本数を増やしましょう。</span></li>
+  <li><b>金曜と土曜に、いちばん見せたいものを。</b><span class="sub">平均再生は金・土が水曜のおよそ2倍。告知や力を入れたショートは木曜の夜〜金曜に出すと効率がよさそうです。</span></li>
+  <li><b>ショートから配信へ、道をつなぐ。</b><span class="sub">登録の ${shortShare}% はショートから。配信は1回 ${Math.round(TT.live[2] / 60)} 分近く見てもらえる場所です。ショートの説明欄や固定コメントに、次の配信の時間を置いておきましょう。</span></li>
+  <li><b>タイトルの頭に、探される言葉を。</b><span class="sub">入り口の ${searchShare}% は YouTube 検索です。「無料」「速報」「いつまで」のような、みんなが打つ言葉を先に。</span></li>
+</ol>`;
+
+$('#kpis').innerHTML = [
+  ['チャンネル登録者数', fmt(R.subs), R.fetched + ' 時点'],
+  ['この7日の伸び', sgn(wNet[11]), `${md(thisW.a)}〜${md(thisW.b)}`],
+  ['この28日の伸び', sgn(sum(wNet.slice(8))), '4週ぶん'],
+  ['この12週の伸び', sgn(sum(wNet)), '84日ぶん'],
+].map(([k, v, s]) => `<div class="kpi"><small>${k}</small><b>${v}</b><i>${s}</i></div>`).join('');
+
+$('#n-corr').innerHTML = `<b>凛のメモ：</b>日本でフォートナイトが YouTube 検索される週は、あーすさんの再生も増えています（${rTyt.toFixed(2)}）。とくに<b>検索から来た再生</b>は ${rTytS.toFixed(2)} と、よくそろっています。登録の伸びとは ${rTytNet.toFixed(2)}。${md(W[9].a)}〜${md(W[9].b)} の週（${sgn(wNet[9])} 人）は、シーズンが変わって検索が一気に増えた週と重なります。全世界のプレイヤー数との関係は ${rFgg.toFixed(2)} とうすく、海外の大きな動きより、日本で話題になっているかどうかが効いているようです。`;
+$('#n-name').innerHTML = firstName ? `<b>凛のメモ：</b>10月までは記録に出ないほど少なかった名前検索が、${md(firstName)} 以降は何度も出ています。チャンネル名を見て探しに来る人がいる、ということです。` : '<b>凛のメモ：</b>まだ記録に出るほどの量ではありません。';
+$('#n-type').innerHTML = `<b>凛のメモ：</b>ショートは「見つけてもらう」、配信は「長くいてもらう」役目です。5分ほどの動画は再生が少なめなので、ショートで気になった人の行き先として、説明欄から動画へつなぐと生きてきます。`;
+$('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
+
+/* 種類 */
+const TY = [['ショート', 'shorts'], ['配信', 'live'], ['動画', 'video']];
+$('#c-type').innerHTML = TY.map(([n, k]) => { const t = TT[k]; return `<div class="t"><h4>${n}</h4><dl><dt>再生</dt><dd>${t[0] >= 1e4 ? (t[0] / 1e4).toFixed(1) + '<small>万回</small>' : fmt(t[0]) + '<small>回</small>'}</dd><dt>平均で見る時間</dt><dd>${t[2] >= 60 ? Math.floor(t[2] / 60) + '<small>分</small>' + (t[2] % 60) + '<small>秒</small>' : t[2] + '<small>秒</small>'}</dd><dt>登録</dt><dd>${fmt(t[3])}<small>人</small></dd></dl></div>`; }).join('');
+
+const SRC = { SHORTS: 'ショートのフィード', YT_SEARCH: 'YouTube 検索', SUBSCRIBER: '登録チャンネル・ホーム', YT_CHANNEL: 'チャンネルのページ', EXT_URL: 'ほかのサイト（X など）', IMMERSIVE_LIVE: 'ライブのフィード', NOTIFICATION: '通知', RELATED_VIDEO: '関連動画', other: 'そのほか' };
+
+function draw() {
+  bars($('#c-week'), W.map(w => md(w.a)), wNet, {
+    color: css('--s-subs'), aria: '週ごとの登録の伸び', hi: i => i === 11 || i === 9, skipLab: 2,
+    showVal: i => i === 11 || i === 9 || wNet[i] === Math.max(...wNet), valFmt: v => sgn(v),
+    tip: i => `<b>${md(W[i].a)}〜${md(W[i].b)}</b><br>${sw(css('--s-subs'))}<span class="k">登録の伸び</span> ${sgn(wNet[i])} 人<br><span class="k">再生</span> ${fmt(wViews[i])} 回`
+  });
+  multi();
+  const nd = Object.keys(R.name), nv = Object.values(R.name);
+  bars($('#c-name'), nd.map(md), nv, {
+    color: css('--s-trend'), aria: '「あーすさん」のYouTube検索', h: 150, skipLab: 4,
+    tip: i => `<b>${md(nd[i])}</b><br>${sw(css('--s-trend'))}<span class="k">検索の多さ</span> ${nv[i]} / 100`
+  });
+  hbars($('#c-src'), Object.entries(R.traffic).filter(([k]) => k !== 'other').map(([k, v]) => ({ k: SRC[k] || k, v })).sort((a, b) => b.v - a.v).concat([{ k: 'そのほか', v: R.traffic.other }]), css('--s-views'));
+  const order = [1, 2, 3, 4, 5, 6, 0];
+  bars($('#c-wd'), order.map(k => WDN[k]), order.map(k => wd[k].v / wd[k].n), {
+    color: css('--s-views'), aria: '曜日ごとの平均再生', h: 170, hi: i => i === 4 || i === 5,
+    showVal: () => true, valFmt: v => (v / 1e4).toFixed(1) + '万',
+    tip: i => { const k = order[i]; return `<b>${WDN[k]}曜日</b><br>${sw(css('--s-views'))}<span class="k">平均再生</span> ${fmt(Math.round(wd[k].v / wd[k].n))} 回<br><span class="k">平均の登録の伸び</span> ${sgn(Math.round(wd[k].s / wd[k].n))} 人`; }
+  });
+}
+draw();
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
+addEventListener('scroll', hideTip, { passive: true });
+})();
+</script>
+</body>
+</html>

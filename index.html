@@ -3042,7 +3042,7 @@ const BUKI = [
 
 // ── リング：右上にいつも居る近道。しかちゃん＝サイトの中、もみじ＝フォートナイトの話題、凛＝チャンネルの記録
 // CHANNEL は毎朝の記録で書き換える（null のあいだは「記録中」と出す）
-const CHANNEL = {checked:'2026.11.19', thru:'11.16', subs:8230, d1:8, d7:105, d28:577};
+const CHANNEL = {checked:'2026.11.24', thru:'11.21', subs:8280, d1:14, d7:81, d28:564};
 (() => {
   const orb = document.getElementById('ring'), panel = document.getElementById('ringp'), stage = document.getElementById('ring-stage'), body = document.getElementById('ring-body'), nameEl = document.getElementById('ring-name');
   const ris = [...orb.querySelectorAll('.ri')], rbs = [...stage.querySelectorAll('.rb')], KEYS3 = ['shika','momiji','rin'];
@@ -3072,7 +3072,7 @@ const CHANNEL = {checked:'2026.11.19', thru:'11.16', subs:8230, d1:8, d7:105, d2
       <div class="rstat"><small>この7日の伸び</small>${num(CHANNEL.d7)}</div>
       <div class="rstat wide"><small>この28日の伸び</small>${num(CHANNEL.d28)}</div></div>
       <p class="rnote">${CHANNEL.checked ? '記録：' + esc(CHANNEL.checked) + (CHANNEL.thru ? '（伸びは ' + esc(CHANNEL.thru) + ' までの分）' : '') : 'つぎの記録は、あしたの朝。'}</p>
-      <div class="rlist" style="--rc:${INFO.rin.c}"><a href="https://www.youtube.com/@あーすさん-FORTNITEch" target="_blank" rel="noopener"><small>YOUTUBE</small>チャンネルをひらく ↗</a></div>`
+      <div class="rlist" style="--rc:${INFO.rin.c}"><a href="channel/"><small>CHANNEL NOTE</small>くわしい研究ノートをひらく →</a><a href="https://www.youtube.com/@あーすさん-FORTNITEch" target="_blank" rel="noopener"><small>YOUTUBE</small>チャンネルをひらく ↗</a></div>`
   };
   let sel = 0, ang = 0, target = 0, orbAng = 0, last = 0, auto = true, autoT = 0, open = false;
   const show = (i, user) => {
