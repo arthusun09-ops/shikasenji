@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>冬のクローゼット｜鹿煎寺高校</title>
+<meta name="description" content="あーすさん・もみじ・凛の冬の私服。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=DotGothic16&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#0a0e13;--panel:#121922;--line:#2a3745;--paper:#eef4f1;--dim:#9fb0bd;
+  --sky:oklch(0.80 0.13 228);--sig:oklch(0.74 0.18 50);
+  --shelf-top:#e9ecef;--shelf-bot:#c9ced4;
+  --f-display:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  --f-util:"DotGothic16","Zen Kaku Gothic New",monospace;
+  --asu:#3b5fb3;--momiji:#e8731f;--rin:#8f2433;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--f-body);overflow-x:hidden}
+a{color:inherit}
+.top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);font-family:var(--f-util);font-size:.8rem;letter-spacing:.08em}
+.top a{text-decoration:none;color:var(--dim)}.top a:hover{color:var(--paper)}
+.top b{margin-left:auto;color:var(--sig);font-weight:400}
+header{max-width:1100px;margin:0 auto;padding:28px 16px 6px}
+header .en{font-family:var(--f-util);color:var(--sig);font-size:.78rem;letter-spacing:.14em}
+header h1{font-family:var(--f-display);font-weight:400;font-size:clamp(1.7rem,4.6vw,2.8rem);margin:.25em 0 .2em;line-height:1.25}
+header p{color:var(--dim);line-height:1.8;margin:.4em 0;max-width:46em;font-size:.95rem}
+
+/* 棚 */
+.stage{position:relative;margin:14px auto 0;max-width:1400px;height:clamp(380px,58vw,560px);
+  background:radial-gradient(120% 90% at 50% 40%,var(--shelf-top),var(--shelf-bot));
+  border-radius:18px;overflow:hidden;perspective:900px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;user-select:none}
+.stage:active{cursor:grabbing}
+@media (min-width:1432px){.stage{margin:14px auto 0}}
+@media (max-width:1432px){.stage{margin:14px 16px 0}}
+.ring{position:absolute;left:50%;top:46%;width:0;height:0;transform-style:preserve-3d}
+.belt{position:absolute;left:50%;top:calc(46% + var(--h)/2 + 6px);width:120%;height:22px;transform:translateX(-50%);
+  background:repeating-linear-gradient(90deg,#8d939b 0 3px,#b3b8bf 3px 9px);border-radius:50%/40%;opacity:.55;filter:blur(.3px)}
+.item{position:absolute;left:0;top:0;width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);
+  transform-style:preserve-3d;transition:width .55s cubic-bezier(.2,.8,.2,1),margin .55s cubic-bezier(.2,.8,.2,1),filter .3s;
+  border:0;padding:0;background:none;cursor:pointer;font:inherit;color:inherit}
+.ring.anim .item{transition:width .55s cubic-bezier(.2,.8,.2,1),margin .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1),filter .3s}
+.item .face{position:absolute;inset:0;border-radius:4px;overflow:hidden;background:#fff;box-shadow:0 10px 22px rgba(20,30,40,.28),inset 0 0 0 1px rgba(0,0,0,.08)}
+.item .face img{position:absolute;top:0;height:100%;width:auto;left:var(--fx);transition:left .55s cubic-bezier(.2,.8,.2,1)}
+.item .band{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg,transparent,var(--c) 55%);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;transition:opacity .3s}
+.item .band span{writing-mode:vertical-rl;font-family:var(--f-display);font-size:.8rem;color:#fff;letter-spacing:.12em;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.item .tab{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px #fff}
+.item.open{--w:var(--ow)!important}
+.item.open .face img{left:0}
+.item.open .band{opacity:0}
+.item:focus-visible{outline:none}.item:focus-visible .face{box-shadow:0 0 0 3px var(--sig),0 10px 22px rgba(20,30,40,.28)}
+.hint{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:var(--f-util);font-size:.74rem;color:#5d6672;letter-spacing:.08em;pointer-events:none}
+
+/* 選んだ服の説明 */
+.info{max-width:1100px;margin:0 auto;padding:18px 16px 8px;min-height:120px}
+.info .who{font-family:var(--f-util);font-size:.78rem;letter-spacing:.12em;color:var(--c,var(--sig))}
+.info h2{font-family:var(--f-display);font-weight:400;font-size:clamp(1.25rem,3vw,1.8rem);margin:.2em 0 .3em}
+.info p{color:var(--dim);margin:0 0 .8em;line-height:1.8}
+.info button{font:inherit;font-family:var(--f-util);font-size:.85rem;letter-spacing:.08em;background:var(--c,var(--sig));color:#fff;border:0;padding:10px 20px;cursor:pointer}
+.filters{max-width:1100px;margin:16px auto 0;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:.88rem;background:var(--panel);color:var(--paper);border:1px solid var(--line);padding:8px 16px;cursor:pointer;border-left:5px solid var(--c)}
+.filters button[aria-pressed=true]{background:var(--paper);color:var(--ink)}
+
+/* 拡大 */
+.lb{position:fixed;inset:0;background:rgba(5,8,12,.92);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
+.lb.on{display:flex}
+.lb figure{margin:0;max-width:min(1400px,100%);max-height:100%;display:flex;flex-direction:column;gap:10px}
+.lb img{max-width:100%;max-height:calc(100vh - 110px);width:auto;height:auto;object-fit:contain;border-radius:6px;animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{transform:scale(.92) rotateY(-12deg);opacity:0}to{transform:none;opacity:1}}
+.lb figcaption{color:var(--dim);font-size:.85rem;text-align:center}
+.lb .x{position:absolute;top:12px;right:14px;font-size:1.6rem;background:none;border:0;color:var(--paper);cursor:pointer;padding:6px 10px}
+footer{max-width:1100px;margin:22px auto 40px;padding:16px;border-top:1px solid var(--line);color:var(--dim);font-size:.85rem;line-height:1.8}
+@media (prefers-reduced-motion:reduce){.item,.item .face img{transition:none}}
+</style>
+</head>
+<body>
+<nav class="top"><a href="../#character">← 鹿煎寺高校</a><b>WINTER CLOSET</b></nav>
+<header>
+  <div class="en">= WINTER CLOSET</div>
+  <h1>冬のクローゼット</h1>
+  <p>寒くなってきたので、3人の冬の私服を棚に並べました。棚は少しずつ回っています。1着えらぶと、手前に出てきます。</p>
+</header>
+<div class="filters" id="filters"></div>
+<div class="stage" id="stage" aria-label="冬服の棚">
+  <div class="belt" aria-hidden="true"></div>
+  <div class="ring" id="ring"></div>
+  <div class="hint" aria-hidden="true">← なぞって回す ／ えらぶと手前に →</div>
+</div>
+<section class="info" id="info" aria-live="polite"></section>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="キャラクターシート">
+  <button class="x" id="lbx" aria-label="とじる">×</button>
+  <figure><img id="lbimg" alt=""><figcaption id="lbcap"></figcaption></figure>
+</div>
+<footer>服の組み合わせは、服装研究さん（<a href="https://x.com/huku_ken_ai" target="_blank" rel="noopener">@huku_ken_ai</a>）の服装プロンプトをお借りして、3人に似合う色にしています。</footer>
+<script src="data.js"></script>
+<script>
+(()=>{
+const WHO={asu:'あーすさん',momiji:'もみじ',rin:'黒瀬 凛'};
+const COL={asu:'var(--asu)',momiji:'var(--momiji)',rin:'var(--rin)'};
+const stage=document.getElementById('stage'),ring=document.getElementById('ring'),info=document.getElementById('info');
+let list=[],items=[],angle=0,vel=0,openIdx=-1,filter='all',dragging=false,lastX=0,lastT=0,auto=true,idle=0;
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function dims(){const H=Math.min(stage.clientHeight*0.66,stage.clientWidth*0.5),W=Math.max(40,H*0.19);return{H,W,OW:Math.min(H*16/9,stage.clientWidth*0.86)}}
+function build(){
+  ring.innerHTML='';items=[];openIdx=-1;
+  const src=CLOSET.filter(c=>filter==='all'||c.who===filter);
+  const {W}=dims();const need=Math.ceil(stage.clientWidth*2.4/(W*1.1));
+  list=[];while(list.length<need||list.length<src.length)list.push(...src);
+  list.forEach((c,i)=>{
+    const b=document.createElement('button');b.className='item';b.style.setProperty('--c',COL[c.who]);
+    b.setAttribute('aria-label',WHO[c.who]+'　'+c.title);
+    b.innerHTML=`<span class="face"><img src="img/${c.id}_s.jpg" alt="" loading="lazy" draggable="false"></span><span class="band"><span>${c.title}</span></span>`;
+    b.onclick=e=>{if(moved)return;select(i)};
+    ring.appendChild(b);items.push(b);
+  });
+  layout();
+}
+let G={};
+function layout(){
+  const {H,W,OW}=dims();stage.style.setProperty('--h',H+'px');
+  items.forEach((b,i)=>{b.style.setProperty('--w',W+'px');b.style.setProperty('--ow',OW+'px');b.style.setProperty('--fx',(-H*16/9*(list[i].fx||0.342)+W/2)+'px')});
+  G={H,W,OW,gap:W*1.1,R:stage.clientWidth*0.95};G.L=list.length*G.gap;render();
+}
+// pos: 帯の上の位置(px)。帯は円筒に巻いてあり、中央が手前。
+function render(){
+  const {gap,R,L,OW,W}=G;const extra=openIdx>=0?(OW-W)/2+gap*0.4:0;
+  let base=openIdx>=0?wrap(openIdx*gap+angle):0;
+  items.forEach((b,i)=>{
+    let p=wrap(i*gap+angle);
+    if(openIdx>=0&&i!==openIdx){const d=wrap(p-base);p=p+(d>0?extra:-extra)}
+    if(i===openIdx)p=base;
+    const a=p/R;const deg=a*180/Math.PI;
+    const vis=Math.abs(a)<1.15;
+    b.style.visibility=vis?'visible':'hidden';
+    if(!vis)return;
+    const x=Math.sin(a)*R,z=(Math.cos(a)-1)*R;
+    const open=i===openIdx;
+    b.style.transform=`translate3d(${x}px,0,${z+(open?40:0)}px) rotateY(${open?0:deg}deg)`;
+    b.style.zIndex=open?999:Math.round(500-Math.abs(p)/4);
+    b.style.filter=open?'none':`brightness(${1-Math.min(Math.abs(a),1.1)*0.28})`;
+  });
+}
+function wrap(p){const L=G.L;return((p%L)+L*1.5)%L-L/2}
+function anim(){ring.classList.add('anim');clearTimeout(ring._t);ring._t=setTimeout(()=>ring.classList.remove('anim'),600)}
+function select(i){anim();
+  if(openIdx===i){zoom(list[i]);return}
+  if(openIdx>=0)items[openIdx].classList.remove('open');
+  angle-=wrap(i*G.gap+angle);openIdx=i;auto=false;vel=0;
+  items[i].classList.add('open');render();showInfo(list[i]);
+}
+function close(){anim();if(openIdx>=0){items[openIdx].classList.remove('open');openIdx=-1;render()}auto=true}
+function showInfo(c){
+  info.style.setProperty('--c',COL[c.who]);
+  info.innerHTML=`<div class="who">${WHO[c.who]} ／ No.${c.no}</div><h2>${c.title}</h2><p>${c.note}</p><button type="button" id="big">大きく見る</button>`;
+  document.getElementById('big').onclick=()=>zoom(c);
+}
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbcap=document.getElementById('lbcap');
+function zoom(c){lbimg.src='img/'+c.id+'.jpg';lbimg.alt=WHO[c.who]+'の冬服「'+c.title+'」のキャラクターシート';lbcap.textContent=WHO[c.who]+'　'+c.title;lb.classList.add('on');document.getElementById('lbx').focus()}
+function unzoom(){lb.classList.remove('on')}
+document.getElementById('lbx').onclick=unzoom;lb.onclick=e=>{if(e.target===lb)unzoom()};
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(lb.classList.contains('on'))unzoom();else close()}});
+let moved=false,downX=0;
+stage.addEventListener('pointerdown',e=>{dragging=true;moved=false;downX=lastX=e.clientX;lastT=performance.now();vel=0});
+addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX;if(Math.abs(e.clientX-downX)>6){if(!moved&&openIdx>=0){items[openIdx].classList.remove('open');openIdx=-1;info.innerHTML=''}moved=true}
+  const now=performance.now();angle+=dx;vel=dx/Math.max(1,now-lastT)*16;lastX=e.clientX;lastT=now;if(moved)render()});
+addEventListener('pointerup',()=>{if(dragging){dragging=false;if(moved){auto=true;idle=0}}});
+// 棚のボタン
+const fl=document.getElementById('filters');
+[['all','みんな','var(--sig)'],['asu','あーすさん',COL.asu],['momiji','もみじ',COL.momiji],['rin','黒瀬 凛',COL.rin]].forEach(([k,l,c])=>{
+  const b=document.createElement('button');b.textContent=l;b.style.setProperty('--c',c);b.setAttribute('aria-pressed',k===filter);
+  b.onclick=()=>{filter=k;[...fl.children].forEach(x=>x.setAttribute('aria-pressed',x===b));build();auto=true;info.innerHTML=''};fl.appendChild(b)});
+let t0=performance.now();
+function tick(t){const dt=Math.min(50,t-t0);t0=t;
+  if(!dragging){if(Math.abs(vel)>0.01){angle+=vel;vel*=0.94;render()}else if(auto&&!reduce){angle-=dt*0.03;render()}}
+  requestAnimationFrame(tick)}
+addEventListener('resize',layout);
+build();requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

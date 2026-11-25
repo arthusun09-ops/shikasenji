@@ -726,6 +726,19 @@ figure.sh iframe{display:block;width:100%;aspect-ratio:9/16;border:0;background:
 figure.sh figcaption{font-size:.8rem;line-height:1.5;color:var(--dim);margin-top:6px}
 @media (max-width:760px){.sh-list{grid-template-columns:1fr}}
 .feeds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.closet-link{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);margin-top:22px;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--sky);text-decoration:none;overflow:hidden;transition:transform .15s,border-color .15s,box-shadow .15s}
+.closet-link:hover,.closet-link:focus-visible{transform:translateY(-3px);border-color:var(--sky);box-shadow:0 10px 0 rgba(0,0,0,.35)}
+.closet-shelf{display:flex;align-items:flex-end;justify-content:center;gap:6px;padding:18px 12px 0;background:linear-gradient(180deg,#e9ecef,#c9ced4);perspective:600px;min-height:220px}
+.closet-shelf img{width:12%;height:200px;object-fit:cover;object-position:var(--op,34%) 0;border-radius:3px;box-shadow:0 8px 14px rgba(20,30,40,.25)}
+.closet-shelf img:nth-child(1){transform:rotateY(38deg)}.closet-shelf img:nth-child(2){transform:rotateY(22deg)}.closet-shelf img:nth-child(4){transform:rotateY(-22deg)}.closet-shelf img:nth-child(5){transform:rotateY(-38deg)}
+.closet-link:hover .closet-shelf img:nth-child(3){transform:translateY(-8px) scale(1.06)}
+.closet-shelf img{transition:transform .3s}
+.closet-txt{display:flex;flex-direction:column;gap:10px;padding:clamp(18px,3vw,30px)}
+.closet-txt .tag{font-family:var(--f-util);font-size:.76rem;color:var(--sky);letter-spacing:.1em}
+.closet-txt b{font-family:var(--f-display);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.4}
+.closet-txt .s{font-size:.9rem;color:var(--dim);line-height:1.75}
+.closet-txt i{margin-top:auto;align-self:flex-start;padding:10px 24px;background:var(--sky);color:#111;font-style:normal;font-weight:700;letter-spacing:.06em}
+@media (max-width:760px){.closet-link{grid-template-columns:1fr}}
 .mg{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--sig);text-decoration:none;overflow:hidden;transition:transform .15s,border-color .15s,box-shadow .15s}
 .mg:hover,.mg:focus-visible{transform:translateY(-3px);border-color:var(--sig);box-shadow:0 10px 0 rgba(0,0,0,.35)}
 .mg-stage{position:relative;display:block;min-height:340px;background:linear-gradient(180deg,#141b33 0%,#27345c 55%,#3d5a4a 100%);overflow:hidden}
@@ -1474,6 +1487,10 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   <div class="sec-head"><span class="no" aria-hidden="true">05</span><div class="sec-t"><span class="sec-en" aria-hidden="true">= CHARACTER</span><h2 class="sec-jp">鹿煎寺高校の人たち</h2><span class="sec-tag" aria-hidden="true">SHIKASENJI_FILE ／ SECTOR_05</span></div><i class="hatch" aria-hidden="true"></i></div>
   <div class="tabs-scroll"><div class="tabs" role="tablist" aria-label="鹿煎寺高校の人たち" id="tabs"></div></div>
   <div class="chara" id="chara" role="tabpanel"></div>
+  <a class="closet-link" href="closet/">
+    <span class="closet-shelf" aria-hidden="true"><img src="closet/img/rin_01_s.jpg" alt="" loading="lazy" style="--op:29%"><img src="closet/img/momiji_02_s.jpg" alt="" loading="lazy" style="--op:8%"><img src="closet/img/asu_02_s.jpg" alt="" loading="lazy" style="--op:34%"><img src="closet/img/momiji_04_s.jpg" alt="" loading="lazy" style="--op:8%"><img src="closet/img/rin_03_s.jpg" alt="" loading="lazy" style="--op:29%"></span>
+    <span class="closet-txt"><span class="tag">WINTER CLOSET ／ 冬の私服</span><b>冬のクローゼット</b><span class="s">あーすさん、もみじ、凛の冬の私服を15着。棚にならべました。</span><i>▶ 棚を見る</i></span>
+  </a>
 </div></section>
 
 <section id="keyword"><div class="wrap">
