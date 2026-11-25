@@ -98,6 +98,26 @@ details.tbl summary{cursor:pointer;font-family:var(--f-util)}
 details.tbl table{border-collapse:collapse;width:100%;margin-top:6px}
 details.tbl th,details.tbl td{border-bottom:1px solid var(--line);padding:3px 4px;text-align:right}
 details.tbl th:first-child,details.tbl td:first-child{text-align:left}
+.ftab{display:grid;gap:0;font-size:13px}
+.ftab .fr{display:grid;grid-template-columns:1fr auto auto;gap:4px 10px;align-items:center;padding:7px 0;border-top:1px dashed var(--line)}
+.ftab .fr:first-child{border-top:0}
+.ftab .fk{color:var(--paper);font-weight:700;line-height:1.45}
+.ftab .fk small{display:block;font-weight:400;color:var(--mute);font-size:11px}
+.ftab .fv{font-family:var(--f-num);font-weight:800;font-size:17px;text-align:right;white-space:nowrap}
+.ftab .fv span{font-family:var(--f-body);font-weight:400;font-size:11px;color:var(--dim)}
+.ftab .fc{min-width:74px;text-align:right;font-size:12px;white-space:nowrap}
+.ftab .fc b{display:inline-block;padding:1px 7px;border:1px solid var(--line);border-radius:3px}
+.ftab .fc b.dn{color:#f0a3a3;border-color:#6b3434}
+.ftab .fc b.up{color:#9fd9bd;border-color:#2f5d48}
+.ftab .fc b.eq{color:var(--dim)}
+.ftab .fx{grid-column:1/-1;font-size:12px;color:var(--dim);line-height:1.5;margin-top:-2px}
+.sub-h{font-size:14px;margin:16px 0 4px;color:var(--paper)}
+.stbl-wrap{overflow-x:auto;margin-top:10px}
+.stbl{border-collapse:collapse;width:100%;font-size:11.5px}
+.stbl th,.stbl td{border-bottom:1px solid var(--line);padding:5px 4px;text-align:right;white-space:nowrap}
+.stbl th{color:var(--mute);font-weight:400}
+.stbl td:first-child,.stbl th:first-child{text-align:left}
+.stbl td.t{white-space:normal;text-align:left;color:var(--dim);min-width:160px}
 .src{font-size:12px;color:var(--mute);margin-top:26px;line-height:1.7}
 .src a{color:var(--dim)}
 </style>
@@ -128,7 +148,17 @@ details.tbl th:first-child,details.tbl td:first-child{text-align:left}
   </section>
 
   <section class="card">
-    <p class="q">Q2 ／ フォートナイト全体の動きと関係ある？</p>
+    <p class="q">Q2 ／ 先週とくらべて、なぜ増えた・減った？</p>
+    <h3 id="why-h">凛の推理</h3>
+    <p class="cap">あーすさんの側の数字と、フォートナイト全体の数字をならべて、先週からどれだけ動いたかを見ました。</p>
+    <div class="ftab" id="c-why"></div>
+    <p class="note" id="n-why"></p>
+    <h4 class="sub-h">週ごとのショートの本数と登録の伸び</h4>
+    <div class="chart" id="c-shorts"></div>
+  </section>
+
+  <section class="card">
+    <p class="q">Q3 ／ フォートナイト全体の動きと関係ある？</p>
     <h3>ならべて見る（90日）</h3>
     <p class="cap">同じ日付で5つを縦にならべています。いちばん上の「フォートナイトの検索」とくらべて、週ごとの動きがどれだけそろっているかを右に書きました（1に近いほど一緒に動く）。</p>
     <div class="rows" id="c-multi"></div>
@@ -136,7 +166,7 @@ details.tbl th:first-child,details.tbl td:first-child{text-align:left}
   </section>
 
   <section class="card">
-    <p class="q">Q3 ／ 名前で探されている？</p>
+    <p class="q">Q4 ／ 名前で探されている？</p>
     <h3>「あーすさん」のYouTube検索（11月）</h3>
     <p class="cap">Google トレンドの値（いちばん多い日を100）。少なすぎる日は0になります。</p>
     <div class="chart" id="c-name"></div>
@@ -144,22 +174,42 @@ details.tbl th:first-child,details.tbl td:first-child{text-align:left}
   </section>
 
   <section class="card">
-    <p class="q">Q4 ／ どこから見に来ている？</p>
+    <p class="q">Q5 ／ どこから見に来ている？</p>
     <h3>見に来た入り口（直近28日）</h3>
     <p class="cap">再生回数の多い順です。</p>
     <div class="chart" id="c-src"></div>
   </section>
 
   <section class="card">
-    <p class="q">Q5 ／ ショート・配信・動画のちがい</p>
+    <p class="q">Q6 ／ ショート・配信・動画のちがい</p>
     <h3>種類ごとの成績（直近28日）</h3>
     <p class="cap">登録は、その種類を見たあとに登録した人の数です。</p>
     <div class="types" id="c-type"></div>
     <p class="note" id="n-type"></p>
   </section>
 
+
   <section class="card">
-    <p class="q">Q6 ／ 強い曜日は？</p>
+    <p class="q">Q7 ／ 長い動画は、どのシリーズが見られている？</p>
+    <h3>シリーズごとの1本あたりの再生</h3>
+    <p class="cap">5月からの通常の動画（3分より長いもの、配信をのぞく）をシリーズに分けました。棒は1本あたりの再生のまんなかの値です。公開から日が浅い回は少なめに出ます。</p>
+    <div class="chart" id="c-series"></div>
+    <div class="stbl-wrap"><table class="stbl" id="t-series"></table></div>
+    <p class="note" id="n-series"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q8 ／ 再生リストは使われている？</p>
+    <h3>再生リストから見られた回数（5月から）</h3>
+    <p class="cap">再生リストを開いて見られた回数の多い順です。</p>
+    <div class="chart" id="c-pl"></div>
+    <h4 class="sub-h">長い動画を見に来た入り口</h4>
+    <div class="chart" id="c-vodsrc"></div>
+    <p class="note" id="n-pl"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q9 ／ 強い曜日は？</p>
     <h3>曜日ごとの平均再生（90日）</h3>
     <p class="cap">YouTube の1日は日本時間の夕方ごろに区切られるので、半日ほどずれて見てください。</p>
     <div class="chart" id="c-wd"></div>
@@ -218,18 +268,18 @@ function bars(host, labels, vals, opt) {
 }
 
 /* ---- 横棒 ---- */
-function hbars(host, rows, color) {
+function hbars(host, rows, color, opt = {}) {
   host.innerHTML = '';
   const Wd = Math.max(300, host.clientWidth), rowH = 26, labW = Math.min(150, Wd * .38), H = rows.length * rowH + 4;
-  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': '入り口ごとの再生回数' }, host);
-  const max = rows[0].v, tot = sum(rows.map(r => r.v)), x0 = labW + 8, room = Wd - x0 - 64;
+  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': opt.aria || '入り口ごとの再生回数' }, host);
+  const max = Math.max(...rows.map(r => r.v)), tot = sum(rows.map(r => r.v)), x0 = labW + 8, room = Wd - x0 - 64;
   rows.forEach((r, i) => {
     const yy = i * rowH + 4, w = Math.max(2, room * r.v / max), h = 14, top = yy + 4, rr = Math.min(4, w / 2);
     const t = el('text', { x: labW, y: yy + 15, 'text-anchor': 'end', class: 'lab' }, svg); t.textContent = r.k;
     el('path', { d: `M${x0},${top}H${x0 + w - rr}Q${x0 + w},${top} ${x0 + w},${top + rr}V${top + h - rr}Q${x0 + w},${top + h} ${x0 + w - rr},${top + h}H${x0}Z`, fill: color }, svg);
-    const v = el('text', { x: x0 + w + 6, y: yy + 15, class: 'val' }, svg); v.textContent = Math.round(r.v / tot * 100) + '%';
+    const v = el('text', { x: x0 + w + 6, y: yy + 15, class: 'val' }, svg); v.textContent = opt.val ? opt.val(r, tot) : Math.round(r.v / tot * 100) + '%';
     const hit = el('rect', { x: 0, y: yy, width: Wd, height: rowH, fill: 'transparent' }, svg);
-    hit.addEventListener('pointermove', e => showTip(`${sw(color)}${r.k}<br><span class="k">再生</span> ${fmt(r.v)} 回`, e.clientX, e.clientY));
+    hit.addEventListener('pointermove', e => showTip(opt.tip ? opt.tip(r) : `${sw(color)}${r.k}<br><span class="k">再生</span> ${fmt(r.v)} 回`, e.clientX, e.clientY));
     hit.addEventListener('pointerleave', hideTip);
   });
 }
@@ -241,7 +291,7 @@ const MULTI = [
   { k: '再生回数（あーすさん）', arr: R.views, c: '--s-views', f: v => fmt(v) + ' 回', w: wViews, vs: [wTyt, '検索との関係'] },
   { k: '検索から来た再生（あーすさん）', arr: R.search, c: '--s-search', f: v => fmt(v) + ' 回', w: wSearch, vs: [wTyt, '検索との関係'] },
   { k: '登録の伸び（あーすさん）', arr: R.net, c: '--s-subs', f: v => sgn(v) + ' 人', w: wNet, vs: [wTyt, '検索との関係'] },
-  { k: '試合中のプレイヤー数（全世界・平均）', arr: R.fgg, c: '--s-fgg', f: v => v.toFixed(1) + ' 万人', w: wFgg, vs: [wViews, '再生との関係'] },
+  { k: '試合中のプレイヤー数（全世界・平均）', arr: R.fgg, c: '--s-fgg', f: v => fmt(v) + ' 万人', w: wFgg, vs: [wViews, '再生との関係'] },
 ];
 const words = r => r >= .7 ? 'つよい' : r >= .4 ? 'ややある' : r >= .2 ? 'うすい' : 'ほぼない';
 const multiSvgs = [];
@@ -274,6 +324,7 @@ function syncTo(i, e) {
 }
 
 /* ---- 文章 ---- */
+const hotW = wTyt.indexOf(Math.max(...wTyt));
 const rTyt = corr(wTyt, wViews), rFgg = corr(wFgg, wViews), rTytNet = corr(wTyt, wNet), rTytS = corr(wTyt, wSearch);
 const avdBest = wAvd[11] >= Math.max(...wAvd.slice(0, 11));
 const nameDays = Object.entries(R.name).filter(([, v]) => v > 0);
@@ -288,27 +339,37 @@ const WDN = ['日', '月', '火', '水', '木', '金', '土'];
 
 $('#lead').textContent = `記録：${R.fetched}（${md(thisW.a)}〜${md(thisW.b)} の週までの分）`;
 
+/* 先週との比較 */
+const SW = R.shortsWeeks || [], swi = SW.findIndex(w => md(w.a) === md(thisW.a));
+const swNow = SW[swi], swPrev = SW[swi - 1];
+const pct = (a, b) => b ? Math.round((a - b) / b * 100) : 0;
+const dNet = wNet[11] - wNet[10];
+const longPick = (R.series || []).filter(x => ['検証・攻略', 'ストーリー解説'].includes(x.k));
+
 $('#win').innerHTML = `<h2>今週の成果<small>THIS WEEK</small></h2><ol>
-  <li><b>登録者が ${fmt(R.subs)} 人になりました。</b><span class="sub">この週の伸びは ${sgn(wNet[11])} 人。先週（${sgn(wNet[10])}）より少なめです。</span></li>
-  <li><b>1回あたり見てもらえる時間が、12週でいちばん長くなりました。</b><span class="sub">平均 ${wAvd[11].toFixed(0)} 秒。先週は ${wAvd[10].toFixed(0)} 秒でした。再生は減っても、見る時間の合計はほぼ保っています。</span></li>
-  ${firstName ? `<li><b>「あーすさん」と YouTube で検索されるようになりました。</b><span class="sub">${md(firstName)} から記録に出はじめて、いちばん多かったのは ${md(peakName)}。名前で探しに来てくれる人が出てきました。</span></li>` : ''}
+  <li><b>登録者が ${fmt(R.subs)} 人になりました。</b><span class="sub">${md(thisW.a)}〜${md(thisW.b)} の伸びは ${sgn(wNet[11])} 人。先週（${sgn(wNet[10])}）より${dNet < 0 ? '少なめ' : '多め'}です。登録を外した人は ${fmt(sum(R.lost.slice(thisW.s, thisW.e)))} 人で、先週の ${fmt(sum(R.lost.slice(lastW.s, lastW.e)))} 人より${sum(R.lost.slice(thisW.s, thisW.e)) <= sum(R.lost.slice(lastW.s, lastW.e)) ? '少なくなりました' : '増えました'}。</span></li>
+  ${avdBest ? `<li><b>1回あたり見てもらえる時間が、12週でいちばん長くなりました。</b><span class="sub">平均 ${wAvd[11].toFixed(0)} 秒。先週は ${wAvd[10].toFixed(0)} 秒でした。</span></li>` : ''}
+  ${swNow && swPrev && Math.abs(pct(swNow.v / swNow.n, swPrev.v / swPrev.n)) < 10 ? `<li><b>ショート1本あたりの再生は落ちていません。</b><span class="sub">1本あたり ${fmt(Math.round(swNow.v / swNow.n))} 回（先週 ${fmt(Math.round(swPrev.v / swPrev.n))} 回）。作りの力はそのままです。</span></li>` : ''}
+  ${firstName ? `<li><b>「あーすさん」と YouTube で検索されるようになりました。</b><span class="sub">${md(firstName)} から記録に出はじめました。名前で探しに来てくれる人が出てきています。</span></li>` : ''}
 </ol>`;
 
+const goodWeeks = SW.filter(w => w.n >= 25).map(w => W.findIndex(x => md(x.a) === md(w.a))).filter(i => i >= 0);
 $('#plan').innerHTML = `<h2>今後の方針<small>NEXT</small></h2><ol>
-  <li><b>みんながフォートナイトを調べる日に、速報を厚く。</b><span class="sub">あーすさんの再生は、日本のフォートナイト検索の多さとよく一緒に動きます（関係 ${rTyt.toFixed(2)}）。シーズンの始まり・イベント・コラボの日は、ショートの本数を増やしましょう。</span></li>
-  <li><b>金曜と土曜に、いちばん見せたいものを。</b><span class="sub">平均再生は金・土が水曜のおよそ2倍。告知や力を入れたショートは木曜の夜〜金曜に出すと効率がよさそうです。</span></li>
-  <li><b>ショートから配信へ、道をつなぐ。</b><span class="sub">登録の ${shortShare}% はショートから。配信は1回 ${Math.round(TT.live[2] / 60)} 分近く見てもらえる場所です。ショートの説明欄や固定コメントに、次の配信の時間を置いておきましょう。</span></li>
-  <li><b>タイトルの頭に、探される言葉を。</b><span class="sub">入り口の ${searchShare}% は YouTube 検索です。「無料」「速報」「いつまで」のような、みんなが打つ言葉を先に。</span></li>
+  ${swNow ? `<li><b>ショートは1週間に25本以上を保ちましょう。</b><span class="sub">25本をこえた週の登録の伸びは平均 ${sgn(Math.round(mean(goodWeeks.map(i => wNet[i]))))} 人。${swNow.n} 本だった今週は ${sgn(wNet[11])} 人でした。1日3〜4本がめやすです。</span></li>` : ''}
+  <li><b>みんながフォートナイトを調べる日に、速報を厚く。</b><span class="sub">あーすさんの再生は、日本のフォートナイト検索の多さと一緒に動く関係が${words(rTyt)}です（関係 ${rTyt.toFixed(2)}）。アップデート・イベント・コラボの日は本数を増やして、タイトルの頭に「無料」「速報」「いつまで」のような探される言葉を。</span></li>
+  <li><b>金曜と土曜に、いちばん見せたいものを。</b><span class="sub">平均再生は金・土が水曜のおよそ2倍。力を入れたショートは木曜の夜〜金曜に。</span></li>
+  ${longPick.length ? `<li><b>長い動画は「その時の話題の攻略」と「ストーリー解説」を軸に。</b><span class="sub">1本あたりの再生は ${longPick.map(x => `${x.k} ${fmt(x.med)} 回`).join('、')}。12/5 のイベントまでは、ストーリー解説が伸ばしどきです。</span></li>` : ''}
+  <li><b>1本見た人を、次の1本へ。</b><span class="sub">登録の ${shortShare}% はショートから。動画の終わりの画面と説明欄の1行目に、次の回・再生リスト・次の配信の時間を置いておきましょう。</span></li>
 </ol>`;
 
 $('#kpis').innerHTML = [
-  ['チャンネル登録者数', fmt(R.subs), R.fetched + ' 時点'],
+  ['チャンネル登録者数', fmt(R.subs), (R.subsAt || R.fetched) + ' 時点'],
   ['この7日の伸び', sgn(wNet[11]), `${md(thisW.a)}〜${md(thisW.b)}`],
   ['この28日の伸び', sgn(sum(wNet.slice(8))), '4週ぶん'],
   ['この12週の伸び', sgn(sum(wNet)), '84日ぶん'],
 ].map(([k, v, s]) => `<div class="kpi"><small>${k}</small><b>${v}</b><i>${s}</i></div>`).join('');
 
-$('#n-corr').innerHTML = `<b>凛のメモ：</b>日本でフォートナイトが YouTube 検索される週は、あーすさんの再生も増えています（${rTyt.toFixed(2)}）。とくに<b>検索から来た再生</b>は ${rTytS.toFixed(2)} と、よくそろっています。登録の伸びとは ${rTytNet.toFixed(2)}。${md(W[9].a)}〜${md(W[9].b)} の週（${sgn(wNet[9])} 人）は、シーズンが変わって検索が一気に増えた週と重なります。全世界のプレイヤー数との関係は ${rFgg.toFixed(2)} とうすく、海外の大きな動きより、日本で話題になっているかどうかが効いているようです。`;
+$('#n-corr').innerHTML = `<b>凛のメモ：</b>日本でフォートナイトが YouTube 検索される週は、あーすさんの再生も増える傾向があります（${rTyt.toFixed(2)}）。とくに<b>検索から来た再生</b>は ${rTytS.toFixed(2)} と、いちばんそろっています。登録の伸びとは ${rTytNet.toFixed(2)}。${md(W[hotW].a)}〜${md(W[hotW].b)} の週は日本の検索がいちばん多く、登録は ${sgn(wNet[hotW])} 人でした。全世界のプレイヤー数との関係は ${rFgg.toFixed(2)} とうすく、海外の大きな動きより、日本で話題になっているかどうかが効いているようです。`;
 $('#n-name').innerHTML = firstName ? `<b>凛のメモ：</b>10月までは記録に出ないほど少なかった名前検索が、${md(firstName)} 以降は何度も出ています。チャンネル名を見て探しに来る人がいる、ということです。` : '<b>凛のメモ：</b>まだ記録に出るほどの量ではありません。';
 $('#n-type').innerHTML = `<b>凛のメモ：</b>ショートは「見つけてもらう」、配信は「長くいてもらう」役目です。5分ほどの動画は再生が少なめなので、ショートで気になった人の行き先として、説明欄から動画へつなぐと生きてきます。`;
 $('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
@@ -317,15 +378,76 @@ $('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetche
 const TY = [['ショート', 'shorts'], ['配信', 'live'], ['動画', 'video']];
 $('#c-type').innerHTML = TY.map(([n, k]) => { const t = TT[k]; return `<div class="t"><h4>${n}</h4><dl><dt>再生</dt><dd>${t[0] >= 1e4 ? (t[0] / 1e4).toFixed(1) + '<small>万回</small>' : fmt(t[0]) + '<small>回</small>'}</dd><dt>平均で見る時間</dt><dd>${t[2] >= 60 ? Math.floor(t[2] / 60) + '<small>分</small>' + (t[2] % 60) + '<small>秒</small>' : t[2] + '<small>秒</small>'}</dd><dt>登録</dt><dd>${fmt(t[3])}<small>人</small></dd></dl></div>`; }).join('');
 
+
+/* なぜ増えた・減った */
+const wsumR = (arr, w) => sum(arr.slice(w.s, w.e));
+const wmeanR = (arr, w) => mean(arr.slice(w.s, w.e));
+const F = [
+  { k: '登録の伸び', u: '人', a: wNet[10], b: wNet[11], g: 'res' },
+  { k: '登録を外した人', u: '人', a: wsumR(R.lost, lastW), b: wsumR(R.lost, thisW), g: 'res', inv: true },
+  swNow && { k: 'ショートの本数', sub: 'あーすさんが出した数', u: '本', a: swPrev.n, b: swNow.n, g: 'own' },
+  swNow && { k: 'ショート1本あたりの再生', sub: '公開した週ごと', u: '回', a: Math.round(swPrev.v / swPrev.n), b: Math.round(swNow.v / swNow.n), g: 'own' },
+  swNow && { k: '5,000回をこえたショート', u: '本', a: swPrev.big, b: swNow.big, g: 'own' },
+  { k: 'ショートのフィードから来た再生', u: '回', a: wsumR(R.sfeed, lastW), b: wsumR(R.sfeed, thisW), g: 'ch' },
+  { k: '検索から来た再生', u: '回', a: wsumR(R.search, lastW), b: wsumR(R.search, thisW), g: 'ch' },
+  { k: 'ホーム・登録チャンネルから来た再生', u: '回', a: wsumR(R.subfeed, lastW), b: wsumR(R.subfeed, thisW), g: 'ch' },
+  { k: 'フォートナイトの YouTube 検索', sub: '日本・Google トレンド', u: '', a: Math.round(wmeanR(R.tyt, lastW)), b: Math.round(wmeanR(R.tyt, thisW)), g: 'fn' },
+  { k: 'フォートナイトのウェブ検索', sub: '日本・Google トレンド', u: '', a: Math.round(wmeanR(R.tweb, lastW)), b: Math.round(wmeanR(R.tweb, thisW)), g: 'fn' },
+  { k: '試合中のプレイヤー数', sub: '全世界・fortnite.gg の平均', u: '万人', a: +wmeanR(R.fgg, lastW).toFixed(0), b: +wmeanR(R.fgg, thisW).toFixed(0), g: 'fn' },
+].filter(Boolean);
+const chg = f => pct(f.b, f.a);
+const tag = f => { const c = chg(f); if (Math.abs(c) < 10) return '<b class="eq">ほぼ同じ</b>'; const good = f.inv ? c < 0 : c > 0; return `<b class="${good ? 'up' : 'dn'}">${c > 0 ? '+' : ''}${c}%</b>`; };
+const GN = { res: 'けっか', own: 'あーすさんの動画', ch: '見に来た道', fn: 'フォートナイト全体' };
+let lastG = '';
+$('#c-why').innerHTML = F.map(f => { const h = f.g !== lastG ? `<div class="fx" style="margin-top:10px;color:var(--rin);font-family:var(--f-util)">${GN[f.g]}</div>` : ''; lastG = f.g; return h + `<div class="fr"><div class="fk">${f.k}${f.sub ? `<small>${f.sub}</small>` : ''}</div><div class="fv">${fmt(f.a)}<span>→</span>${fmt(f.b)}<span>${f.u}</span></div><div class="fc">${tag(f)}</div></div>`; }).join('');
+$('#why-h').textContent = `凛の推理：${md(lastW.a)}〜${md(lastW.b)} → ${md(thisW.a)}〜${md(thisW.b)}`;
+{
+  const get = k => F.find(f => f.k === k);
+  const fs = get('ショートの本数'), fp = get('ショート1本あたりの再生'), fb = get('5,000回をこえたショート'), fse = get('検索から来た再生'), fty = get('フォートナイトの YouTube 検索'), fg = get('試合中のプレイヤー数'), fsf = get('ショートのフィードから来た再生');
+  const L = [`<b>凛の推理（予測です）：</b>この週の登録の伸びは ${sgn(wNet[11])} 人で、先週より ${Math.abs(dNet)} 人${dNet < 0 ? '少なく' : '多く'}なりました。`];
+  if (fs && chg(fs) <= -20) L.push(`いちばん大きいのは<b>ショートの本数</b>です。${fs.a} 本 → ${fs.b} 本と ${-chg(fs)}% 減りました。${fp && Math.abs(chg(fp)) < 10 ? `1本あたりの再生は ${fmt(fp.a)} → ${fmt(fp.b)} 回でほぼ同じなので、1本ごとの力が落ちたのではなく、出した数が減ったぶん見つけてもらう回数が減った、と考えています。` : ''}${fsf ? `ショートのフィードから来た再生も ${chg(fsf)}% でした。` : ''}`);
+  if (fs && chg(fs) >= 20) L.push(`ショートの本数が ${fs.a} 本 → ${fs.b} 本と増えたことが、いちばんの理由だと思います。`);
+  if (fse && fty && chg(fse) <= -20 && Math.abs(chg(fty)) < 10) L.push(`検索から来た再生も ${chg(fse)}% でしたが、日本でフォートナイトが調べられた量はほぼ同じでした。調べる人はいたのに、引っかかる新しい動画が少なかった、ということです。トレンドに乗れなかったというより、乗る本数が足りなかった週です。`);
+  else if (fse && fty && chg(fse) <= -20 && chg(fty) <= -10) L.push(`検索から来た再生は ${chg(fse)}%、日本のフォートナイト検索も ${chg(fty)}% で、話題そのものが少ない週でした。`);
+  if (fg && chg(fg) <= -15) L.push(`全世界の試合中のプレイヤーも ${fmt(fg.a)} → ${fmt(fg.b)} 万人と ${-chg(fg)}% 減っていて、前の週の盛り上がりが落ち着いた時期でもありました。`);
+  if (fb && fb.b < fb.a) L.push(`5,000回をこえる当たりのショートも ${fb.a} 本 → ${fb.b} 本でした。当たりは本数に比例して出るので、ここも本数の影響だと見ています。`);
+  L.push(`まとめると、<b>フォートナイト全体が少し落ち着いた週に、ショートの本数も減ったことが重なった</b>、というのが私の見立てです。全体の需要は変えられませんが、本数はあーすさんの手で戻せます。`);
+  $('#n-why').innerHTML = L.join('');
+}
+
+/* シリーズ */
+const SER = R.series || [];
+if (SER.length) {
+  const top = SER.reduce((a, b) => b.max > a.max ? b : a);
+  const weekly = SER.filter(x => ['武器娘面接', 'フォートナイト旅行記', 'フォートナイト英会話', 'スキンツルハシ物語', '大会情報室'].includes(x.k));
+  const story = SER.find(x => x.k === 'ストーリー解説');
+  $('#t-series').innerHTML = `<tr><th>シリーズ</th><th>本数</th><th>1本あたり</th><th>いちばん</th><th>見た割合</th></tr>` + SER.map(x => `<tr><td>${x.k}</td><td>${x.n}</td><td>${fmt(x.med)}</td><td>${fmt(x.max)}</td><td>${x.avp.toFixed(0)}%</td></tr>`).join('');
+  $('#n-series').innerHTML = `<b>凛のメモ：</b>いちばん大きく当たったのは「${top.k}」の ${fmt(top.max)} 回（${top.maxT}）。新シーズンの始まりに、みんなが知りたいことをすぐ長い動画にした回です。${weekly.length ? `毎週続けているシリーズ（${weekly.map(x => x.k).join('・')}）は1本 ${fmt(Math.min(...weekly.map(x => x.med)))}〜${fmt(Math.max(...weekly.map(x => x.max)))} 回ほどで、見ているのはほとんど登録してくれている人です。` : ''}${story ? `「ストーリー解説」は1本 ${fmt(story.med)} 回、平均で動画の ${story.avp.toFixed(0)}% まで見られていて、続きものの中では強めです。` : ''}「MV・BGM」は本数は少ないものの、長く見られ続けています。`;
+}
+const PL = R.playlists || [], VT = R.vodTraffic || {};
+if (PL.length) {
+  const vt = sum(Object.values(VT));
+  $('#n-pl').innerHTML = `<b>凛のメモ：</b>よく開かれている再生リストは「${PL[0].k}」「${PL[1].k}」のような、ショートを集めたまとめです。長い動画のシリーズの再生リストは、5月からで数回〜20回ほどしか開かれていません。長い動画を見に来た入り口も、再生リストは ${Math.round((VT.PLAYLIST || 0) / vt * 100)}%、動画の終わりの画面からはほとんど来ていません。シリーズの1本目を見た人が2本目へ進む道が、まだほとんどありません。`;
+}
+
 const SRC = { SHORTS: 'ショートのフィード', YT_SEARCH: 'YouTube 検索', SUBSCRIBER: '登録チャンネル・ホーム', YT_CHANNEL: 'チャンネルのページ', EXT_URL: 'ほかのサイト（X など）', IMMERSIVE_LIVE: 'ライブのフィード', NOTIFICATION: '通知', RELATED_VIDEO: '関連動画', other: 'そのほか' };
 
 function draw() {
   bars($('#c-week'), W.map(w => md(w.a)), wNet, {
-    color: css('--s-subs'), aria: '週ごとの登録の伸び', hi: i => i === 11 || i === 9, skipLab: 2,
-    showVal: i => i === 11 || i === 9 || wNet[i] === Math.max(...wNet), valFmt: v => sgn(v),
+    color: css('--s-subs'), aria: '週ごとの登録の伸び', hi: i => i >= 10, skipLab: 2,
+    showVal: i => i >= 10 || wNet[i] === Math.max(...wNet), valFmt: v => sgn(v),
     tip: i => `<b>${md(W[i].a)}〜${md(W[i].b)}</b><br>${sw(css('--s-subs'))}<span class="k">登録の伸び</span> ${sgn(wNet[i])} 人<br><span class="k">再生</span> ${fmt(wViews[i])} 回`
   });
+  if (SW.length) bars($('#c-shorts'), SW.map(w => md(w.a)), SW.map(w => w.n), {
+    color: css('--s-views'), aria: '週ごとのショートの本数', h: 150, hi: i => i === swi, showVal: () => true, valFmt: v => v + '本',
+    tip: i => { const wi = W.findIndex(x => md(x.a) === md(SW[i].a)); return `<b>${md(SW[i].a)}〜${md(SW[i].b)}</b><br>${sw(css('--s-views'))}<span class="k">ショート</span> ${SW[i].n} 本（合計 ${fmt(SW[i].v)} 回）<br><span class="k">登録の伸び</span> ${wi >= 0 ? sgn(wNet[wi]) + ' 人' : '—'}`; }
+  });
   multi();
+  if (SER.length) hbars($('#c-series'), SER.map(x => ({ k: x.k, v: x.med, x })), css('--s-search'), { aria: 'シリーズごとの1本あたりの再生', val: r => fmt(r.v) + '回',
+    tip: r => `<b>${r.k}</b><br>${sw(css('--s-search'))}<span class="k">1本あたり</span> ${fmt(r.v)} 回（${r.x.n} 本）<br><span class="k">いちばん見られた回</span> ${fmt(r.x.max)} 回<br><span class="k">平均で見る時間</span> ${r.x.avd} 秒（${r.x.avp.toFixed(0)}%）` });
+  if (PL.length) hbars($('#c-pl'), PL.slice(0, 8).map(x => ({ k: x.k.length > 10 ? x.k.slice(0, 9) + '…' : x.k, v: x.v, x })), css('--s-fgg'), { aria: '再生リストから見られた回数', val: r => fmt(r.v) + '回',
+    tip: r => `<b>${r.x.k}</b><br>${sw(css('--s-fgg'))}<span class="k">再生リストから見られた回数</span> ${fmt(r.v)} 回<br><span class="k">開かれた回数</span> ${fmt(r.x.st)} 回（1回で ${r.x.vps.toFixed(1)} 本）` });
+  if (Object.keys(VT).length) hbars($('#c-vodsrc'), Object.entries(VT).filter(([k]) => k !== 'other').map(([k, v]) => ({ k: SRC[k] || ({ NO_LINK_OTHER: 'リンクなし（直接など）', PLAYLIST: '再生リスト' })[k] || k, v })).sort((a, b) => b.v - a.v).concat([{ k: 'そのほか', v: VT.other }]), css('--s-views'), { aria: '長い動画を見に来た入り口' });
   const nd = Object.keys(R.name), nv = Object.values(R.name);
   bars($('#c-name'), nd.map(md), nv, {
     color: css('--s-trend'), aria: '「あーすさん」のYouTube検索', h: 150, skipLab: 4,
