@@ -119,7 +119,7 @@ function build(){
   list.forEach((c,i)=>{
     const b=document.createElement('button');b.type='button';b.className='card';b.style.setProperty('--c',COL[c.who]);
     b.setAttribute('aria-label',WHO[c.who]+'「'+c.title+'」');
-    b.innerHTML=`<img src="img/${c.id}.jpg" alt="" loading="${i<4?'eager':'lazy'}" draggable="false"><span class="refl" aria-hidden="true"><img src="img/${c.id}_s.jpg" alt="" loading="lazy"></span>`;
+    b.innerHTML=`<img src="img/${c.id}.jpg?v=3" alt="" loading="${i<4?'eager':'lazy'}" draggable="false"><span class="refl" aria-hidden="true"><img src="img/${c.id}_s.jpg?v=3" alt="" loading="lazy"></span>`;
     b.onclick=()=>{if(moved)return;if(i===front)zoom(c);else goTo(i)};
     ring.appendChild(b);cards.push(b);
   });
@@ -150,7 +150,7 @@ function step(dir){goTo((front+dir+cards.length)%cards.length)}
 document.getElementById('prev').onclick=e=>{e.stopPropagation();step(-1)};
 document.getElementById('next').onclick=e=>{e.stopPropagation();step(1)};
 const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbcap=document.getElementById('lbcap');
-function zoom(c){lbimg.src='img/'+c.id+'.jpg';lbimg.alt=WHO[c.who]+'の冬服「'+c.title+'」のキャラクターシート';lbcap.textContent=WHO[c.who]+'　'+c.title;lb.classList.add('on');paused=true;document.getElementById('lbx').focus()}
+function zoom(c){lbimg.src='img/'+c.id+'.jpg?v=3';lbimg.alt=WHO[c.who]+'の冬服「'+c.title+'」のキャラクターシート';lbcap.textContent=WHO[c.who]+'　'+c.title;lb.classList.add('on');paused=true;document.getElementById('lbx').focus()}
 let paused=false;
 function unzoom(){lb.classList.remove('on');paused=false;idleT=performance.now()}
 document.getElementById('lbx').onclick=unzoom;lb.onclick=e=>{if(e.target===lb)unzoom()};
