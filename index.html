@@ -2116,20 +2116,20 @@ const DIARY = [
 const WD = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 // ── 配信枠（横枠）。YouTube のライブタブから拾う。タイトルに「#縦型配信」が付く枠は縦なので入れない
 const STREAMS = {
- checked:'2026-11-27 09:00',
+ checked:'2026-11-28 09:00',
  next:null,
- last:{v:'59ltokDB9GM', title:'金テトを狙え！宝箱を開けまくる木曜の夜｜精霊配布＆ゼロビルド参加型 フォートナイト', note:'2026.11.26 配信'}
+ last:{v:'kJrO_IknVio', title:'金曜の夜も金テト！宝箱を開けまくれ｜精霊配布＆ゼロビルド参加型 フォートナイト', note:'2026.11.27 配信'}
 };
 const EMBED = true; // 一般公開版では true（ページ内で再生）。非公開の下書きでは外部の埋め込みが止められるので false
 const PLAYER = v => EMBED ? `<iframe class="player" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v)}" title="YouTube" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>` : '';
 const YT = v => 'https://www.youtube.com/watch?v=' + encodeURIComponent(v);
 const SHORTS = [
+ {v:'YEQz3IDipd8', t:'ドキドキ文芸部スキン初公開！4人が11/28ショップに登場'},
+ {v:'lPakb61ya9c', t:'金スキン確率15倍！11/29トレジャーアワーで歴代の金ピカ全部復活'},
+ {v:'23fHeA5dqyI', t:'パック半額は新規と一部の復帰だけ！？メインフレームブレイクパック50%オフ'},
+ {v:'ZqoX0ejWYZE', t:'最後のライブイベント何時から？12/6朝4時開始・開場3:20'},
  {v:'Pw0QrOxhM44', t:'最後のクルースキンはN.E.K.O.！12月クルーパックの猫スキン'},
- {v:'I9nBMmJkhNo', t:'知らない人と組むと没収！？パイレーツショップ不正に公式が声明'},
- {v:'OKtNYrSwwtI', t:'長ぐつをはいたネコ参戦！？11/27朝9時にバンドル登場'},
- {v:'fXhgU8y7LqQ', t:'ドキドキ文芸部コラボ決定！？4人のスキンが来る？'},
- {v:'W0iflljjLqw', t:'参加だけで8万XP！？ストレステスト11/26朝4時＋ライブイベント12/6'},
- {v:'NVPNYDXs_Qw', t:'無料でスキンゲットのチャンス！スコット・ピルグリムカップ11/25夜6時'}
+ {v:'I9nBMmJkhNo', t:'知らない人と組むと没収！？パイレーツショップ不正に公式が声明'}
 ];
 document.getElementById('shorts').className = EMBED ? 'shorts embed' : 'shorts';
 const shShort = x => x.s || (x.t.replace(/^【.*?】/, '').split(/[！!？?。]/)[0] || x.t);
