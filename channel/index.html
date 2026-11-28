@@ -268,10 +268,25 @@ details.tbl th:first-child,details.tbl td:first-child{text-align:left}
     <p class="note" id="n-comp"></p>
   </section>
 
+  <section class="card">
+    <p class="q">Q15 ／ サムネイルは押されている？</p>
+    <h3>インプレッションとクリック率（<span class="kp"></span>）</h3>
+    <p class="cap">インプレッションは、サムネイルが画面に出た回数。クリック率は、そのうち押されて見られた割合です。YouTube Studio の数字です。</p>
+    <div class="types" id="c-ktype"></div>
+    <h4 class="sub-h">長い動画（横の動画）のクリック率</h4>
+    <div class="chart" id="c-klong"></div>
+    <h4 class="sub-h">配信のクリック率</h4>
+    <div class="chart" id="c-klive"></div>
+    <h4 class="sub-h">ショートのクリック率（高いものと低いもの）</h4>
+    <div class="chart" id="c-kshort"></div>
+    <p class="note" id="n-kbad"></p>
+    <p class="note" id="n-kgood"></p>
+  </section>
+
   <p class="src" id="src"></p>
 </main>
 <div class="tip" id="tip"></div>
-<script src="data.js?v=20261128"></script>
+<script src="data.js?v=20261128b"></script>
 <script>
 (() => {
 const R = window.RIN_DATA, $ = s => document.querySelector(s);
@@ -427,7 +442,7 @@ $('#kpis').innerHTML = [
 $('#n-corr').innerHTML = `<b>凛のメモ：</b>日本でフォートナイトが YouTube 検索される週は、あーすさんの再生も増える傾向があります（${rTyt.toFixed(2)}）。とくに<b>検索から来た再生</b>は ${rTytS.toFixed(2)} と、いちばんそろっています。登録の伸びとは ${rTytNet.toFixed(2)}。${md(W[hotW].a)}〜${md(W[hotW].b)} の週は日本の検索がいちばん多く、登録は ${sgn(wNet[hotW])} 人でした。全世界のプレイヤー数との関係は ${rFgg.toFixed(2)} とうすく、海外の大きな動きより、日本で話題になっているかどうかが効いているようです。`;
 $('#n-name').innerHTML = firstName ? `<b>凛のメモ：</b>10月までは記録に出ないほど少なかった名前検索が、${md(firstName)} 以降は何度も出ています。チャンネル名を見て探しに来る人がいる、ということです。` : '<b>凛のメモ：</b>まだ記録に出るほどの量ではありません。';
 $('#n-type').innerHTML = `<b>凛のメモ：</b>ショートは「見つけてもらう」、配信は「長くいてもらう」役目です。5分ほどの動画は再生が少なめなので、ショートで気になった人の行き先として、説明欄から動画へつなぐと生きてきます。`;
-$('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。ほかのチャンネルは YouTube の公開データ（11/28 取得）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
+$('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。ほかのチャンネルは YouTube の公開データ（11/28 取得）。インプレッションとクリック率は YouTube Studio（11/28 取得）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
 
 /* 種類 */
 const TY = [['ショート', 'shorts'], ['配信', 'live'], ['動画', 'video']];
@@ -574,8 +589,26 @@ function drawC() {
     tip: r => `<b>${r.full}</b><br>${sw(css('--s-search'))}<span class="k">付けていた動画</span> ${r.v} 本` });
 }
 
+const K = R.k;
+if (K) {
+  document.querySelectorAll('.kp').forEach(e => e.textContent = K.period);
+  const tm = v => v >= 60 ? Math.floor(v / 60) + '<small>分</small>' + (v % 60) + '<small>秒</small>' : v + '<small>秒</small>';
+  const man = v => v >= 1e4 ? (v / 1e4).toFixed(1) + '<small>万回</small>' : fmt(v) + '<small>回</small>';
+  $('#c-ktype').innerHTML = K.types.map(([n, v, im, c, a]) => `<div class="t"><h4>${n}</h4><dl><dt>クリック率</dt><dd>${c}<small>%</small></dd><dt>インプレッション</dt><dd>${man(im)}</dd><dt>再生</dt><dd>${man(v)}</dd><dt>平均で見る時間</dt><dd>${tm(a)}</dd></dl></div>`).join('');
+  const L = K.long, hit = L.filter(x => x[3] >= 5), low = L.filter(x => x[3] < 2);
+  $('#n-kbad').innerHTML = `<b>凛が気になったところ（問題点）</b><br>① <b>長い動画のクリック率が低いです。</b>当たった2本（${hit.map(x => x[3] + '%').join('・')}）をのぞくと、ほとんどが1〜2%台。サムネイルは1本あたり2,000回ほどしか出されておらず、押されないので YouTube がそれ以上すすめなくなっている状態です。<br>② <b>見ている人の ${K.onlyShorts}% はショートしか見ていません。</b>長い動画も見る人は ${K.both}% だけ。長い動画は主にホーム画面に出ていますが、そこにいるのはショートで来た人たちなので、「英会話」「旅行記」「遺物」のようなシリーズ名だけでは押す理由になりにくいようです。<br>③ <b>配信は、同じタイトルの回が続くと押されにくくなります。</b>「見つからない人集合！」は7回使われていて 4.8〜6.1%、「新精霊ゲットするぞ！！」は 3.6% の回もありました。その日だけの話題（「木曜の夜」「2回目のトレジャーアワー」）を入れた回は 6〜7.7% です。<br>④ ショートは強いですが、出てすぐスワイプされるのが ${(100 - K.keep).toFixed(1)}%。クリック率が低いショートは「〜がヤバい!?」「本命を予想」のように、<b>何がわかるのかがタイトルで見えないもの</b>でした。`;
+  $('#n-kgood').innerHTML = `<b>凛の改善案</b><br>① <b>長い動画は「いま探されている話題」から作る。</b>当たった2本はどちらも、その週にみんなが調べていた「パイレーツトークン」「ゾロの刀」でした。シリーズものは、タイトルの頭を話題の言葉にして、シリーズ名は最後の【】へ（例：「金テトの出し方…【スキンツルハシ物語 #3】」）。<br>② <b>ショートから長い動画へ橋をかける。</b>同じ話題のショートに「関連動画」のリンクで長い動画をつなげると、ショートしか見ない ${K.onlyShorts}% の人に届く道ができます。<br>③ <b>長い動画のサムネイルは大きな文字を1つだけ。</b>ショートで押されたタイトル（「朝9時で消える」「いつ終わる？」）のように、数字か時間を大きく入れると効きそうです。<br>④ <b>配信のタイトルは毎回変える。</b>その日の目玉を頭に置き、「精霊配布」のような毎回同じ言葉はうしろへ。縦型配信は、縦のライブフィードから見に来る人が多いので、クリック率では比べないでください。<br>⑤ <b>ショートは最初の1秒で答えを見せる。</b>「何時に終わるか」「何がもらえるか」を最初の画面に出すと、スワイプが減ります。`;
+}
+function drawK() {
+  if (!K) return;
+  const kt = (r, c) => `<b>${r.x[0]}</b><br>${sw(c)}<span class="k">クリック率</span> ${r.x[3]}%<br><span class="k">インプレッション</span> ${fmt(r.x[1])} 回<br><span class="k">再生</span> ${fmt(r.x[2])} 回`;
+  hbars($('#c-klong'), K.long.map(x => ({ k: x[0].replace(/^【[^】]*】/, ''), v: x[3], x })), css('--s-search'), { labF: .6, aria: '長い動画のクリック率', val: r => r.v + '%', tip: r => kt(r, css('--s-search')) });
+  hbars($('#c-klive'), K.live.map(x => ({ k: x[0], v: x[3], x })), css('--s-trend'), { labF: .6, aria: '配信のクリック率', val: r => r.v + '%', tip: r => kt(r, css('--s-trend')) });
+  hbars($('#c-kshort'), K.sTop.concat(K.sLow).map(x => ({ k: x[0].replace(/^【[^】]*】/, ''), v: x[3], x })), css('--s-views'), { labF: .6, aria: 'ショートのクリック率', val: r => r.v + '%', tip: r => kt(r, css('--s-views')) });
+}
+
 function draw() {
-  drawX(); drawC();
+  drawX(); drawC(); drawK();
   bars($('#c-week'), W.map(w => md(w.a)), wNet, {
     color: css('--s-subs'), aria: '週ごとの登録の伸び', hi: i => i >= 10, skipLab: 2,
     showVal: i => i >= 10 || wNet[i] === Math.max(...wNet), valFmt: v => sgn(v),
