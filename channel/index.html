@@ -215,10 +215,63 @@ details.tbl th:first-child,details.tbl td:first-child{text-align:left}
     <div class="chart" id="c-wd"></div>
   </section>
 
+  <section class="card">
+    <p class="q">Q10 ／ どんな言葉で探されている？</p>
+    <h3>検索された言葉（<span class="xp"></span>）</h3>
+    <p class="cap">YouTube でこの言葉を検索して、あーすさんの動画にたどり着いた再生の数です。</p>
+    <div class="chart" id="c-terms"></div>
+    <h4 class="sub-h">話題ごとにまとめると</h4>
+    <div class="chart" id="c-tgrp"></div>
+    <h4 class="sub-h">YouTube の外から来た入り口（5月から）</h4>
+    <div class="chart" id="c-ext"></div>
+    <p class="note" id="n-terms"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q11 ／ 登録につながった動画は？</p>
+    <h3>登録が多かった動画（<span class="xp"></span>）</h3>
+    <p class="cap">その動画を見たあとに登録した人の数です。</p>
+    <div class="chart" id="c-vsubs"></div>
+    <h4 class="sub-h">話題ごとの、1,000回見られたときの登録</h4>
+    <div class="chart" id="c-trate"></div>
+    <p class="note" id="n-vsubs"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q12 ／ 最後まで見てもらえている？</p>
+    <h3>ショートの「見た割合」と再生</h3>
+    <p class="cap">横が、平均で動画の何%まで見られたか（100%をこえるのは見返されたぶん）。縦が再生回数です。点が1本のショートです（<span class="xp"></span>に多く見られた56本）。</p>
+    <div class="chart" id="c-ret"></div>
+    <p class="note" id="n-ret"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q13 ／ だれが見ている？</p>
+    <h3>見ている人の年代と性別（<span class="xp"></span>）</h3>
+    <p class="cap">ログインして見ている人の割合です。全部を足すと100%になります。</p>
+    <div class="chart" id="c-age"></div>
+    <p class="note" id="n-age"></p>
+  </section>
+
+  <section class="card">
+    <p class="q">Q14 ／ ほかのフォートナイトのチャンネルでは、なにが伸びている？</p>
+    <h3>日本のフォートナイト動画で、よく見られた話題（<span class="cp"></span>）</h3>
+    <p class="cap">YouTube で「フォートナイト」などを検索して、この2週間に出た動画のうち再生の多い日本語の動画 <span class="cn"></span> 本を、話題ごとに分けました。棒は再生の合計です。</p>
+    <div class="chart" id="c-ctop"></div>
+    <h4 class="sub-h">登録者が少ないのに、再生が大きく伸びた動画</h4>
+    <p class="cap">登録者5万人より小さいチャンネルの動画です。数字は、登録者の何倍見られたか。</p>
+    <div class="chart" id="c-csmall"></div>
+    <h4 class="sub-h">よく伸びているチャンネル（2週間の再生の合計）</h4>
+    <div class="chart" id="c-cch"></div>
+    <h4 class="sub-h">よく使われていたタグ</h4>
+    <div class="chart" id="c-ctag"></div>
+    <p class="note" id="n-comp"></p>
+  </section>
+
   <p class="src" id="src"></p>
 </main>
 <div class="tip" id="tip"></div>
-<script src="data.js?v=20261126"></script>
+<script src="data.js?v=20261128"></script>
 <script>
 (() => {
 const R = window.RIN_DATA, $ = s => document.querySelector(s);
@@ -270,12 +323,12 @@ function bars(host, labels, vals, opt) {
 /* ---- 横棒 ---- */
 function hbars(host, rows, color, opt = {}) {
   host.innerHTML = '';
-  const Wd = Math.max(300, host.clientWidth), rowH = 26, labW = Math.min(150, Wd * .38), H = rows.length * rowH + 4;
+  const Wd = Math.max(300, host.clientWidth), rowH = 26, labW = Math.min(opt.labF ? 260 : 150, Wd * (opt.labF || .38)), H = rows.length * rowH + 4;
   const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': opt.aria || '入り口ごとの再生回数' }, host);
   const max = Math.max(...rows.map(r => r.v)), tot = sum(rows.map(r => r.v)), x0 = labW + 8, room = Wd - x0 - 64;
   rows.forEach((r, i) => {
     const yy = i * rowH + 4, w = Math.max(2, room * r.v / max), h = 14, top = yy + 4, rr = Math.min(4, w / 2);
-    const t = el('text', { x: labW, y: yy + 15, 'text-anchor': 'end', class: 'lab' }, svg); t.textContent = r.k;
+    const mc = Math.floor(labW / 12.5), t = el('text', { x: labW, y: yy + 15, 'text-anchor': 'end', class: 'lab' }, svg); t.textContent = r.k.length > mc ? r.k.slice(0, mc - 1) + '…' : r.k;
     el('path', { d: `M${x0},${top}H${x0 + w - rr}Q${x0 + w},${top} ${x0 + w},${top + rr}V${top + h - rr}Q${x0 + w},${top + h} ${x0 + w - rr},${top + h}H${x0}Z`, fill: color }, svg);
     const v = el('text', { x: x0 + w + 6, y: yy + 15, class: 'val' }, svg); v.textContent = opt.val ? opt.val(r, tot) : Math.round(r.v / tot * 100) + '%';
     const hit = el('rect', { x: 0, y: yy, width: Wd, height: rowH, fill: 'transparent' }, svg);
@@ -350,6 +403,7 @@ $('#win').innerHTML = `<h2>今週の成果<small>THIS WEEK</small></h2><ol>
   <li><b>登録者が ${fmt(R.subs)} 人になりました。</b><span class="sub">${md(thisW.a)}〜${md(thisW.b)} の伸びは ${sgn(wNet[11])} 人。先週（${sgn(wNet[10])}）より${dNet < 0 ? '少なめ' : '多め'}です。登録を外した人は ${fmt(sum(R.lost.slice(thisW.s, thisW.e)))} 人で、先週の ${fmt(sum(R.lost.slice(lastW.s, lastW.e)))} 人より${sum(R.lost.slice(thisW.s, thisW.e)) <= sum(R.lost.slice(lastW.s, lastW.e)) ? '少なくなりました' : '増えました'}。</span></li>
   ${avdBest ? `<li><b>1回あたり見てもらえる時間が、12週でいちばん長くなりました。</b><span class="sub">平均 ${wAvd[11].toFixed(0)} 秒。先週は ${wAvd[10].toFixed(0)} 秒でした。</span></li>` : ''}
   ${swNow && swPrev && Math.abs(pct(swNow.v / swNow.n, swPrev.v / swPrev.n)) < 10 ? `<li><b>ショート1本あたりの再生は落ちていません。</b><span class="sub">1本あたり ${fmt(Math.round(swNow.v / swNow.n))} 回（先週 ${fmt(Math.round(swPrev.v / swPrev.n))} 回）。作りの力はそのままです。</span></li>` : ''}
+  ${R.x && R.x.after ? (a => `<li><b>${md(a[0])} は、${sgn(a[1] - a[2])} 人の大きな伸びでした。</b><span class="sub">アップデートのダウンタイムの日で、「いつ終わる？」の速報ショートに検索から ${fmt(a[4])} 回の再生が集まりました（ふだんの3〜4倍）。速報がいちばん登録につながる、という Q11 の見立てどおりです。</span></li>`)(R.x.after[0]) : ''}
   ${firstName ? `<li><b>「あーすさん」と YouTube で検索されるようになりました。</b><span class="sub">${md(firstName)} から記録に出はじめました。名前で探しに来てくれる人が出てきています。</span></li>` : ''}
 </ol>`;
 
@@ -359,6 +413,7 @@ $('#plan').innerHTML = `<h2>今後の方針<small>NEXT</small></h2><ol>
   <li><b>みんながフォートナイトを調べる日に、速報を厚く。</b><span class="sub">あーすさんの再生は、日本のフォートナイト検索の多さと一緒に動く関係が${words(rTyt)}です（関係 ${rTyt.toFixed(2)}）。アップデート・イベント・コラボの日は本数を増やして、タイトルの頭に「無料」「速報」「いつまで」のような探される言葉を。</span></li>
   <li><b>金曜と土曜に、いちばん見せたいものを。</b><span class="sub">平均再生は金・土が水曜のおよそ2倍。力を入れたショートは木曜の夜〜金曜に。</span></li>
   ${longPick.length ? `<li><b>長い動画は「その時の話題の攻略」と「ストーリー解説」を軸に。</b><span class="sub">1本あたりの再生は ${longPick.map(x => `${x.k} ${fmt(x.med)} 回`).join('、')}。12/5 のイベントまでは、ストーリー解説が伸ばしどきです。</span></li>` : ''}
+  ${R.c ? `<li><b>ショートのタイトルを「出来事」の形に。</b><span class="sub">話題はほかの人気チャンネルと同じなのに、伸び方がちがいます。「〜の入手方法」より「〜したら…」「〜を失った！？」のように、あーすさんに起きたことにすると、最初の1秒で止まってもらいやすくなります。速報は今のままの形で。</span></li>` : ''}
   <li><b>1本見た人を、次の1本へ。</b><span class="sub">登録の ${shortShare}% はショートから。動画の終わりの画面と説明欄の1行目に、次の回・再生リスト・次の配信の時間を置いておきましょう。</span></li>
 </ol>`;
 
@@ -372,7 +427,7 @@ $('#kpis').innerHTML = [
 $('#n-corr').innerHTML = `<b>凛のメモ：</b>日本でフォートナイトが YouTube 検索される週は、あーすさんの再生も増える傾向があります（${rTyt.toFixed(2)}）。とくに<b>検索から来た再生</b>は ${rTytS.toFixed(2)} と、いちばんそろっています。登録の伸びとは ${rTytNet.toFixed(2)}。${md(W[hotW].a)}〜${md(W[hotW].b)} の週は日本の検索がいちばん多く、登録は ${sgn(wNet[hotW])} 人でした。全世界のプレイヤー数との関係は ${rFgg.toFixed(2)} とうすく、海外の大きな動きより、日本で話題になっているかどうかが効いているようです。`;
 $('#n-name').innerHTML = firstName ? `<b>凛のメモ：</b>10月までは記録に出ないほど少なかった名前検索が、${md(firstName)} 以降は何度も出ています。チャンネル名を見て探しに来る人がいる、ということです。` : '<b>凛のメモ：</b>まだ記録に出るほどの量ではありません。';
 $('#n-type').innerHTML = `<b>凛のメモ：</b>ショートは「見つけてもらう」、配信は「長くいてもらう」役目です。5分ほどの動画は再生が少なめなので、ショートで気になった人の行き先として、説明欄から動画へつなぐと生きてきます。`;
-$('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
+$('#src').innerHTML = `出典：YouTube のチャンネルの数字（${R.fetched} 取得、${md(R.dates[0])}〜${md(R.dates[N - 1])}）／ 試合中のプレイヤー数は <a href="https://fortnite.gg/player-count" target="_blank" rel="noopener">fortnite.gg</a>（全世界、日ごとの平均）／ 検索の多さは <a href="https://trends.google.co.jp/trends/" target="_blank" rel="noopener">Google トレンド</a>（日本、0〜100 の目安）。ほかのチャンネルは YouTube の公開データ（11/28 取得）。「関係」は週ごとの数字で計算した相関で、どちらが原因かまではわかりません。`;
 
 /* 種類 */
 const TY = [['ショート', 'shorts'], ['配信', 'live'], ['動画', 'video']];
@@ -432,7 +487,95 @@ if (PL.length) {
 
 const SRC = { SHORTS: 'ショートのフィード', YT_SEARCH: 'YouTube 検索', SUBSCRIBER: '登録チャンネル・ホーム', YT_CHANNEL: 'チャンネルのページ', EXT_URL: 'ほかのサイト（X など）', IMMERSIVE_LIVE: 'ライブのフィード', NOTIFICATION: '通知', RELATED_VIDEO: '関連動画', other: 'そのほか' };
 
+/* 追加データ（検索語・動画ごと・年代） */
+const X = R.x;
+if (X) {
+  document.querySelectorAll('.xp').forEach(e => e.textContent = X.period);
+  const tg = X.termGroups, tgTot = sum(tg.map(t => t[1]));
+  const top3 = X.termsA.slice(1, 4).map(t => `「${t[0]}」`).join('');
+  $('#n-terms').innerHTML = `<b>凛のメモ：</b>いちばん多いのはそのまま「フォートナイト」ですが、その次からは${top3}のように、<b>いま起きているイベントの名前</b>がならびます。話題ごとに足すと「${tg[0][0]}」がいちばん多く、上位の言葉の ${Math.round(tg[0][1] / tgTot * 100)}% でした。5月からで見ると「無料スキン」「精霊」「管理者パネル」も強く、<b>無料でもらえるもの・新しい仕組み・いつ遊べるか</b>の3つが、探される言葉の柱です。YouTube の外からは、Google 検索から ${fmt(X.ext[0][1])} 回。動画のタイトルが、そのまま Google でも見つかっています。`;
+  const S = X.vids.filter(v => v[4] === 's');
+  const rate = (a, b) => (a / b * 1000).toFixed(1);
+  const best = X.topicRate.slice().sort((a, b) => b[3] / b[2] - a[3] / a[2]);
+  const big = S.reduce((a, b) => b[1] > a[1] ? b : a);
+  $('#n-vsubs').innerHTML = `<b>凛のメモ：</b>いちばん見られたショート（${fmt(big[1])} 回）は、1,000回あたりの登録が ${rate(big[3], big[1])} 人でした。いっぽう「ダウンタイムいつ終わる？」のような<b>速報</b>や、<b>隠し場所・小ネタ</b>は、再生は少なめでも 1,000回あたり ${rate(best[0][3], best[0][2])}〜${rate(best[1][3], best[1][2])} 人と、登録につながりやすいです。「この人を登録しておけば、次も早く知れる」と思ってもらえる話題ほど、登録が増えるようです。たくさん見られるのは「パイレーツトークン」のような大きな話題、登録が増えるのは速報、と役目を分けて考えるといいと思います。`;
+  const hiR = S.filter(v => v[2] >= 85), loR = S.filter(v => v[2] < 65);
+  const medv = a => { const b = a.map(v => v[1]).sort((x, y) => x - y); return b[Math.floor(b.length / 2)]; };
+  $('#n-ret').innerHTML = `<b>凛のメモ：</b>見た割合が85%をこえたショートは ${hiR.length} 本で、再生のまんなかの値は ${fmt(medv(hiR))} 回。65%に届かなかったものは ${fmt(medv(loR))} 回でした。見た割合が低めのものは「ダウンタイムいつ終わる？」のように<b>答えが最初の数秒でわかる</b>ショートが多く、それでも速報としては役目を果たしています。50秒をこえるショートは見た割合が下がりやすいので、まとめは40秒ほどにおさめるのがよさそうです。`;
+  const A = X.age.A, mT = sum(A.m), fT = sum(A.f);
+  const iMax = A.m.indexOf(Math.max(...A.m));
+  $('#n-age').innerHTML = `<b>凛のメモ：</b>男性が ${Math.round(mT)}%、女性が ${Math.round(fT)}% です。いちばん多いのは<b>${X.ageLab[iMax]}歳の男性</b>（${A.m[iMax]}%）で、5月からの ${X.age.B.m[iMax]}% より増えました。そのつぎに 35〜54歳が男女とも多く、<b>中高生と、その保護者くらいの世代</b>の2つの山があります。親子でフォートナイトを遊んでいる家族が見ているのかもしれません。むずかしい言葉を使わず、どちらにもわかる言い方が合っています。`;
+}
+function scatter(host, pts, opt) {
+  host.innerHTML = '';
+  const Wd = Math.max(300, host.clientWidth), H = 230, pL = 44, pR = 10, pT = 10, pB = 26;
+  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': opt.aria }, host);
+  const x0 = 40, x1 = 100, ymax = Math.max(...pts.map(p => p.y)) * 1.05;
+  const x = v => pL + (Wd - pL - pR) * (Math.min(x1, Math.max(x0, v)) - x0) / (x1 - x0), y = v => pT + (H - pT - pB) * (1 - v / ymax);
+  [0, 10000, 20000, 30000, 40000].filter(v => v <= ymax).forEach(v => { el('line', { x1: pL, x2: Wd - pR, y1: y(v), y2: y(v), stroke: css('--grid') }, svg); const t = el('text', { x: pL - 6, y: y(v) + 4, 'text-anchor': 'end' }, svg); t.textContent = v ? v / 1e4 + '万' : '0'; });
+  [40, 55, 70, 85, 100].forEach(v => { const t = el('text', { x: x(v), y: H - 6, 'text-anchor': 'middle' }, svg); t.textContent = v + '%'; });
+  pts.forEach(p => {
+    const c = el('circle', { cx: x(p.x), cy: y(p.y), r: 5, fill: opt.color, 'fill-opacity': .75, stroke: css('--panel'), 'stroke-width': 1 }, svg);
+    c.addEventListener('pointermove', e => { c.setAttribute('r', 7); showTip(opt.tip(p), e.clientX, e.clientY); });
+    c.addEventListener('pointerleave', () => { c.setAttribute('r', 5); hideTip(); });
+  });
+}
+function ageChart(host) {
+  host.innerHTML = '';
+  const A = X.age.A, Wd = Math.max(300, host.clientWidth), rowH = 30, labW = 64, H = A.m.length * rowH + 26, mid = labW + (Wd - labW) / 2;
+  const svg = el('svg', { viewBox: `0 0 ${Wd} ${H}`, role: 'img', 'aria-label': '年代と性別' }, host);
+  const max = Math.max(...A.m, ...A.f), room = (Wd - labW) / 2 - 44, cm = css('--s-views'), cf = css('--s-search');
+  const h1 = el('text', { x: mid - 8, y: 14, 'text-anchor': 'end', class: 'lab' }, svg); h1.textContent = '男性';
+  const h2 = el('text', { x: mid + 8, y: 14, class: 'lab' }, svg); h2.textContent = '女性';
+  A.m.forEach((m, i) => {
+    const f = A.f[i], yy = 22 + i * rowH, top = yy + 6, h = 16;
+    const t = el('text', { x: 0, y: yy + 19, class: 'lab' }, svg); t.textContent = X.ageLab[i] + '歳';
+    const wm = Math.max(2, room * m / max), wf = Math.max(2, room * f / max);
+    el('rect', { x: mid - 2 - wm, y: top, width: wm, height: h, rx: 3, fill: cm }, svg);
+    el('rect', { x: mid + 2, y: top, width: wf, height: h, rx: 3, fill: cf }, svg);
+    const vm = el('text', { x: mid - 8 - wm, y: yy + 19, 'text-anchor': 'end', class: 'val' }, svg); vm.textContent = m + '%';
+    const vf = el('text', { x: mid + 8 + wf, y: yy + 19, class: 'val' }, svg); vf.textContent = f + '%';
+    const hit = el('rect', { x: 0, y: yy, width: Wd, height: rowH, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', e => showTip(`<b>${X.ageLab[i]}歳</b><br>${sw(cm)}<span class="k">男性</span> ${m}%（5月から ${X.age.B.m[i]}%）<br>${sw(cf)}<span class="k">女性</span> ${f}%（5月から ${X.age.B.f[i]}%）`, e.clientX, e.clientY));
+    hit.addEventListener('pointerleave', hideTip);
+  });
+}
+const cut = (s, n) => s.length > n ? s.slice(0, n - 1) + '…' : s;
+function drawX() {
+  if (!X) return;
+  hbars($('#c-terms'), X.termsA.slice(0, 12).map(([k, v]) => ({ k: k.replace(/^フォートナイト ?(?=.)/, 'フォトナ '), v, full: k })), css('--s-search'), { labF: .56, aria: '検索された言葉', val: r => fmt(r.v) + '回', tip: r => `<b>${r.full}</b><br>${sw(css('--s-search'))}<span class="k">この言葉から来た再生</span> ${fmt(r.v)} 回` });
+  hbars($('#c-tgrp'), X.termGroups.map(([k, v]) => ({ k, v })), css('--s-trend'), { labF: .6, aria: '話題ごとの検索' });
+  hbars($('#c-ext'), X.ext.map(([k, v]) => ({ k, v })), css('--s-views'), { aria: 'YouTube の外から来た入り口', val: r => fmt(r.v) + '回' });
+  hbars($('#c-vsubs'), X.vids.slice().sort((a, b) => b[3] - a[3] || b[1] - a[1]).slice(0, 10).map(v => ({ k: v[0].replace(/^【[^】]*】/, ''), v: v[3], x: v })), css('--s-subs'), { labF: .6, aria: '登録が多かった動画', val: r => r.v + '人',
+    tip: r => `<b>${r.x[0]}</b><br>${sw(css('--s-subs'))}<span class="k">登録</span> ${r.x[3]} 人<br><span class="k">再生</span> ${fmt(r.x[1])} 回<br><span class="k">1,000回あたりの登録</span> ${(r.x[3] / r.x[1] * 1000).toFixed(1)} 人` });
+  hbars($('#c-trate'), X.topicRate.map(([k, n, v, s]) => ({ k, v: s / v * 1000, n, vv: v, s })).sort((a, b) => b.v - a.v), css('--s-subs'), { aria: '話題ごとの1,000回あたりの登録', val: r => r.v.toFixed(1) + '人',
+    tip: r => `<b>${r.k}</b>（${r.n} 本）<br>${sw(css('--s-subs'))}<span class="k">1,000回あたりの登録</span> ${r.v.toFixed(1)} 人<br><span class="k">合計</span> ${fmt(r.vv)} 回で ${r.s} 人` });
+  scatter($('#c-ret'), X.vids.filter(v => v[4] === 's').map(v => ({ x: v[2], y: v[1], v })), { color: css('--s-views'), aria: '見た割合と再生',
+    tip: p => `<b>${p.v[0]}</b><br>${sw(css('--s-views'))}<span class="k">見た割合</span> ${p.v[2].toFixed(0)}%（${p.v[5]} 秒）<br><span class="k">再生</span> ${fmt(p.v[1])} 回<br><span class="k">登録</span> ${p.v[3]} 人` });
+  ageChart($('#c-age'));
+}
+
+const C = R.c;
+if (C) {
+  document.querySelectorAll('.cp').forEach(e => e.textContent = C.period);
+  document.querySelectorAll('.cn').forEach(e => e.textContent = C.nJ);
+  const s0 = C.small[0], s1 = C.small[1];
+  $('#n-comp').innerHTML = `<b>凛のメモ：</b>この2週間、日本でいちばん見られたのは「パイレーツトークン・金スキン」の話で、あーすさんが追いかけている話題と同じです。<b>話題はもう合っています。</b>ちがうのは見せ方です。伸びている動画のタイトルは「〜を失った！？」「〜したら…」「〜なんだけど」のように、<b>その人に起きた出来事</b>として書かれているものが多く、情報をまとめた形のものより大きく伸びています。たとえば同じ「デマ」の話でも、「${C.theirs[0]}」は ${fmt(C.theirs[2])} 回、あーすさんの「${C.mine[0].replace(/!.*/, '')}」は ${fmt(C.mine[1])} 回でした。<br><br>登録者が少ないのに伸びた動画も、「${s0[0]}」（${s0[1]}、登録 ${fmt(s0[2])} 人で ${fmt(s0[3])} 回）や「${s1[0]}」（${s1[1]}）のように、<b>試合の中のドラマ</b>か<b>「1%しか知らない」のような秘密の約束</b>です。ショートは登録者の数より、最初の1〜2秒で「どうなるの？」と思わせるかどうかで決まるようです。<br><br>タグは、上位の動画の ${Math.round(C.noTag / C.nJ * 100)}% がひとつも付けていませんでした。付けているものも「フォートナイト〇〇」「ブレインロット」「ゆっくり解説」など話題やジャンルの言葉です。タグより、タイトルの言葉のほうが大事だと思います。`;
+}
+function drawC() {
+  if (!C) return;
+  hbars($('#c-ctop'), C.topics.map(([k, n, v]) => ({ k, v, n, full: k })).sort((a, b) => b.v - a.v), css('--s-trend'), { labF: .6, aria: 'ほかのチャンネルで伸びた話題', val: r => (r.v / 1e4).toFixed(0) + '万回',
+    tip: r => `<b>${r.full}</b><br>${sw(css('--s-trend'))}<span class="k">再生の合計</span> ${fmt(r.v)} 回（${r.n} 本）` });
+  hbars($('#c-csmall'), C.small.map(t => ({ k: t[0].replace(/^【[^】]*】/, ''), v: t[3] / t[2], t })), css('--s-fgg'), { labF: .6, aria: '登録者が少ないのに伸びた動画', val: r => Math.round(r.v) + '倍',
+    tip: r => `<b>${r.t[0]}</b><br><span class="k">チャンネル</span> ${r.t[1]}（登録 ${fmt(r.t[2])} 人）<br>${sw(css('--s-fgg'))}<span class="k">再生</span> ${fmt(r.t[3])} 回（${r.t[4]} 秒）` });
+  hbars($('#c-cch'), C.chs.map(([k, n, v, sb]) => ({ k: cut(k, 12), v, n, sb, full: k })), css('--s-views'), { aria: 'よく伸びているチャンネル', val: r => (r.v / 1e4).toFixed(0) + '万回',
+    tip: r => `<b>${r.full}</b><br><span class="k">登録者</span> ${fmt(r.sb)} 人<br>${sw(css('--s-views'))}<span class="k">2週間の再生</span> ${fmt(r.v)} 回（上位に ${r.n} 本）` });
+  hbars($('#c-ctag'), C.tags.slice(0, 10).map(([k, v]) => ({ k: k.replace(/^フォートナイト(?=.)/, 'フォトナ'), v, full: k })), css('--s-search'), { labF: .56, aria: 'よく使われていたタグ', val: r => r.v + '本',
+    tip: r => `<b>${r.full}</b><br>${sw(css('--s-search'))}<span class="k">付けていた動画</span> ${r.v} 本` });
+}
+
 function draw() {
+  drawX(); drawC();
   bars($('#c-week'), W.map(w => md(w.a)), wNet, {
     color: css('--s-subs'), aria: '週ごとの登録の伸び', hi: i => i >= 10, skipLab: 2,
     showVal: i => i >= 10 || wNet[i] === Math.max(...wNet), valFmt: v => sgn(v),
