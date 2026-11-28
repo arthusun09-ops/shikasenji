@@ -790,6 +790,39 @@ figure.sh figcaption{font-size:.8rem;line-height:1.5;color:var(--dim);margin-top
 .art-sw button[aria-pressed="true"]{background:var(--sig);color:var(--ink)}
 .art-view video{display:block;width:min(100%,420px,calc(72vh * 9 / 16));margin-inline:auto;aspect-ratio:9/16;background:#0e1722}
 
+/* 売店：品ぞろえ（値札）と宿直室 */
+.goods{display:grid;gap:22px;margin-top:6px}
+.goods-g h4{font-family:var(--f-display);font-weight:400;font-size:1.05rem;display:flex;align-items:baseline;gap:10px;margin:0 0 10px}
+.goods-g h4 small{font-family:var(--f-util);font-size:.72rem;color:var(--sig);letter-spacing:.08em}
+.ptags{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
+.ptag{position:relative;background:#efe6cf;color:#2a2119;padding:9px 10px 9px 22px;border-radius:3px;box-shadow:0 2px 0 rgb(0 0 0/.45);display:flex;flex-direction:column;gap:2px;min-height:64px}
+.ptag::before{content:"";position:absolute;left:8px;top:50%;width:7px;height:7px;margin-top:-4px;border-radius:50%;background:#0a0e13;box-shadow:inset 0 0 0 1px rgb(0 0 0/.3)}
+.ptag:nth-child(3n+1){transform:rotate(-.6deg)}.ptag:nth-child(3n){transform:rotate(.5deg)}
+.ptag b{font-weight:700;font-size:.92rem;line-height:1.35}
+.ptag i{font-style:normal;font-size:.72rem;line-height:1.4;color:#5b4d3c}
+.ptag em{font-style:normal;font-family:var(--f-util);font-size:.86rem;color:#a3261d;margin-top:auto;align-self:flex-end;white-space:nowrap}
+.ptag.free em{color:#2c5a3a}
+.goods-note{font-size:.84rem;line-height:1.8;color:var(--mut,#9fb0bd);margin:14px 0 0}
+.shuku{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);margin-top:6px}
+@media (min-width:860px){.shuku{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}}
+.shuku-plan{background:#efe6cf;border-radius:4px;padding:10px;box-shadow:0 2px 0 rgb(0 0 0/.45)}
+.shuku-plan svg{display:block;width:100%;height:auto}
+.shuku-plan figcaption{font-size:.74rem;color:#5b4d3c;margin-top:6px;line-height:1.6}
+.shuku-plan{margin:0}
+.shuku ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.shuku li{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;line-height:1.7}
+.shuku li b{font-family:var(--f-display);font-weight:400}
+/* 校内記録：冬のこばなし */
+.tales{display:grid;gap:10px}
+.tale{background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--sig)}
+.tale summary{cursor:pointer;list-style:none;padding:13px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tale summary::-webkit-details-marker{display:none}
+.tale summary b{font-family:var(--f-display);font-weight:400;font-size:1.08rem}
+.tale summary small{font-family:var(--f-util);font-size:.72rem;color:var(--sig)}
+.tale summary span{margin-left:auto;font-size:.76rem;opacity:.75}
+.tale[open] summary{border-bottom:1px solid var(--line)}
+.tale .tale-b{padding:6px 16px 16px}
+.tale .tale-b p{line-height:2;margin:10px 0 0}
 /* 売店：鹿店長のひとこと、装備の棚、武器娘面接（横長の札が縦に扇状に重なる） */
 .sub-h.first{margin-top:22px}
 .shop-say{display:flex;align-items:center;gap:16px;margin:clamp(28px,5vw,48px) 0 0;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--sig)}
@@ -1442,7 +1475,7 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
     <img class="reel-bg" id="reel-bg" src="assets/hero.jpg" alt="">
     <div id="rec-list">
       <div class="cards" id="cards" tabindex="0" aria-label="校内記録のカード。横にスクロールできます"></div>
-      <div class="reel-nav"><button id="rec-prev" aria-label="前のカード">&lt;</button><span id="rec-count">1 / 6</span><button id="rec-next" aria-label="次のカード">&gt;</button></div>
+      <div class="reel-nav"><button id="rec-prev" aria-label="前のカード">&lt;</button><span id="rec-count">1 / 7</span><button id="rec-next" aria-label="次のカード">&gt;</button></div>
     </div>
     <div class="rec-detail" id="rec-detail" hidden></div>
   </div>
@@ -1512,6 +1545,67 @@ button.pamph{font:inherit;text-align:left;cursor:pointer;width:100%}
   <div class="sub-h"><h3>持ち物の棚</h3><span>BELONGINGS</span></div>
   <p class="art-lead">みんながいつも持ち歩いているもの。横になぞるか、カードにふれて1枚えらぶ。</p>
   <div class="deck" id="deck"></div>
+
+  <div class="sub-h"><h3>きょうの品ぞろえ</h3><span>PRICE TAGS</span></div>
+  <p class="art-lead">棚に下がっている値札を、配信部が書きうつしたもの。数字は鹿pay。</p>
+  <div class="goods" id="goods"></div>
+  <p class="goods-note">鹿せんべいと、活動につかう道具は支給。値札はない。装備は棚に出ていないので、店長に声をかける。</p>
+
+  <div class="sub-h"><h3>宿直室</h3><span>NIGHT DUTY ROOM</span></div>
+  <p class="art-lead">売店の奥、のれんの向こう。鹿店長はここに住んでいる。</p>
+  <div class="shuku">
+    <figure class="shuku-plan"><svg viewBox="0 0 640 380" role="img" aria-label="宿直室の間取り図。左が売店、のれんをくぐると土間、その奥に六畳の和室">
+<g fill="none" stroke="#2a2119" stroke-width="3" stroke-linejoin="round">
+<rect x="150" y="30" width="460" height="300"/>
+<line x1="270" y1="30" x2="270" y2="330"/>
+<path d="M150 150v-120M150 230v100" stroke-width="5"/>
+</g>
+<g fill="none" stroke="#2a2119" stroke-width="1.2" opacity=".55">
+<path d="M270 130h340M270 230h340M440 30v100M355 130v100M525 130v100M440 230v100"/>
+</g>
+<g fill="#d9cba8" stroke="#2a2119" stroke-width="1.6">
+<rect x="20" y="60" width="110" height="240" fill="none" stroke-dasharray="6 5"/>
+<rect x="160" y="40" width="100" height="44"/>
+<rect x="160" y="268" width="100" height="52"/>
+<rect x="280" y="34" width="150" height="26"/>
+<rect x="520" y="250" width="78" height="44"/>
+<circle cx="420" cy="190" r="38"/>
+<circle cx="322" cy="282" r="20"/>
+<circle cx="322" cy="282" r="9" fill="#a3261d"/>
+<rect x="560" y="140" width="38" height="24"/>
+<rect x="450" y="34" width="70" height="14"/>
+</g>
+<path d="M610 70v90" stroke="#2c4578" stroke-width="7"/>
+<path d="M330 330h70" stroke="#a3261d" stroke-width="7"/>
+<path d="M150 150c8 12-8 24 0 40s-8 24 0 40" fill="none" stroke="#7a1f2a" stroke-width="4"/>
+<g font-family="'Zen Kaku Gothic New',sans-serif" font-size="15" fill="#2a2119" font-weight="700">
+<text x="75" y="186" text-anchor="middle">売店</text>
+<text x="140" y="140" text-anchor="end" font-size="12">のれん</text>
+<text x="210" y="67" text-anchor="middle" font-size="12">流しとこんろ</text>
+<text x="210" y="190" text-anchor="middle">土間</text>
+<text x="210" y="299" text-anchor="middle" font-size="12">手入れ台</text>
+<text x="355" y="52" text-anchor="middle" font-size="12">押し入れ</text>
+<text x="485" y="64" text-anchor="middle" font-size="12">鍵掛け</text>
+<text x="420" y="195" text-anchor="middle" font-size="13">ちゃぶ台</text>
+<text x="322" y="322" text-anchor="middle" font-size="12">ストーブ</text>
+<text x="559" y="277" text-anchor="middle" font-size="12">文机</text>
+<text x="579" y="182" text-anchor="middle" font-size="12">ラジオ</text>
+<text x="600" y="118" text-anchor="end" font-size="12">格子窓</text>
+<text x="365" y="356" text-anchor="middle" font-size="12">引き戸（廊下がわ）</text>
+<text x="525" y="120" text-anchor="middle" font-size="12" opacity=".7">六畳</text>
+</g></svg><figcaption>配信部しらべ。のれんのこちらがわから見えた分だけ。</figcaption></figure>
+    <ul>
+      <li><b>木札</b><span>廊下がわの引き戸の上に「宿直室」。売店からは、のれんをくぐって入る。</span></li>
+      <li><b>鍵掛け</b><span>校内の鍵がずらりと並ぶ。夜、校門を締めるのは鹿店長。</span></li>
+      <li><b>ちゃぶ台</b><span>座布団は四枚。たずねると、一枚出してくれる。</span></li>
+      <li><b>ストーブ</b><span>丸い石油ストーブ。上のやかんが、いつも小さく鳴っている。</span></li>
+      <li><b>文机</b><span>帳面とそろばん。鹿payの勘定は、ここでつけている。</span></li>
+      <li><b>衣紋掛け</b><span>黒い服と、白いフリルのエプロン。</span></li>
+      <li><b>ラジオ</b><span>古いラジオ。何を聞いているのかは、教えてくれない。</span></li>
+      <li><b>手入れ台</b><span>貸し出しの前に、装備はここで一度見る。</span></li>
+    </ul>
+  </div>
+  <div class="shop-say"><img src="assets/shika.jpg" alt="腕を組んだ鹿店長" loading="lazy"><p>「のぞくんはええけど、押し入れは開けたらあかんで。<br>……布団しか入ってへんけどな。知らんけど。」<small>鹿店長</small></p></div>
 </div></section>
 
 <section id="latest"><div class="wrap">
@@ -2795,9 +2889,19 @@ const RECS = [
  {en:'Daily Life', jp:'放課後', img:'assets/daily1.jpg', pos:'52% 50%', s:'配信の裏側にある、何気ない毎日。',
   body:['配信が終わったあとの、3人のいつもの時間。水の音がずっとしている。','あーすさんが配信しているあいだ、もみじは見張りを、凛は機材を見ている。'],
   list:[['校内端末','食品や日用品はここで注文する。'],['渡り廊下','下の水路には鯉がいる。']]},
+ {en:'Winter Notes', jp:'冬のこばなし', img:'assets/hero/hero_07.jpg', pos:'50% 50%', s:'ストーブとこたつのまわりの、小さな話。',
+  body:['寒くなると、部室にこたつが出る。ストーブの上では、やかんが鳴っている。','そのまわりであった、なんでもない話を、ここに置いておく。'],
+  list:[['季節','冬。こたつが出てから、しまうまで。']],
+  tales:[
+   {t:'こたつの陣地', w:'部室', body:['こたつの辺は四つ。部室にいるのは、三人と一匹。数は合っている。','いちばん機材に近い辺が、あーすさん。配信のあと、ヘッドホンを首にかけたまま、まっすぐ入ってくる。その向かいが凛で、背すじをのばして文庫本を読んでいる。足は、ほとんど動かない。','もみじは、窓がわの辺。入ったと思ったら、もう足が向こうがわに届いている。「もみじ、足」「ごめん！」。三十秒たつと、また届いている。','しかちゃんは、のこりの一辺、ではなく、まん中にもぐる。しばらく出てこない。こたつ布団のはしから、しっぽだけが見えている。','「……陣地、いちばん広いの、しかちゃんだよね」とあーすさんが言うと、布団の中から「あったかいよ」と声がした。']},
+   {t:'みかんの皮', w:'部室', body:['売店のみかんが、こたつの上のかごに山になっている。','「皮、切らないで一本でむけたら勝ちね！」。言い出したのは、もみじ。言い出した本人が、いちばんあぶなっかしい手つきで、するすると最後までむいた。「できた！ 見て！ へび！」','あーすさんは、だまって少しずつ。へたのところから、ゆっくり回して、きれいにつながった一本を、かごのふちに掛けた。','凛は手袋をはずして、たたんで横に置いた。ていねいに、同じ幅で、らせんにむいていく。あとひとまわり、というところで、ぷつ、と切れた。','凛は切れたところを、しばらく見ていた。「……もう一個、いただいてもよろしいですか」「いいよ！」。二個目は、三人とも、ふつうにむいて食べた。']},
+   {t:'ビーカーの朝', w:'寮 201号室', body:['冬の朝は、窓ぎわがいちばん冷える。あーすさんは起きると、まずそこへ行く。','ビーカーが五つ。球根の下から、白い根が水の中にのびている。水は、きのうより指一本ぶん減っていた。くみおきの水を、根にかからないように、ふちからそっと足す。液肥は、週に一回、ほんの少し。','芽は、まだ小指の先くらい。何色が咲くのかは、札に書いてある。去年も、札には書いてあった。','ドアの外で、床が小さく鳴った。「もみじ？」「……走りに行くとこ！ 通っただけ！」。足音は、三歩ぶんだけ遠ざかって、止まった。','あーすさんは少し笑って、ビーカーをひとつずつ、日の当たるほうへ回した。']},
+   {t:'ストーブとじゃがいも', w:'部室', body:['ストーブの上のやかんのとなりに、小さな蒸し器がのっている。持ってきたのは、あーすさん。中身はじゃがいもが三つ。','「あと何分？」「十分」「さっきも十分って言った！」「さっきは二十分って言ったよ」。もみじは、ふたを開けたそうに、ストーブのまわりを二周した。','竹ぐしを刺すのは、凛の役になった。手袋をはずして、まん中にすっと刺す。「通りました」。','皮をむいて、鹿しか岩塩をひとふり。もみじは熱いうちにかじって、口をあけたまま上を向いている。凛は半分に割って、湯気がおさまるのを待っている。','「塩だけが、いちばんおいしいと思う」とあーすさんが言った。だれも反対しなかった。窓が、白くくもっていた。']},
+   {t:'門を締める時間', w:'校門', body:['日が山にかかるころ、鹿店長は鍵の束を持って、校門まで歩いていく。エプロンは、つけたまま。','石段の下から、足音が上がってきた。売店の紙袋をかかえた、もみじ。「まって、まって、まってー！」','「三十かぞえたら締めるで。……二十八、二十九、二十九てん五」「ふえてる！」「気のせいや。知らんけど」','もみじが門をくぐると、店長は閂をおろして、鍵をひとつ回した。それから紙袋をのぞいて、「みかん、買いすぎちゃうか」と言った。「こたつ用！」「こたつは食べへんで」','ふたりは並んで、校舎のほうへ戻っていった。部室の窓には、もう明かりがついていた。']}
+  ]},
  {en:'The Shop', jp:'売店と鹿店長', img:'assets/shika.jpg', pos:'50% 8%', cs:';object-position:50% 0;transform:translate(18%,22%)', s:'食品、日用品、銃器。知らんけど。',
   body:['校内にひとつだけある売店。店長は、鹿の頭をした「鹿店長」。胡散臭い関西弁で、語尾はだいたい「知らんけど」。','食品も日用品も銃器も、買うことも借りることもできる。山の外へ出る前には、みんなここに寄る。'],
-  list:[['貸し出し','銃器も借りられる。'],['店長の正体','記録なし。']]},
+  list:[['貸し出し','銃器も借りられる。'],['宿直室','売店の奥。店長はここに住んでいる。'],['店長の正体','記録なし。']]},
  {en:'The Ruins', jp:'廃墟', img:'assets/daily2.jpg', pos:'6% 50%', s:'学校の近くの、誰もいない町。',
   body:['学校の近くにある無人の町。建物は蔦と水に飲まれているけれど、空は青くて、とても静か。','ここのアパートに住んでいる生徒もいる。凛もそのひとりで、一人暮らしをしている。'],
   list:[['住人','凛のほかにも、何人かいる。']]},
@@ -2828,6 +2932,7 @@ function recOpen(i){
       <img class="pic" src="${r.img}" alt="" style="object-position:${r.pos};view-transition-name:recpic${r.img.includes('shika')?';object-fit:contain':''}">
       <h3><small>${r.en.toUpperCase()}</small>${esc(r.jp)}</h3>${r.body.map(p => `<p>${esc(p)}</p>`).join('')}
       <ul>${r.list.map(([k,v]) => `<li><b>${esc(k)}</b><span>${esc(v)}</span></li>`).join('')}</ul>
+      ${r.tales?`<div class="tales">${r.tales.map((t,n) => `<details class="tale"${n?'':' open'}><summary><small>${String(n+1).padStart(2,'0')}</small><b>${esc(t.t)}</b><span>${esc(t.w)}</span></summary><div class="tale-b">${t.body.map(p => `<p>${esc(p)}</p>`).join('')}</div></details>`).join('')}</div>`:''}
       ${r.shelf?`<div class="shelf-wrap"><p class="shelf-hint" id="shelf-hint">本をえらんでください。</p><div class="shelf" id="shelf" role="tablist" aria-label="鹿しか図書館の本棚">${r.shelf.map((b,n) => `<button class="spine" role="tab" aria-selected="false" aria-controls="book-page" data-b="${n}" data-cat="${b.cat}" aria-label="${esc((BCAT[b.cat]||BCAT.chara).label)}の本 No.${esc(b.no)} ${esc(b.t)}" style="--bc:${bcol(b)}"><span class="sp-face"><span class="sp-mk" aria-hidden="true">鹿</span><span class="sp-t">${esc(b.t)}</span><span class="sp-no">${esc(String(+b.no))}</span><img class="sp-th" src="${b.imgs[0][0]}" alt="" loading="lazy" style="object-position:${b.tp||'50% 35%'}"><span class="sp-cat">${esc((BCAT[b.cat]||BCAT.chara).label)}</span><i class="sp-gl" aria-hidden="true"></i></span><span class="sp-cover"><img src="${b.imgs[0][0]}" alt="" loading="lazy"><span class="sp-ct">${esc(b.t)}</span></span></button>`).join('')}</div></div><div id="book-page" role="tabpanel" aria-live="polite"></div>`:''}`;
     recList.hidden = true; recDetail.hidden = false; shelfLay();
   };
@@ -2919,6 +3024,23 @@ function wbRun(k){
 keys.innerHTML = KEYS.map((k,i) => k.shop ? '' : `<button class="key${k.danger?' danger':''}" data-i="${i}"><span class="tag">${k.tag}</span><b>${esc(k.t)}</b><span class="s">${esc(k.s)}</span></button>`).join('');
 
 // 持ち物の棚：武器以外の持ち物。足すときは ITEMS に1行（img は assets/items/ に縦長 3:4）
+const GOODS = [
+ {t:'駄菓子と食べもの', en:'SWEETS / FOOD', it:[
+  ['鹿せんべい','3枚で1食',null],['しょうが飴','ひとつぶ',1],['金平糖','小びん',4],['麩菓子','1本',2],['ラムネ','びん。玉はかえすこと',3],
+  ['みかん','ひとかご',5],['じゃがいも','ひとふくろ',4],['鹿しか岩塩','小びん',6],['はちみつ','小びん',12],['紅茶の茶葉','量り売り・ひとさじ',2],['ほうじ茶','ひとふくろ',5]]},
+ {t:'文具と手紙', en:'STATIONERY', it:[
+  ['えんぴつ HB','1本',2],['えんぴつ 2B','1本',2],['消しゴム','',2],['帳面','たて罫',4],['便せんと封筒','3組',3],['切手','赤いポストへ',2],['のり','',2],['輪ゴム','ひと箱',2]]},
+ {t:'日用品', en:'DAILY GOODS', it:[
+  ['石けん','',3],['歯ブラシ','',3],['手ぬぐい','鹿の角の柄',6],['たわし','',3],['洗濯ばさみ','10こ',2],['針と糸','',3],['ボタン','ばら売り・1こ',1],['ばんそうこう','ひと箱',3],['マッチ','ひと箱',1],['ろうそく','2本',2]]},
+ {t:'道具と育てるもの', en:'TOOLS / PLANTS', it:[
+  ['単三電池','2本',4],['電球','',5],['麻ひも','ひと玉',3],['軍手','',3],['懐中電灯','',15],['水筒','',18],['組紐の糸','ひとかせ',4],['ビーカー','中',7],['チューリップの球根','色は札のとおり、のはず',3],['液肥','小びん',5]]},
+ {t:'冬の棚', en:'WINTER', it:[
+  ['カイロ','',2],['湯たんぽ','',14],['毛糸の手ぶくろ','',9],['毛糸のぼうし','',10],['みかんのかご','こたつ用',6],['灯油','量り売り・裏口で',null]]},
+ {t:'お土産', en:'SOUVENIR', it:[
+  ['木刀','店先の筒から',20],['十手','',16],['ヌンチャク','',16],['校章の手ぬぐい','',6],['紙袋','鹿の角のスタンプ',0]]}
+];
+(() => { const g = document.getElementById('goods'); if(!g) return;
+  g.innerHTML = GOODS.map(c => `<div class="goods-g"><h4>${esc(c.t)}<small>${c.en}</small></h4><ul class="ptags">${c.it.map(([n,d,p]) => `<li class="ptag${p ? '' : ' free'}"><b>${esc(n)}</b>${d ? `<i>${esc(d)}</i>` : ''}<em>${p === null ? '支給' : p === 0 ? 'おまけ' : p + ' 鹿pay'}</em></li>`).join('')}</ul></div>`).join(''); })();
 const ITEMS = [
  {k:'ruck', o:'あーすさん', t:'リュック', d:'紺のリュック。鹿のしっぽのチャームがついている。'},
  {k:'headphone', o:'あーすさん', t:'ヘッドホン', d:'白と青のヘッドホン。いつも首にかけている。'},
